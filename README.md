@@ -6,11 +6,11 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 ## Grupo {N}
 
-* **Joaquín Gandolfo** - [JGandolfoM](https://github.com/JGandolfoM)
 * **Franco Macke** - [franmacke](https://github.com/franmacke)
 * **Alvaro Martin** - [alvaromartin47-rgb](https://github.com/alvaromartin47-rgb)
 * **Guillermina Hoffmann** - [guillehoff](https://github.com/guillehoff)
-* **Tomas Ayala** - [tomasayala](https://github.com/tomasayala)
+* **Integrante4** - []()
+* **Integrante5** - []()
 
 Corrector: **{Thiago Kovnat}**
 
