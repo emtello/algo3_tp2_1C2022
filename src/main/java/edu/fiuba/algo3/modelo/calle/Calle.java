@@ -45,19 +45,22 @@ public class Calle {
         celdas.add(celda);
     }
 
-    // @Override
-    // public boolean equals(Object obj) {
-    // if (!(obj instanceof Calle)) {
-    // return false;
-    // }
-    // Calle c = (Calle) obj;
+    
 
-    // for (Celda celda : c.celdas) {
-    // if (!this.celdas.contains(celda)) {
-    // return false;
-    // }
-    // }
-    // return true;
-    // }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Calle)) {
+            return false;
+        }
+
+        Calle c = (Calle) obj;
+        
+        for (Celda celda : c.celdas) {
+            if (!this.celdas.contains(celda)) {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

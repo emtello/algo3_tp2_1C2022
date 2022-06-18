@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.modificador.Pozo;
 
@@ -34,7 +35,7 @@ public class GeneradorDeCiudad {
                 }
             }
         }
-        throw new RuntimeException();
+        throw new CeldaFueraDeRango();
     }
 
 
@@ -72,4 +73,5 @@ public class GeneradorDeCiudad {
         destino.agregarCalle(calle);
         this.calles.add(calle);
     }  
+
 }

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.celda;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -131,5 +132,18 @@ public class CeldaTest {
         assertEquals(0, celdaMovida.columna());
         assertEquals(1, celdaMovida.fila());
     }
+
+    @Test
+    public void agregarMasDeCuatroCallesDevuelveError() {
+        Celda celda = new Celda(fila, columna);
+
+        this.mockearCeldas();
+        this.agregarCallesAleatoriamente(celda);
+
+        Calle nuevaCalle = mock(Calle.class);
+        
+        assertThrows(Error.class, () -> celda.agregarCalle(nuevaCalle));
+    }
+
 
 }
