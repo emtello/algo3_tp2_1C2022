@@ -26,8 +26,6 @@ public class Calle {
         Celda destino = this.siguienteEsquina(origen);
 
         // return this.modificador.puedoCruzar(origen, destino);
-
-
     }
 
     public Celda siguienteEsquina(Celda esquinaActual) {
@@ -52,6 +50,10 @@ public class Calle {
 
     public void agregarModificador(Modificador mod) {
         this.modificador = mod;
+    }
+
+    public Modificador getModificador() {
+        return this.modificador;
     }
 
 
