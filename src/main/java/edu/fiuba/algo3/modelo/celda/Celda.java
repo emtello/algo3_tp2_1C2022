@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.modificador.Modificador;
 
 public class Celda {
     
@@ -66,6 +67,12 @@ public class Celda {
 
 
         return sigCelda;
+    }
+
+    public void borrarModificadores() {
+        for (Calle calle : this.calles) {
+            calle.borrarModificadores();
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
+import edu.fiuba.algo3.modelo.modificador.Nulo;
 
 public class Calle {
 
@@ -45,7 +46,14 @@ public class Calle {
         celdas.add(celda);
     }
 
-    
+    public void borrarModificadores() {
+        this.modificador = new Nulo();
+    }
+
+    public void agregarModificador(Modificador mod) {
+        this.modificador = mod;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

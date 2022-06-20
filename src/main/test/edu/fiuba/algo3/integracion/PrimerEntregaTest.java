@@ -26,15 +26,17 @@ public class PrimerEntregaTest {
     Direccion direccion = new Derecha();
 
     public Jugador iniciarConfig(IVehiculo vehiculo, Modificador modificador) {
+        this.tablero.reiniciar();
         Jugador jugador = new Jugador(vehiculo);
         
         this.tablero.agregarJugador(jugador);
         this.tablero.iniciarEn(celdaInicial);
         
-        Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
+        // Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
+        this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
         
-        this.celdaInicial.agregarCalle(calle);
-        this.celdaFinal.agregarCalle(calle);
+        // this.celdaInicial.agregarCalle(calle);
+        // this.celdaFinal.agregarCalle(calle);
         
         return jugador;
     }
