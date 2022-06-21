@@ -29,6 +29,7 @@ public class PrimerEntregaTest {
         this.tablero.iniciarEn(celdaInicial);
         
         Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
+        this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
         
         this.celdaInicial.agregarCalle(calle);
         this.celdaFinal.agregarCalle(calle);

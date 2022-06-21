@@ -33,9 +33,11 @@ public class Celda {
     }
 
     public void agregarCalle(Calle calle) {
-        if (this.calles.size() > 4) throw new Error();
+        if (!calles.contains(calle)) {
+            this.calles.add(calle);
+        }
 
-        this.calles.add(calle);
+        if (this.calles.size() > 4) throw new Error();
     }
 
     private ArrayList<Celda> obtenerEsquinas() {
@@ -63,7 +65,19 @@ public class Celda {
         sigCalle.cruzarCon(vehiculo);
     }
 
-    public boolean equals(Celda unaCelda) {
+    public void borrarModificadores() {
+        for (Calle calle : this.calles) {
+            calle.borrarModificadores();
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Celda)) {
+            return false;
+        }
+
+        Celda unaCelda = (Celda) obj;
         if (this.fila() != unaCelda.fila()) return false;
         if (this.columna() != unaCelda.columna()) return false;
 

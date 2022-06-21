@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.modelo.modificador.Nulo;
 
 public class Calle {
 
@@ -38,19 +39,33 @@ public class Calle {
         celdas.add(celda);
     }
 
-    // @Override
-    // public boolean equals(Object obj) {
-    // if (!(obj instanceof Calle)) {
-    // return false;
-    // }
-    // Calle c = (Calle) obj;
+    public void borrarModificadores() {
+        this.modificador = new Nulo();
+    }
 
-    // for (Celda celda : c.celdas) {
-    // if (!this.celdas.contains(celda)) {
-    // return false;
-    // }
-    // }
-    // return true;
-    // }
+    public void agregarModificador(Modificador mod) {
+        this.modificador = mod;
+    }
+
+    public Modificador getModificador() {
+        return this.modificador;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Calle)) {
+            return false;
+        }
+
+        Calle c = (Calle) obj;
+        
+        for (Celda celda : c.celdas) {
+            if (!this.celdas.contains(celda)) {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

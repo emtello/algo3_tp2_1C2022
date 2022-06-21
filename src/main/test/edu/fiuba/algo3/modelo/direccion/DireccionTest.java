@@ -15,6 +15,7 @@ public class DireccionTest {
     Celda esquina2 = new Celda(2, 1);
     Celda esquina3 = new Celda(1, 0);
     Celda esquina4 = new Celda(1, 2);
+    ArrayList<Celda> listaCeldasVacia = new ArrayList<Celda>();
 
     private ArrayList<Celda> esquinasMezcladas() {
         ArrayList<Celda> esquinas = new ArrayList<Celda>();
@@ -88,5 +89,58 @@ public class DireccionTest {
         assertEquals(celdaAMoverse.fila(), celdaActual.fila());
         assertEquals(celdaAMoverse.columna(), celdaActual.columna() + 1);
     }
+
+    @Test
+    public void moverALaIzquierdaSinCallePosibleDevuelveNull() {
+        Direccion direccion = new Izquierda();
+        
+        Celda celdaAMoverse = direccion.mover(
+            celdaActual.fila(),
+            celdaActual.columna(),
+            listaCeldasVacia
+        );
+
+        assertEquals(celdaAMoverse, null);
+    }
+
+    @Test
+    public void moverALaArribaSinCallePosibleDevuelveNull() {
+        Direccion direccion = new Arriba();
+        
+        Celda celdaAMoverse = direccion.mover(
+            celdaActual.fila(),
+            celdaActual.columna(),
+            listaCeldasVacia
+        );
+
+        assertEquals(celdaAMoverse, null);
+    }
+
+    @Test
+    public void moverALaAbajoSinCallePosibleDevuelveNull() {
+        Direccion direccion = new Abajo();
+        
+        Celda celdaAMoverse = direccion.mover(
+            celdaActual.fila(),
+            celdaActual.columna(),
+            listaCeldasVacia
+        );
+
+        assertEquals(celdaAMoverse, null);
+    }
+
+    @Test
+    public void moverALaDerechaSinCallePosibleDevuelveNull() {
+        Direccion direccion = new Derecha();
+        
+        Celda celdaAMoverse = direccion.mover(
+            celdaActual.fila(),
+            celdaActual.columna(),
+            listaCeldasVacia
+        );
+
+        assertEquals(celdaAMoverse, null);
+    }
+
 
 }

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.integracion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
@@ -32,6 +31,8 @@ public class SegundaEntregaTest {
         this.tablero.iniciarEn(celdaInicial);
         
         Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
+
+        this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
         
         this.celdaInicial.agregarCalle(calle);
         this.celdaFinal.agregarCalle(calle);
