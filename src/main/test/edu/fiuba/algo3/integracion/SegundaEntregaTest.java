@@ -63,9 +63,11 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+
+        this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
         long cantMovimientosFinalEsperado = 4;
         
@@ -85,9 +87,11 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+
+        this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
         long cantMovimientosFinalEsperado = 4;
         
@@ -107,9 +111,11 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+
+        this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
         Direccion izquierda = new Izquierda();
 
@@ -133,9 +139,11 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+
+        this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
 
         long cantMovimientosFinalEsperado = 6;
 
@@ -155,9 +163,12 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+
+        this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
+
 
         long cantMovimientosFinalEsperado = 6;
 
@@ -177,9 +188,10 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
+        // Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
+        // this.celdaFinal.agregarCalle(calle0102);
+        // celda02.agregarCalle(calle0102);
+        this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
 
         Direccion izquierda = new Izquierda();
 
