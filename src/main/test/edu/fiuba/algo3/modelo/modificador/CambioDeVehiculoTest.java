@@ -1,63 +1,70 @@
 package edu.fiuba.algo3.modelo.modificador;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Auto;
 import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class CambioDeVehiculoTest {
+public class CambioDeVehiculoTest extends ModificadorTest {
 
     @Test
-    public void modificadorCambioDeVehiculoSeCruzaConJugadorConMoto() {
-
+    public void modificadorCambioDeVehiculoSeCruzaConVehiculoMotoYCambiaPorAuto() {
         CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
-        Celda celda = new Celda(0, 0);
-        Moto moto = new Moto();
-        Auto auto = new Auto();
-        Jugador jugador = new Jugador(moto);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        cambioDeVehiculo.cruzarCon(jugador);
+        Vehiculo moto = new Moto(this.tablero);
+    
+        moto.asignarCeldaInicial(celdaMock);
 
-        assertEquals(auto.getClass(), jugador.getVehiculo().getClass());
+        cambioDeVehiculo.cruzarCon(moto);
 
+        assertEquals(Auto.class, this.tablero.getVehiculo().getClass());
     }
 
     @Test
-    public void modificadorCambioDeVehiculoSeCruzaConJugadorConAuto() {
-
+    public void modificadorCambioDeVehiculoSeCruzaConVehiculoAutoYCambiaPor4X4() {
         CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
-        Celda celda = new Celda(0, 0);
-        Auto auto = new Auto();
-        Camioneta4x4 camioneta = new Camioneta4x4();
-        Jugador jugador = new Jugador(auto);
-        jugador.asignarCeldaInicial(celda);
 
-        cambioDeVehiculo.cruzarCon(jugador);
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        assertEquals(camioneta.getClass(), jugador.getVehiculo().getClass());
+        Vehiculo auto = new Auto(this.tablero);
+        
+        auto.asignarCeldaInicial(celdaMock);
 
+        cambioDeVehiculo.cruzarCon(auto);
+
+        assertEquals(Camioneta4x4.class, this.tablero.getVehiculo().getClass());
     }
 
     @Test
-    public void modificadorCambioDeVehiculoSeCruzaConJugadorConCamioneta() {
-
+    public void modificadorCambioDeVehiculoSeCruzaConVehiculoCamionetaYCambiaPorMoto() {
         CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
-        Celda celda = new Celda(0, 0);
-        Camioneta4x4 camioneta = new Camioneta4x4();
-        Moto moto = new Moto();
-        Jugador jugador = new Jugador(camioneta);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
+        
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        
+        camioneta.asignarCeldaInicial(celdaMock);
 
-        cambioDeVehiculo.cruzarCon(jugador);
+        cambioDeVehiculo.cruzarCon(camioneta);
 
-        assertEquals(moto.getClass(), jugador.getVehiculo().getClass());
-
+        assertEquals(Moto.class, this.tablero.getVehiculo().getClass());
     }
     
 }

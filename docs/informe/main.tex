@@ -52,8 +52,8 @@
 \section{Supuestos}\label{sec:supuestos}
   \begin{itemize}
     \item Una calle puede tener más de un modificador
-    \item Se le debe indicar al jugador donde inicia
-    \item Asumimos que solo hay un jugador
+    \item Se le debe indicar al vehiculo donde inicia
+    \item Asumimos que solo hay un vehiculo
     \item Las calles conectan 2 celdas
     \item El tablero es de dimensión variable
   \end{itemize}
@@ -100,28 +100,28 @@ La clase Tablero se encarga del manejo del juego. Delega su comportamiento a las
 
 \subsubsection[Modificador]{Modificador}
 
-Esta interfaz está formada por el método “cruzarCon(Jugador jugador)”. Este método es utilizado por una instancia de la clase Calle para comunicarse con una clase que implementa Modificador. 
+Esta interfaz está formada por el método “cruzarCon(Vehiculo vehiculo)”. Este método es utilizado por una instancia de la clase Calle para comunicarse con una clase que implementa Modificador. 
 Las clases que implementan esta interfaz son: Piquete, Favorable, Desfavorable, Nulo, Pozo, ControlPolicial y CambioDeVehiculo. En cada una de estas clases se implementa el método de la siguiente forma:
 
 \begin{itemize}
-  \item Nulo: implementa el método de forma que solo se suma un movimiento al jugador. Utiliza la instancia de jugador que recibe por argumento y llama al método “sumarMovimientos(int numero)”. 
-  \item Pozo: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método pozo(Jugador jugador). 
-  \item Piquete: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “piquete(Jugador jugador)”. 
-  \item ControlPolicial: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “controlPolicial(Jugador jugador)”. 
-  \item CambioDeVehiculo: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador llama al método “reemplazarVehiculo()”.
-  \item Desfavorable: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador llama al método “sorpresaDesfavorable()”.
-  \item Favorable: el método además de sumar un movimiento al jugador, por medio de la instancia de jugador llama al método “sorpresaFavorable()”.
-  \item Todas las clases utilizan el método “sumarMovimientos(int numero)” de la clase Jugador para sumar un movimiento. 
+  \item Nulo: implementa el método de forma que solo se suma un movimiento al vehiculo. Utiliza la instancia de vehiculo que recibe por argumento y llama al método “sumarMovimientos(int numero)”. 
+  \item Pozo: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método pozo(Vehiculo vehiculo). 
+  \item Piquete: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “piquete(Vehiculo vehiculo)”. 
+  \item ControlPolicial: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “controlPolicial(Vehiculo vehiculo)”. 
+  \item CambioDeVehiculo: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “reemplazarVehiculo()”.
+  \item Desfavorable: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “sorpresaDesfavorable()”.
+  \item Favorable: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “sorpresaFavorable()”.
+  \item Todas las clases utilizan el método “sumarMovimientos(int numero)” de la clase vehiculo para sumar un movimiento. 
 \end{itemize}
 
-\subsubsection[Jugador]{Jugador}
+\subsubsection[vehiculo]{vehiculo}
 
-Al aplicarse una modificación al jugador, sabe como responder al mensaje que se le envía.
+Al aplicarse una modificación al vehiculo, sabe como responder al mensaje que se le envía.
 
 
 \subsubsection[Calle]{Calle}
 
-La clase Calle guarda las referencias de 2 celdas, generando una conexión entre ellas. Cuando el jugador cruza por la calle, Calle le envía el respectivo mensaje.
+La clase Calle guarda las referencias de 2 celdas, generando una conexión entre ellas. Cuando el vehiculo cruza por la calle, Calle le envía el respectivo mensaje.
 
 
 % \section{Excepciones}\label{sec:excepciones}

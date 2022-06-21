@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
@@ -16,12 +18,14 @@ import edu.fiuba.algo3.modelo.direccion.Abajo;
 import edu.fiuba.algo3.modelo.direccion.Arriba;
 import edu.fiuba.algo3.modelo.direccion.Derecha;
 import edu.fiuba.algo3.modelo.direccion.Izquierda;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class CeldaTest {
 
-    private Integer fila = 1;
-    private Integer columna = 1;
+    Tablero tablero = new Tablero(5, 5);
+
+    private long fila = 1;
+    private long columna = 1;
     
     Calle calleMock = mock(Calle.class);
     Calle calleMock2 = mock(Calle.class);
@@ -71,66 +75,67 @@ public class CeldaTest {
     }
 
     @Test
-    public void celdaMoverHaciaArribaDevuelveUnaCeldaConFilaDecrementadaEn1YMismaColumna() {
+    public void celdaBuscarHaciaArribaDevuelveUnaCeldaConFilaDecrementadaEn1YMismaColumna() {
         Celda celda = new Celda(fila, columna);
         
         this.mockearCeldas();
         this.agregarCallesAleatoriamente(celda);
         
-        Jugador jugador = new Jugador(new Moto());
-        jugador.asignarCeldaInicial(celda);
+        Vehiculo moto = new Moto(this.tablero);
+        moto.asignarCeldaInicial(celda);
         
-        Celda celdaMovida = celda.mover(jugador, new Arriba());
+        Celda celdaDirArriba = celda.buscarSiguiente(new Arriba());
         
-        assertEquals(0, celdaMovida.fila());
-        assertEquals(1, celdaMovida.columna());
+        assertEquals(0, celdaDirArriba.fila());
+        assertEquals(1, celdaDirArriba.columna());
     }
 
     @Test
-    public void celdaMoverHaciaAbajoDevuelveUnaCeldaConFilaIncrementadaEn1YMismaColumna() {
+    public void celdaBuscarHaciaAbajoDevuelveUnaCeldaConFilaIncrementadaEn1YMismaColumna() {
         Celda celda = new Celda(fila, columna);
         
         this.mockearCeldas();
         this.agregarCallesAleatoriamente(celda);
 
-        Jugador jugador = new Jugador(new Moto());
-        jugador.asignarCeldaInicial(celda);
+        Vehiculo moto = new Moto(this.tablero);
+        moto.asignarCeldaInicial(celda);
 
-        Celda celdaMovida = celda.mover(jugador, new Abajo());
+        Celda celdaDirAbajo = celda.buscarSiguiente(new Abajo());
 
-        assertEquals(2, celdaMovida.fila());
-        assertEquals(1, celdaMovida.columna());
+        assertEquals(2, celdaDirAbajo.fila());
+        assertEquals(1, celdaDirAbajo.columna());
     }
 
     @Test
-    public void celdaMoverHaciaDerechaDevuelveUnaCeldaConColumnaIncrementadaEn1YMismaFila() {
+    public void celdaBuscarHaciaDerechaDevuelveUnaCeldaConColumnaIncrementadaEn1YMismaFila() {
         Celda celda = new Celda(fila, columna);
         
         this.mockearCeldas();
         this.agregarCallesAleatoriamente(celda);
 
-        Jugador jugador = new Jugador(new Moto());
-        jugador.asignarCeldaInicial(celda);
+        Vehiculo moto = new Moto(this.tablero);
+        moto.asignarCeldaInicial(celda);
 
-        Celda celdaMovida = celda.mover(jugador, new Derecha());
+        Celda celdaDirDerecha = celda.buscarSiguiente(new Derecha());
 
-        assertEquals(2, celdaMovida.columna());
-        assertEquals(1, celdaMovida.fila());
+        assertEquals(2, celdaDirDerecha.columna());
+        assertEquals(1, celdaDirDerecha.fila());
     }
 
     @Test
-    public void celdaMoverHaciaIzquierdaDevuelveUnaCeldaConColumnaDecrementadaEn1YMismaFila() {
+    public void celdaBuscarHaciaIzquierdaDevuelveUnaCeldaConColumnaDecrementadaEn1YMismaFila() {
         Celda celda = new Celda(fila, columna);
 
         this.mockearCeldas();
         this.agregarCallesAleatoriamente(celda);
         
-        Jugador jugador = new Jugador(new Moto());
-        jugador.asignarCeldaInicial(celda);
-        Celda celdaMovida = celda.mover(jugador, new Izquierda());
+        Vehiculo moto = new Moto(this.tablero);
+        moto.asignarCeldaInicial(celda);
+        
+        Celda celdaDirIzquierda = celda.buscarSiguiente(new Izquierda());
 
-        assertEquals(0, celdaMovida.columna());
-        assertEquals(1, celdaMovida.fila());
+        assertEquals(0, celdaDirIzquierda.columna());
+        assertEquals(1, celdaDirIzquierda.fila());
     }
 
     @Test

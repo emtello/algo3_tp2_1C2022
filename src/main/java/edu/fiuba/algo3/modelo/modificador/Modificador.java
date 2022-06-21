@@ -1,13 +1,11 @@
 package edu.fiuba.algo3.modelo.modificador;
 
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.vehiculos.IVehiculo;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public interface Modificador {
 
     public static final int NUMERO_DE_MOVIMIENTOS = 1;
 
-    void cruzarCon(Jugador jugador);
+    void cruzarCon(Vehiculo vehiculo);
 
-    long aplicarA(IVehiculo vehiculo);
 }

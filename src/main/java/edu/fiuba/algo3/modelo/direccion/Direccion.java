@@ -6,6 +6,6 @@ import edu.fiuba.algo3.modelo.celda.Celda;
 
 public interface Direccion {
 
-    public Celda mover(Integer f, Integer c, ArrayList<Celda> esquinas);
+    public Celda mover(long f, long c, ArrayList<Celda> esquinas);
 
 }

@@ -3,12 +3,12 @@ package edu.fiuba.algo3.modelo.tablero;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 
 public class Tablero {
     
-    private Jugador jugador;
+    private Vehiculo vehiculo;
     private GeneradorDeCiudad generador;
 
     public Tablero(int filas, int columnas) {
@@ -16,20 +16,27 @@ public class Tablero {
     }
 
     public void iniciarEn(Celda celda) {
-        Celda inicio = this.generador.buscarCelda(celda);
-        this.jugador.asignarCeldaInicial(inicio);
+        this.vehiculo.asignarCeldaInicial(celda);
     }
 
-    public void agregarJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void agregarvehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
     public void mover(Direccion direccion) {
-        this.jugador.mover(direccion);
+        this.vehiculo.mover(direccion);
+    }
+
+    public void reemplazarVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
     public Celda obtenerPosicion() {
-        return this.jugador.getPosicion();
+        return this.vehiculo.getPosicion();
+    }
+
+    public Vehiculo getVehiculo() {
+        return this.vehiculo;
     }
 
     public void agregarModificador(Celda origen, Celda destino, Modificador mod) {

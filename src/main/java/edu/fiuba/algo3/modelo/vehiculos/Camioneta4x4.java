@@ -1,48 +1,53 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
-import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-import java.util.Random;
+public class Camioneta4x4 extends Vehiculo{
 
-public class Camioneta4x4 implements IVehiculo{
+    private long pozosAtravezados = 0;
+    private long penalizacionPorPozo = 2;
+    private long penalizacionPorControlPolicial = 3;
 
-    private int probabilidadControl;
-    private int pozosAtravezados;
+    public Camioneta4x4(Tablero tablero) {
+        super(tablero);
+    }
 
-    public Camioneta4x4()
-    {
-        this.probabilidadControl = 3;
-        this.pozosAtravezados = 0;
+    public static long probabilidadControl() {
+        return 3;
     }
 
     @Override
-    public IVehiculo reemplazarVehiculo() {
-        return new Moto();
+    public void reemplazarVehiculo() {
+        Vehiculo reemplazo = new Moto(this.tablero);
+
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.sumarMovimientos(this.movimientos);
+
+        this.tablero.reemplazarVehiculo(reemplazo);
+
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public long pozo() {
-        int penalizacion = 0;
+    public void pozo() {
         this.pozosAtravezados ++;
         
-        if(pozosAtravezados > 3) penalizacion = 2;
-        //jugador.sumarMovimientos(penalizacion);
-        return penalizacion;
+        if(this.pozosAtravezados > 3) {
+            this.sumarMovimientos(this.penalizacionPorPozo);
+        };
+
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public void piquete(Jugador jugador) {
-        // TODO
+    public void piquete() {
+        // Nada
     }
 
     @Override
-    public long controlPolicial() {
-        int penalizacion = 0;
-        Random random = new Random();
-        if(random.nextInt(10) <= this.probabilidadControl) { penalizacion = 3;}
-        //jugador.sumarMovimientos(penalizacion);
-        //Casteo a long
-        long longNum = penalizacion;
-        return longNum;
+    public void controlPolicial() {
+        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        this.actualizarASiguienteCelda();
     }
+
 }

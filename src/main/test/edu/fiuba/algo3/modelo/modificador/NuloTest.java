@@ -1,60 +1,70 @@
 package edu.fiuba.algo3.modelo.modificador;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.modificador.Nulo;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Auto;
 import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class NuloTest {
+public class NuloTest extends ModificadorTest {
 
     @Test
-    public void modificadorNuloSeCruzaConJugadorConMotoYSumaUnMovimiento() {
-
+    public void modificadorNuloSeCruzaConvehiculoConMotoYSumaUnMovimiento() {
         Nulo nulo = new Nulo();
-        Celda celda = new Celda(0, 0);
-        Moto moto = new Moto();
-        Jugador jugador = new Jugador(moto);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
+        
+        Vehiculo moto = new Moto(this.tablero);
+    
+        moto.asignarCeldaInicial(celdaMock);
 
-        nulo.cruzarCon(jugador);
+        nulo.cruzarCon(moto);
 
-        assertEquals(1, jugador.movimientos());
-
+        assertEquals(0, moto.movimientos());
     }
 
     @Test
-    public void modificadorNuloSeCruzaConJugadorConAutoYSumaUnMovimiento() {
-
+    public void modificadorNuloSeCruzaConvehiculoConAutoYSumaUnMovimiento() {
         Nulo nulo = new Nulo();
-        Celda celda = new Celda(0, 0);
-        Auto auto = new Auto();
-        Jugador jugador = new Jugador(auto);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        nulo.cruzarCon(jugador);
+        Vehiculo auto = new Auto(this.tablero);
+        
+        auto.asignarCeldaInicial(celdaMock);
 
-        assertEquals(1, jugador.movimientos());
+        nulo.cruzarCon(auto);
 
+        assertEquals(0, auto.movimientos());
     }
 
     @Test
-    public void modificadorNuloSeCruzaConJugadorConCamionetaYSumaUnMovimiento() {
-
+    public void modificadorNuloSeCruzaConvehiculoConCamionetaYSumaUnMovimiento() {
         Nulo nulo = new Nulo();
-        Celda celda = new Celda(0, 0);
-        Camioneta4x4 camioneta = new Camioneta4x4();
-        Jugador jugador = new Jugador(camioneta);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
+        
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        
+        camioneta.asignarCeldaInicial(celdaMock);
 
-        nulo.cruzarCon(jugador);
+        nulo.cruzarCon(camioneta);
 
-        assertEquals(1, jugador.movimientos());
-
+        assertEquals(0, camioneta.movimientos());
     }
 
 }

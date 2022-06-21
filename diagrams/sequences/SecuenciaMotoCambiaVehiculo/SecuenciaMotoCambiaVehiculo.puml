@@ -6,7 +6,7 @@ title Una moto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se ca
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "jugador:Jugador" as jugador
+participant "vehiculo:vehiculo" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant ":CambioDeVehiculo" as cambioDeVehiculo
@@ -17,45 +17,45 @@ activate tablero
 
 user -> tablero: mover(dir: Direccion)
 
-activate jugador
+activate vehiculo
 
-tablero -> jugador: mover(dir: Direccion)
+tablero -> vehiculo: mover(dir: Direccion)
 
 activate celda
 
-jugador -> celda: mover(self, dir: Direccion)
+vehiculo -> celda: mover(self, dir: Direccion)
 
 activate calle
 
-celda -> calle: cruzarCon(jug: Jugador)
+celda -> calle: cruzarCon(jug: vehiculo)
 
 deactivate celda
 
 activate cambioDeVehiculo
 
-calle -> cambioDeVehiculo: cruzarCon(jug: Jugador)
+calle -> cambioDeVehiculo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 
-cambioDeVehiculo -> jugador: reemplazarVehiculo()
+cambioDeVehiculo -> vehiculo: reemplazarVehiculo()
 
 deactivate cambioDeVehiculo
 activate vehiculo
 
-jugador -> vehiculo : reemplazarVehiculo()
+vehiculo -> vehiculo : reemplazarVehiculo()
 
-vehiculo --> jugador : auto: Auto 
+vehiculo --> vehiculo : auto: Auto 
 
-vehiculo -> jugador: sumarMovimiento(1)
+vehiculo -> vehiculo: sumarMovimiento(1)
 
 deactivate vehiculo
 
 deactivate celda
 
 user -> tablero: movimientos()
-tablero -> jugador: movimientos()
-jugador --> tablero: X + 1
-deactivate jugador
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X + 1
+deactivate vehiculo
 
 tablero --> user: X + 1
 

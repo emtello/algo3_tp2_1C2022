@@ -4,27 +4,32 @@ import java.util.ArrayList;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.modificador.Modificador;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class Celda {
     
-    private Integer f;
-    private Integer c;
+    private long f;
+    private long c;
     private ArrayList<Calle> calles;
 
-    public Celda(Integer f, Integer c) {
+    public Celda(long f, long c) {
         this.f = f;
         this.c = c;
         this.calles = new ArrayList<Calle>();
     }
 
-    public Integer fila() {
+    public long fila() {
         return f;
     }
 
-    public Integer columna() {
+    public long columna() {
         return c;
+    }
+
+    public Celda buscarSiguiente(Direccion direccion) {
+        ArrayList<Celda> esquinas = this.obtenerEsquinas();
+
+        return direccion.mover(this.f, this.c, esquinas);
     }
 
     public void agregarCalle(Calle calle) {
@@ -53,20 +58,11 @@ public class Celda {
         throw new Error("No se encontro la calle");
     }
 
-    public Celda mover(Jugador jug, Direccion dir) {
-        ArrayList<Celda> esquinas = this.obtenerEsquinas();
-        
-        Celda sigCelda = dir.mover(f, c, esquinas);
+    public void mover(Vehiculo vehiculo, Direccion dir) {
+        Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
-        
-
-        // revisar
-
-        sigCalle.cruzarCon(jug);
-        // return sigCalle.cruzarCon(jug, sigCelda);
-
-
-        return sigCelda;
+    
+        sigCalle.cruzarCon(vehiculo);
     }
 
     public void borrarModificadores() {

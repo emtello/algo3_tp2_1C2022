@@ -1,43 +1,47 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
-import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-import java.util.Random;
+public class Auto extends Vehiculo {
 
-public class Auto implements IVehiculo{
+    private long penalizacionPorPozo = 3;
+    private long penalizacionPorControlPolicial = 3;
+    
+    public Auto(Tablero tablero) {
+        super(tablero);
+    }
 
-    private int probabilidadControl;
-
-    public Auto()
-    {
-        this.probabilidadControl = 5;
+    public static long probabilidadControl() {
+        return 5;
     }
 
     @Override
-    public IVehiculo reemplazarVehiculo() {
-        return new Camioneta4x4();
+    public void reemplazarVehiculo() {        
+        Vehiculo reemplazo = new Camioneta4x4(this.tablero);
+
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.sumarMovimientos(this.movimientos);
+
+        this.tablero.reemplazarVehiculo(reemplazo);
+
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public long pozo() {
-        long movimientos = 3; // puse long por las dudas, como no hardcodear 3 en auto y moto?
-        return movimientos;
-        //jugador.sumarMovimientos(3);
+    public void pozo() {
+        this.sumarMovimientos(this.penalizacionPorPozo);
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public void piquete(Jugador jugador) {
-        // TODO
+    public void piquete() {
+        // Nada
     }
 
     @Override
-    public long controlPolicial() {
-        int penalizacion = 0;
-        Random random = new Random();
-        if(random.nextInt(10) <= this.probabilidadControl) { penalizacion = 3;}
-        //jugador.sumarMovimientos(penalizacion);
-        //Casteo a long
-        long longNum = penalizacion;
-        return longNum;
+    public void controlPolicial() {
+        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        this.actualizarASiguienteCelda();
     }
+
 }

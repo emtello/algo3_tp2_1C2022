@@ -4,7 +4,7 @@ title Una moto atraviesa la grilla sin obstaculos\n y la cantidad de movimientos
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "jugador:Jugador" as jugador
+participant "vehiculo:vehiculo" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant "Direccion" as direccion
@@ -16,13 +16,13 @@ loop Por cada Direccion X veces
 
     user -> tablero: mover(dir: Direccion)
     
-    activate jugador
+    activate vehiculo
     
-    tablero -> jugador: mover(dir: Direccion)
+    tablero -> vehiculo: mover(dir: Direccion)
 
     activate celda
 
-    jugador -> celda: mover(self, dir: Direccion)
+    vehiculo -> celda: mover(self, dir: Direccion)
     celda -> celda: obtenerEsquinas()
 
     loop Por cada calle
@@ -56,30 +56,30 @@ loop Por cada Direccion X veces
     
     activate calle
 
-    celda -> calle: cruzarCon(jug: Jugador)
+    celda -> calle: cruzarCon(jug: vehiculo)
     
     activate modificador
     
-    calle -> modificador: cruzarCon(jug: Jugador)
+    calle -> modificador: cruzarCon(jug: vehiculo)
 
     deactivate modificador
     deactivate calle
 
-    celda --> jugador: celdaEnSiguienteDireccion
-    jugador --> tablero: celda = celdaEnSiguienteDireccion\nmoviemientos + 1
+    celda --> vehiculo: celdaEnSiguienteDireccion
+    vehiculo --> tablero: celda = celdaEnSiguienteDireccion\nmoviemientos + 1
 
     deactivate celda
-    deactivate jugador
+    deactivate vehiculo
 
 end
 
 
 user -> tablero: movimientos()
 
-activate jugador
-tablero -> jugador: movimientos()
-jugador --> tablero: X
-deactivate jugador
+activate vehiculo
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X
+deactivate vehiculo
 
 tablero --> user: X
 
@@ -127,7 +127,7 @@ participant "nulo: Nulo" as nulo
 activate calle
 activate nulo
 
-calle -> nulo: cruzarCon(jug: Jugador)
+calle -> nulo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 deactivate nulo

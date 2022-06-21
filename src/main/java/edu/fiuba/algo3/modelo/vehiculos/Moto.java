@@ -1,42 +1,49 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
-import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-import java.util.Random;
+public class Moto extends Vehiculo{
 
-public class Moto implements IVehiculo{
-    private int probabilidadControl;
+    private long penalizacionPorPozo = 3;
+    private long penalizacionPorPiquete = 2;
+    private long penalizacionPorControlPolicial = 3;
+    
+    public Moto(Tablero tablero) {
+        super(tablero);
+    }
 
-    public Moto()
-    {
-        this.probabilidadControl = 8;
+    public static long probabilidadControl() {
+        return 8;
     }
 
     @Override
-    public IVehiculo reemplazarVehiculo() {
-        return new Auto();
+    public void reemplazarVehiculo() {
+        Vehiculo reemplazo = new Auto(this.tablero);
+
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.sumarMovimientos(this.movimientos);
+
+        this.tablero.reemplazarVehiculo(reemplazo);
+
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public long pozo() {
-        long movimientos = 3;
-        return movimientos;
-        //jugador.sumarMovimientos(3);
+    public void pozo() {
+        this.sumarMovimientos(this.penalizacionPorPozo);
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public void piquete(Jugador jugador) {
-        jugador.sumarMovimientos(2);
+    public void piquete() {
+        this.sumarMovimientos(this.penalizacionPorPiquete);
+        this.actualizarASiguienteCelda();
     }
 
     @Override
-    public long controlPolicial() {
-        int penalizacion = 0;
-        Random random = new Random();
-        if(random.nextInt(10) <= this.probabilidadControl) { penalizacion = 3;}
-        //jugador.sumarMovimientos(penalizacion);
-        //Casteo a long
-        long longNum = penalizacion;
-        return longNum;
+    public void controlPolicial() {
+        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        this.actualizarASiguienteCelda();
     }
+    
 }

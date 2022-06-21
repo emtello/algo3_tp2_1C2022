@@ -1,75 +1,92 @@
 package edu.fiuba.algo3.modelo.modificador;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.modificador.Pozo;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Auto;
 import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class PozoTest {
+public class PozoTest extends ModificadorTest {
 
     @Test
-    public void modificadorPozoSeCruzaConJugadorConMotoYEsPenalizadoCon3() {
-
+    public void modificadorPozoSeCruzaConvehiculoConMotoYEsPenalizadoCon3() {
         Pozo pozo = new Pozo();
-        Celda celda = new Celda(0, 0);
-        Moto moto = new Moto();
-        Jugador jugador = new Jugador(moto);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        pozo.cruzarCon(jugador);
+        Vehiculo moto = new Moto(this.tablero);
+        
+        moto.asignarCeldaInicial(celdaMock);
 
-        assertEquals(4, jugador.movimientos()); //
+        pozo.cruzarCon(moto);
 
+        assertEquals(3, moto.movimientos());
     }
 
     @Test
-    public void modificadorPozoSeCruzaConJugadorConAutoYEsPenalizadoCon3(){
-
+    public void modificadorPozoSeCruzaConvehiculoConAutoYEsPenalizadoCon3() {
         Pozo pozo = new Pozo();
-        Celda celda = new Celda(0, 0);
-        Auto auto = new Auto();
-        Jugador jugador = new Jugador(auto);
-        jugador.asignarCeldaInicial(celda);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        pozo.cruzarCon(jugador);
+        Vehiculo auto = new Auto(this.tablero);
+        
+        auto.asignarCeldaInicial(celdaMock);
 
-        assertEquals(4, jugador.movimientos());
+        pozo.cruzarCon(auto);
+
+        assertEquals(3, auto.movimientos());
     }
 
     @Test
-    public void modificadorPozoSeCruzaConJugadorConCamionetaYNoEsPenalizadoPorPrimeraVez(){
-
+    public void modificadorPozoSeCruzaConvehiculoConCamionetaYNoEsPenalizadoPorPrimeraVez() {
         Pozo pozo = new Pozo();
-        Celda celda = new Celda(0, 0);
-        Camioneta4x4 camioneta = new Camioneta4x4();
-        Jugador jugador = new Jugador(camioneta);
-        jugador.asignarCeldaInicial(celda);
 
-        pozo.cruzarCon(jugador);
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        assertEquals(1, jugador.movimientos());
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+    
+        camioneta.asignarCeldaInicial(celdaMock);
 
+        pozo.cruzarCon(camioneta);
+
+        assertEquals(0, camioneta.movimientos());
     }
 
     @Test
-    public void modificadorPozoSeCruzaConJugadorConCamionetaYEsPenalizadoCon2(){
-
+    public void modificadorPozoSeCruzaConvehiculoConCamionetaYEsPenalizadoCon2() {
         Pozo pozo = new Pozo();
-        Celda celda = new Celda(0, 0);
-        Camioneta4x4 camioneta = new Camioneta4x4();
-        Jugador jugador = new Jugador(camioneta);
-        jugador.asignarCeldaInicial(celda);
 
-        for(int i= 0; i < 4; i++){
-            pozo.cruzarCon(jugador);
+        Celda celdaMock = mock(Celda.class);
+                
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        
+        camioneta.asignarCeldaInicial(celdaMock);
+
+        for(int i= 0; i < 4; i++) {
+            assertEquals(0, camioneta.movimientos());
+            camioneta.asignarCeldaInicial(celdaMock);
+            pozo.cruzarCon(camioneta);
         }
 
-        assertEquals(6, jugador.movimientos());
-
+        assertEquals(2, camioneta.movimientos());
     }
+
 }

@@ -9,7 +9,6 @@ import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.modificador.Nulo;
-import edu.fiuba.algo3.modelo.modificador.Pozo;
 
 public class GeneradorDeCiudad {
     private Celda[][] celdas;

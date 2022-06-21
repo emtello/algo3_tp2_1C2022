@@ -1,28 +1,35 @@
 package edu.fiuba.algo3.modelo.modificador;
 
-import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
+import edu.fiuba.algo3.modelo.vehiculos.Moto;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class FavorableTest {
+public class FavorableTest extends ModificadorTest {
 
     @Test
-    public void  modificadorFavorableSeCruzaConJugador() {
-        //Arrange
+    public void  modificadorFavorableSeCruzaConVehiculoResta20PorcientoDeMovimientos() {
         Favorable favorable = new Favorable();
-        Celda celda = new Celda(0, 0);
-        Moto moto = new Moto();
-        Jugador jugador = new Jugador(moto);
-        jugador.asignarCeldaInicial(celda);
-        jugador.sumarMovimientos(10);
+        
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+        .thenReturn(new Celda(0, 0));
 
-        //Act
-        favorable.cruzarCon(jugador);
-        //Assert
-        assertEquals(Math.round((10 * 0.8)+1), jugador.movimientos()); //Resta el 20% de los movimientos hechos + 1 movimiento
+        Vehiculo moto = new Moto(this.tablero);
+        
+        moto.asignarCeldaInicial(celdaMock);
+        moto.sumarMovimientos(10);
+        
+        favorable.cruzarCon(moto);
+        
+        assertEquals(Math.round((10 * 0.8)), moto.movimientos());
     }
 
 }

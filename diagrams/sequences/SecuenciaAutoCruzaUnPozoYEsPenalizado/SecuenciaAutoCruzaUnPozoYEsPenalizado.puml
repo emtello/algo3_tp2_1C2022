@@ -6,7 +6,7 @@ title Un auto atraviesa la ciudad y se encuentra con un Pozo. Es penalizado en t
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "jugador:Jugador" as jugador
+participant "vehiculo:vehiculo" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant "pozo:Pozo" as pozo
@@ -20,46 +20,46 @@ activate tablero
 
 user -> tablero: mover(dir: Direccion)
 
-activate jugador
+activate vehiculo
 
-tablero -> jugador: mover(dir: Direccion)
+tablero -> vehiculo: mover(dir: Direccion)
 
 activate celda
 
-jugador -> celda: mover(self, dir: Direccion)
+vehiculo -> celda: mover(self, dir: Direccion)
 
 activate calle
 
-celda -> calle: cruzarCon(jug: Jugador)
+celda -> calle: cruzarCon(jug: vehiculo)
 
 deactivate celda
 activate pozo
 
-calle -> pozo: cruzarCon(jug: Jugador)
+calle -> pozo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 
-pozo -> jugador: obtenerVehiculo()
+pozo -> vehiculo: obtenerVehiculo()
 
-jugador --> pozo: auto: Auto
+vehiculo --> pozo: auto: Auto
 
 activate auto
 
-pozo -> auto: pozo(jugador: Jugador)
+pozo -> auto: pozo(vehiculo: vehiculo)
 
 deactivate pozo
 
-auto -> jugador: sumarMovimentos(3)
+auto -> vehiculo: sumarMovimentos(3)
 
 deactivate auto
 deactivate calle
 deactivate celda
 
 user -> tablero: movimientos()
-tablero -> jugador: movimientos()
-jugador --> tablero: X + 3
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X + 3
 
-deactivate jugador
+deactivate vehiculo
 
 tablero --> user: X + 3
 
