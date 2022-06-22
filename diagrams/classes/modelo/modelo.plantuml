@@ -17,10 +17,10 @@ class Calle {
 abstract Vehiculo {
     - movimientos: long
 
-    + {abstract} reemplazarVehiculo(): Vehiculo
-    + {abstract} pozo()
-    + {abstract} piquete()
-    + {abstract} controlPolicial()
+    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + {abstract} aplicarModificador(pozo: Pozo)
+    + {abstract} aplicarModificador(piquete: Piquete)
+    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
     + sorpresa(sorpresa: Sorpresa)
     + sumarMovimientos()
     + mover(dir: Direccion)
@@ -112,34 +112,34 @@ Izquierda .up.|> Direccion
 abstract Vehiculo {
     - movimientos: long
 
-    + {abstract} reemplazarVehiculo(): Vehiculo
-    + {abstract} pozo()
-    + {abstract} piquete()
-    + {abstract} controlPolicial()
+    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + {abstract} aplicarModificador(pozo: Pozo)
+    + {abstract} aplicarModificador(piquete: Piquete)
+    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
     + sorpresa(sorpresa: Sorpresa)
     + sumarMovimientos()
     + mover(dir: Direccion)
 }
 
-class 4x4 { 
-    + pozo()
-    + piquete()
-    + controlPolicial()
-    + reemplazarVehiculo()
+class 4x4 {
+    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + {abstract} aplicarModificador(pozo: Pozo)
+    + {abstract} aplicarModificador(piquete: Piquete)
+    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
 }
 
 class Moto {
-    + pozo()
-    + piquete()
-    + controlPolicial()
-    + reemplazarVehiculo()
+    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + {abstract} aplicarModificador(pozo: Pozo)
+    + {abstract} aplicarModificador(piquete: Piquete)
+    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
 }
 
 class Auto {
-    + pozo()
-    + piquete()
-    + controlPolicial()
-    + reemplazarVehiculo()
+    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + {abstract} aplicarModificador(pozo: Pozo)
+    + {abstract} aplicarModificador(piquete: Piquete)
+    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
 }
 
 4x4 -up-|> Vehiculo

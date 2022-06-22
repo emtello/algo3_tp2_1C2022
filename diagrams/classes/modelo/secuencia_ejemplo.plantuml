@@ -15,9 +15,9 @@ activate tablero
 loop Por cada Direccion X veces
 
     user -> tablero: mover(dir: Direccion)
-    
+
     activate vehiculo
-    
+
     tablero -> vehiculo: mover(dir: Direccion)
 
     activate celda
@@ -30,7 +30,7 @@ loop Por cada Direccion X veces
 
         celda -> calle: proximaEsquina(self)
         calle --> celda: esquinaSiguiente: Celda
-        
+
         deactivate calle
     end
 
@@ -42,7 +42,7 @@ loop Por cada Direccion X veces
     deactivate direccion
 
     celda -> celda: obtenerCalleConEsquinas(self, celdaEnSiguienteDireccion)
-    
+
     loop Por cada calle
         activate calle
 
@@ -53,13 +53,13 @@ loop Por cada Direccion X veces
 
         deactivate calle
     end
-    
+
     activate calle
 
     celda -> calle: cruzarCon(jug: vehiculo)
-    
+
     activate modificador
-    
+
     calle -> modificador: cruzarCon(jug: vehiculo)
 
     deactivate modificador
