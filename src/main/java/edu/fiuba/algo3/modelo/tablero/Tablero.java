@@ -5,11 +5,15 @@ import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
+import edu.fiuba.algo3.modelo.registro.Registro;
+import edu.fiuba.algo3.modelo.registro.Puntaje;
+
 
 public class Tablero {
     
     private Vehiculo vehiculo;
     private GeneradorDeCiudad generador;
+    private Registro registro;
 
     public Tablero(int filas, int columnas) {
         this.generador = new GeneradorDeCiudad(filas, columnas);
@@ -45,6 +49,11 @@ public class Tablero {
 
     public void reiniciar() {
         this.generador.reiniciar();
+    }
+
+    public void registrarPuntaje() {
+        Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
+        this.registro.cargarPuntaje(puntaje);
     }
 
 }
