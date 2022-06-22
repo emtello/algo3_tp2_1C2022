@@ -6,7 +6,7 @@ public class Piquete implements Modificador {
     
     @Override
     public void cruzarCon(Vehiculo vehiculo) {
-        vehiculo.piquete();
+        vehiculo.aplicarModificador(this);
     }
 
 }

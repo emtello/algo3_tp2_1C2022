@@ -6,7 +6,7 @@ public class ControlPolicial implements Modificador {
 
     @Override
     public void cruzarCon(Vehiculo vehiculo) {
-        vehiculo.controlPolicial();
+        vehiculo.aplicarModificador(this);
     }
 
 }

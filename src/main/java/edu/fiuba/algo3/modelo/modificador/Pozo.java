@@ -6,7 +6,7 @@ public class Pozo implements Modificador {
 
     @Override
     public void cruzarCon(Vehiculo vehiculo) {
-        vehiculo.pozo();
+        vehiculo.aplicarModificador(this);
     }
 
 }

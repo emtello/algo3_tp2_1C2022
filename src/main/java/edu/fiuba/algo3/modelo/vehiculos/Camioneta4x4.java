@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
+import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Camioneta4x4 extends Vehiculo{
@@ -12,12 +13,35 @@ public class Camioneta4x4 extends Vehiculo{
         super(tablero);
     }
 
-    public static long probabilidadControl() {
-        return 3;
+    @Override
+    public void aplicarModificador(Modificador modificador) {
+
     }
 
     @Override
-    public void reemplazarVehiculo() {
+    public void aplicarModificador(Pozo pozo) {
+        this.pozosAtravezados ++;
+
+        if(this.pozosAtravezados > 3) {
+            this.sumarMovimientos(this.penalizacionPorPozo);
+        };
+
+        this.actualizarASiguienteCelda();
+    }
+
+    @Override
+    public void aplicarModificador(Piquete piquete) {
+        //Nada
+    }
+
+    @Override
+    public void aplicarModificador(ControlPolicial controlPolicial) {
+        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        this.actualizarASiguienteCelda();
+    }
+
+    @Override
+    public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
         Vehiculo reemplazo = new Moto(this.tablero);
 
         reemplazo.asignarCeldaInicial(this.celdaInicial);
@@ -28,26 +52,8 @@ public class Camioneta4x4 extends Vehiculo{
         this.actualizarASiguienteCelda();
     }
 
-    @Override
-    public void pozo() {
-        this.pozosAtravezados ++;
-        
-        if(this.pozosAtravezados > 3) {
-            this.sumarMovimientos(this.penalizacionPorPozo);
-        };
-
-        this.actualizarASiguienteCelda();
-    }
-
-    @Override
-    public void piquete() {
-        // Nada
-    }
-
-    @Override
-    public void controlPolicial() {
-        this.sumarMovimientos(this.penalizacionPorControlPolicial);
-        this.actualizarASiguienteCelda();
+    public static long probabilidadControl() {
+        return 3;
     }
 
 }

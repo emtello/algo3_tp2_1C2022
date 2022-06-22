@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
+import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Moto extends Vehiculo{
@@ -12,12 +13,33 @@ public class Moto extends Vehiculo{
         super(tablero);
     }
 
-    public static long probabilidadControl() {
-        return 8;
+    @Override
+    public void aplicarModificador(Modificador modificador) {
+        //
     }
 
     @Override
-    public void reemplazarVehiculo() {
+    public void aplicarModificador(Pozo pozo) {
+        this.sumarMovimientos(this.penalizacionPorPozo);
+        this.actualizarASiguienteCelda();
+    }
+
+    @Override
+    public void aplicarModificador(Piquete piquete) {
+        this.sumarMovimientos(this.penalizacionPorPiquete);
+        this.actualizarASiguienteCelda();
+
+    }
+
+    @Override
+    public void aplicarModificador(ControlPolicial controlPolicial) {
+        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        this.actualizarASiguienteCelda();
+
+    }
+
+    @Override
+    public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
         Vehiculo reemplazo = new Auto(this.tablero);
 
         reemplazo.asignarCeldaInicial(this.celdaInicial);
@@ -26,24 +48,11 @@ public class Moto extends Vehiculo{
         this.tablero.reemplazarVehiculo(reemplazo);
 
         this.actualizarASiguienteCelda();
+
     }
 
-    @Override
-    public void pozo() {
-        this.sumarMovimientos(this.penalizacionPorPozo);
-        this.actualizarASiguienteCelda();
+    public static long probabilidadControl() {
+        return 8;
     }
 
-    @Override
-    public void piquete() {
-        this.sumarMovimientos(this.penalizacionPorPiquete);
-        this.actualizarASiguienteCelda();
-    }
-
-    @Override
-    public void controlPolicial() {
-        this.sumarMovimientos(this.penalizacionPorControlPolicial);
-        this.actualizarASiguienteCelda();
-    }
-    
 }
