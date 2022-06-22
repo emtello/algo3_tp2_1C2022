@@ -16,4 +16,9 @@ public class Favorable implements Modificador, Sorpresa {
         )));
     }
 
+    @Override
+    public String simbolo() {
+        return "FA";
+    }
+
 }

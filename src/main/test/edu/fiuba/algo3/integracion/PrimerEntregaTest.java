@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
@@ -28,11 +27,7 @@ public class PrimerEntregaTest {
         this.tablero.agregarvehiculo(vehiculo);
         this.tablero.iniciarEn(celdaInicial);
         
-        Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
         this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
-        
-        this.celdaInicial.agregarCalle(calle);
-        this.celdaFinal.agregarCalle(calle);
     }
 
     @Test

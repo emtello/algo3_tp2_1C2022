@@ -10,21 +10,33 @@ public class Tablero {
     
     private Vehiculo vehiculo;
     private GeneradorDeCiudad generador;
+    private Celda llegada;
 
     public Tablero(int filas, int columnas) {
         this.generador = new GeneradorDeCiudad(filas, columnas);
     }
 
     public void iniciarEn(Celda celda) {
-        this.vehiculo.asignarCeldaInicial(celda);
+        Celda inicio = this.generador.buscarCelda(celda);
+        this.vehiculo.asignarCeldaInicial(inicio);
     }
 
     public void agregarvehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
 
-    public void mover(Direccion direccion) {
+    public Boolean mover(Direccion direccion) {
         this.vehiculo.mover(direccion);
+
+        return this.vehiculo.estaEn(this.llegada);
+    }
+
+    public void asignarLlegada(Celda celda) {
+        this.llegada = celda;
+    }
+
+    public long movimientos() {
+        return this.vehiculo.movimientos();
     }
 
     public void reemplazarVehiculo(Vehiculo vehiculo) {

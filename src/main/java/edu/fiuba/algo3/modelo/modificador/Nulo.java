@@ -9,4 +9,9 @@ public class Nulo implements Modificador {
         vehiculo.actualizarASiguienteCelda();
     }
 
+    @Override
+    public String simbolo() {
+        return "NU";
+    }
+    
 }

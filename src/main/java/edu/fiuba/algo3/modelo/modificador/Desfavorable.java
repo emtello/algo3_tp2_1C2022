@@ -16,4 +16,9 @@ public class Desfavorable implements Modificador, Sorpresa {
         )));
     }
 
+    @Override
+    public String simbolo() {
+        return "DE";
+    }
+
 }

@@ -8,4 +8,6 @@ public interface Modificador {
 
     void cruzarCon(Vehiculo vehiculo);
 
+    String simbolo();
+
 }

@@ -9,4 +9,9 @@ public class Pozo implements Modificador {
         vehiculo.pozo();
     }
 
+    @Override
+    public String simbolo() {
+        return "PO";
+    }
+
 }

@@ -23,6 +23,10 @@ public class Calle {
         this.modificador.cruzarCon(vehiculo);
     }
 
+    public String simboloModificador() {
+        return this.modificador.simbolo();
+    }
+
     public Celda siguienteEsquina(Celda esquinaActual) {
         // Solo funciona para 2 celdas
 

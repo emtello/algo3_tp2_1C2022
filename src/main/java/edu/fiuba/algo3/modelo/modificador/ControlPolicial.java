@@ -9,4 +9,9 @@ public class ControlPolicial implements Modificador {
         vehiculo.controlPolicial();
     }
 
+    @Override
+    public String simbolo() {
+        return "CP";
+    }
+
 }

@@ -9,4 +9,9 @@ public class Piquete implements Modificador {
         vehiculo.piquete();
     }
 
+    @Override
+    public String simbolo() {
+        return "PI";
+    }
+    
 }

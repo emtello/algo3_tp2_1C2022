@@ -8,5 +8,10 @@ public class CambioDeVehiculo implements Modificador {
     public void cruzarCon(Vehiculo vehiculo) {
         vehiculo.reemplazarVehiculo();
     }
+
+    @Override
+    public String simbolo() {
+        return "CV";
+    }
         
 }

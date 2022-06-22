@@ -3,7 +3,6 @@ package edu.fiuba.algo3.integracion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Derecha;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
@@ -29,13 +28,8 @@ public class SegundaEntregaTest {
     public void iniciarConfig(Vehiculo vehiculo, Modificador modificador) {    
         this.tablero.agregarvehiculo(vehiculo);
         this.tablero.iniciarEn(celdaInicial);
-        
-        Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
 
         this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
-        
-        this.celdaInicial.agregarCalle(calle);
-        this.celdaFinal.agregarCalle(calle);
     }
 
     @Test
@@ -63,10 +57,6 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
-
         this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
         long cantMovimientosFinalEsperado = 4;
@@ -87,10 +77,6 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
-
         this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
         long cantMovimientosFinalEsperado = 4;
@@ -110,10 +96,6 @@ public class SegundaEntregaTest {
 
         Celda celda02 = new Celda(0, 2);
         Modificador favorable = new Favorable();
-
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, favorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
 
         this.tablero.agregarModificador(this.celdaFinal, celda02, favorable);
 
@@ -139,10 +121,6 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
-
         this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
 
         long cantMovimientosFinalEsperado = 6;
@@ -162,10 +140,6 @@ public class SegundaEntregaTest {
 
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
-
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
 
         this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
 
@@ -188,9 +162,6 @@ public class SegundaEntregaTest {
         Celda celda02 = new Celda(0, 2);
         Modificador desfavorable = new Desfavorable();
 
-        Calle calle0102 = new Calle(this.celdaFinal, celda02, desfavorable);
-        this.celdaFinal.agregarCalle(calle0102);
-        celda02.agregarCalle(calle0102);
         this.tablero.agregarModificador(this.celdaFinal, celda02, desfavorable);
 
         Direccion izquierda = new Izquierda();

@@ -1,12 +1,14 @@
 package edu.fiuba.algo3.modelo.direccion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 
 public class DireccionTest {
     
@@ -93,53 +95,54 @@ public class DireccionTest {
     @Test
     public void moverALaIzquierdaSinCallePosibleDevuelveNull() {
         Direccion direccion = new Izquierda();
-        
-        Celda celdaAMoverse = direccion.mover(
-            celdaActual.fila(),
-            celdaActual.columna(),
-            listaCeldasVacia
-        );
 
-        assertEquals(celdaAMoverse, null);
+        assertThrows(CeldaFueraDeRango.class, () -> {
+            direccion.mover(
+                celdaActual.fila(),
+                celdaActual.columna(),
+                this.listaCeldasVacia
+            );
+        });
+
     }
 
     @Test
     public void moverALaArribaSinCallePosibleDevuelveNull() {
         Direccion direccion = new Arriba();
         
-        Celda celdaAMoverse = direccion.mover(
-            celdaActual.fila(),
-            celdaActual.columna(),
-            listaCeldasVacia
-        );
-
-        assertEquals(celdaAMoverse, null);
+        assertThrows(CeldaFueraDeRango.class, () -> {
+            direccion.mover(
+                celdaActual.fila(),
+                celdaActual.columna(),
+                this.listaCeldasVacia
+            );
+        });
     }
 
     @Test
     public void moverALaAbajoSinCallePosibleDevuelveNull() {
         Direccion direccion = new Abajo();
-        
-        Celda celdaAMoverse = direccion.mover(
-            celdaActual.fila(),
-            celdaActual.columna(),
-            listaCeldasVacia
-        );
 
-        assertEquals(celdaAMoverse, null);
+        assertThrows(CeldaFueraDeRango.class, () -> {
+            direccion.mover(
+                celdaActual.fila(),
+                celdaActual.columna(),
+                this.listaCeldasVacia
+            );
+        });
     }
 
     @Test
     public void moverALaDerechaSinCallePosibleDevuelveNull() {
         Direccion direccion = new Derecha();
-        
-        Celda celdaAMoverse = direccion.mover(
-            celdaActual.fila(),
-            celdaActual.columna(),
-            listaCeldasVacia
-        );
 
-        assertEquals(celdaAMoverse, null);
+        assertThrows(CeldaFueraDeRango.class, () -> {
+            direccion.mover(
+                celdaActual.fila(),
+                celdaActual.columna(),
+                this.listaCeldasVacia
+            );
+        });
     }
 
 

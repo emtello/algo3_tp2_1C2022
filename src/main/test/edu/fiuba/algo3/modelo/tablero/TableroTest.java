@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Arriba;
+import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
@@ -43,7 +44,7 @@ public class TableroTest {
         tablero.agregarvehiculo(moto);
         tablero.iniciarEn(new Celda(0, 0));
 
-        assertThrows(Error.class, () -> tablero.mover(new Arriba()));
+        assertThrows(CeldaFueraDeRango.class, () -> tablero.mover(new Arriba()));
     }
 
 }

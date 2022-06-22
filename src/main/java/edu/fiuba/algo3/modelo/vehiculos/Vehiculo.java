@@ -57,4 +57,8 @@ public abstract class Vehiculo {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
     }
 
+    public Boolean estaEn(Celda celda) {
+        return this.celdaInicial.equals(celda);
+    }
+
 }

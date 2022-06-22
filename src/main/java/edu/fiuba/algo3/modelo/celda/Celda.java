@@ -26,6 +26,10 @@ public class Celda {
         return c;
     }
 
+    public ArrayList<Calle> calles() {
+        return calles;
+    }
+    
     public Celda buscarSiguiente(Direccion direccion) {
         ArrayList<Celda> esquinas = this.obtenerEsquinas();
 
