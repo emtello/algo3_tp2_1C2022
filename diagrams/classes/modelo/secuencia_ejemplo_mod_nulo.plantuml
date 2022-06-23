@@ -1,0 +1,324 @@
+@startuml sec-moto-atraviesa-grilla-y-se-cruza-con-Nulo
+
+title Una moto atraviesa la grilla y se cruza con Nulo\n y la cantidad de movimientos es X
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "veh:Vehiculo" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "Direccion" as direccion
+participant "Nulo" as nulo
+
+activate tablero
+
+loop Por cada Direccion X veces
+
+    user -> tablero: mover(dir: Direccion)
+
+    activate vehiculo
+
+    tablero -> vehiculo: mover(dir: Direccion)
+
+    activate celda
+
+    vehiculo -> celda: mover(self, dir: Direccion)
+    celda -> celda: obtenerEsquinas()
+
+    loop Por cada calle
+        activate calle
+
+        celda -> calle: proximaEsquina(self)
+        calle --> celda: esquinaSiguiente: Celda
+
+        deactivate calle
+    end
+
+    activate direccion
+
+    celda -> direccion: mover(f, c, [esquinas])
+    direccion --> celda: celdaEnSiguienteDireccion
+
+    deactivate direccion
+
+    celda -> celda: obtenerCalleConEsquinas(self, celdaEnSiguienteDireccion)
+
+    loop Por cada calle
+        activate calle
+
+        celda -> calle: contiene(self)
+        calle --> celda: true
+        celda -> calle: contiene(celdaEnSiguienteDireccion)
+        calle --> celda: true
+
+        deactivate calle
+    end
+
+    activate calle
+
+    celda -> calle: cruzarCon(veh: Vehiculo)
+
+    activate nulo
+
+    calle -> nulo: cruzarCon(veh: Vehiculo)
+    nulo ->vehiculo: actualizarASiguienteCelda()
+
+    deactivate nulo
+    deactivate calle
+
+    celda --> vehiculo: celdaEnSiguienteDireccion
+    vehiculo --> tablero: celda = celdaEnSiguienteDireccion\nmoviemientos + 1
+
+    deactivate celda
+    deactivate vehiculo
+
+end
+
+
+user -> tablero: movimientos()
+
+activate vehiculo
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X
+deactivate vehiculo
+
+tablero --> user: X
+
+deactivate tablero
+
+@enduml
+
+@startuml secuencia-modificador-nulo
+
+title Caso modificador nulo (calle vacia)
+
+participant "calle:Calle" as calle
+participant "nulo: Nulo" as nulo
+participant "veh:Vehiculo" as vehiculo
+
+activate calle
+activate nulo
+
+calle -> nulo: cruzarCon(veh: vehiculo)
+
+activate vehiculo
+
+nulo ->vehiculo: actualizarASiguienteCelda()
+
+deactivate calle
+deactivate nulo
+deactivate vehiculo
+
+@enduml
+
+@startuml secuencia-modificador-Pozo
+
+title Caso modificador Pozo
+
+participant "calle:Calle" as calle
+participant "pozo:Pozo" as pozo
+participant "veh:Vehiculo" as vehiculo
+
+activate calle
+activate pozo
+
+
+calle -> pozo: cruzarCon(veh: vehiculo)
+
+activate vehiculo
+
+pozo ->vehiculo: aplicarModificador(pozo)
+
+deactivate calle
+deactivate pozo
+deactivate vehiculo
+
+@enduml
+
+@startuml secuencia-modificador-piquete
+
+title Caso modificador piquete
+
+participant "calle:Calle" as calle
+participant "piquete:Piquete" as piquete
+participant "veh:Vehiculo" as vehiculo
+
+activate calle
+activate piquete
+
+
+calle -> piquete: cruzarCon(veh: vehiculo)
+
+activate vehiculo
+
+piquete ->vehiculo: aplicarModificador(piquete)
+
+deactivate calle
+deactivate piquete
+deactivate vehiculo
+
+@enduml
+
+@startuml secuencia-modificador-controlPolicial
+
+title Caso modificador controlPolicial
+
+participant "calle:Calle" as calle
+participant "controlPolicial:ControlPolicial" as controlPolicial
+participant "veh:Vehiculo" as vehiculo
+
+activate calle
+activate controlPolicial
+
+
+calle -> controlPolicial: cruzarCon(veh: vehiculo)
+
+activate vehiculo
+
+controlPolicial ->vehiculo: aplicarModificador(controlPolicial)
+
+deactivate calle
+deactivate controlPolicial
+deactivate vehiculo
+
+@enduml
+
+@startuml secuencia-modificador-cambioDeVehiculo
+
+title Caso modificador cambioDeVehiculo
+
+participant "calle:Calle" as calle
+participant "cambioDeVehiculo:CambioDeVehiculo" as cambioDeVehiculo
+participant "veh:Vehiculo" as vehiculo
+
+activate calle
+activate cambioDeVehiculo
+
+
+calle -> cambioDeVehiculo: cruzarCon(veh: vehiculo)
+
+activate vehiculo
+
+cambioDeVehiculo ->vehiculo: aplicarModificador(cambioDeVehiculo)
+
+deactivate calle
+deactivate cambioDeVehiculo
+deactivate vehiculo
+
+@enduml
+
+@startuml sec-moto-atraviesa-grilla-y-se-cruza-con-pozo
+
+title Una moto atraviesa la grilla y se cruza con pozo\n y la cantidad de movimientos es X+3
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "moto:Moto" as moto
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "Direccion" as direccion
+participant "Pozo" as pozo
+
+activate tablero
+
+loop Por cada Direccion X veces
+
+    user -> tablero: mover(dir: Direccion)
+
+    activate moto
+
+    tablero -> moto: mover(dir: Direccion)
+
+    activate celda
+
+    moto -> celda: mover(self, dir: Direccion)
+    celda -> celda: obtenerEsquinas()
+
+    loop Por cada calle
+        activate calle
+
+        celda -> calle: proximaEsquina(self)
+        calle --> celda: esquinaSiguiente: Celda
+
+        deactivate calle
+    end
+
+    activate direccion
+
+    celda -> direccion: mover(f, c, [esquinas])
+    direccion --> celda: celdaEnSiguienteDireccion
+
+    deactivate direccion
+
+    celda -> celda: obtenerCalleConEsquinas(self, celdaEnSiguienteDireccion)
+
+    loop Por cada calle
+        activate calle
+
+        celda -> calle: contiene(self)
+        calle --> celda: true
+        celda -> calle: contiene(celdaEnSiguienteDireccion)
+        calle --> celda: true
+
+        deactivate calle
+    end
+
+    activate calle
+
+    celda -> calle: cruzarCon(moto: Moto)
+
+    activate pozo
+
+    calle -> pozo: cruzarCon(moto: Moto)
+    pozo ->moto: aplicarModificador(pozo: Pozo)
+
+    deactivate pozo
+    deactivate calle
+
+    celda --> moto: celdaEnSiguienteDireccion
+    moto --> tablero: celda = celdaEnSiguienteDireccion\nmoviemientos + 1
+
+    deactivate celda
+    deactivate moto
+
+end
+
+
+user -> tablero: movimientos()
+
+activate moto
+tablero -> moto: movimientos()
+moto --> tablero: X+3
+deactivate moto
+
+tablero --> user: X+3
+
+deactivate tablero
+
+@enduml
+
+@startuml secuencia-modificador-Pozo
+
+title Caso modificador Pozo
+
+participant "calle:Calle" as calle
+participant "pozo:Pozo" as pozo
+participant "moto:Moto" as moto
+
+activate calle
+activate pozo
+
+
+calle -> pozo: cruzarCon(moto: Moto)
+
+activate moto
+
+pozo ->moto: aplicarModificador(pozo)
+
+deactivate calle
+deactivate pozo
+
+moto ->moto: sumarMovimientos(3)
+moto ->moto: actualizarASiguienteCelda()
+
+@enduml

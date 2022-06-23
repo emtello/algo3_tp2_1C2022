@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.modificador.Sorpresa;
+import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public abstract class Vehiculo {
@@ -17,13 +17,11 @@ public abstract class Vehiculo {
         this.movimientos = 0;
     }
 
-    public abstract void reemplazarVehiculo();
-
-    public abstract void pozo();
-
-    public abstract void piquete();
-
-    public abstract void controlPolicial();
+    public abstract void aplicarModificador(Modificador modificador);
+    public abstract void aplicarModificador(Pozo pozo);
+    public abstract void aplicarModificador(Piquete piquete);
+    public abstract void aplicarModificador(ControlPolicial controlPolicial);
+    public  abstract void aplicarModificador(CambioDeVehiculo cambioDeVehiculo);
 
     public void sorpresa(Sorpresa sorpresa) {
         this.movimientos = sorpresa.aplicarSorpresa(this.movimientos);

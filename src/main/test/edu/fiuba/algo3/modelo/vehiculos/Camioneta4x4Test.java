@@ -1,0 +1,73 @@
+package edu.fiuba.algo3.modelo.vehiculos;
+
+import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
+import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
+import edu.fiuba.algo3.modelo.modificador.Pozo;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+public class Camioneta4x4Test extends VehiculoTest {
+
+    @Test
+    public void camionetaAplicaModificadorPozoPorPrimeraVezYNoEsPenalizado() {
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+
+        camioneta.asignarCeldaInicial(celdaMock);
+
+        Pozo pozo = new Pozo();
+        camioneta.aplicarModificador(pozo);
+
+        assertEquals(0, camioneta.movimientos());
+    }
+
+    @Test
+    public void camionetaAplicaModificadorPozo3VecesYALaCuatraEsPenalizadoCon2() {
+
+        Celda celdaMock = mock(Celda.class);
+
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+
+        camioneta.asignarCeldaInicial(celdaMock);
+
+        Pozo pozo = new Pozo();
+
+        for(int i= 0; i < 4; i++) {
+            assertEquals(0, camioneta.movimientos());
+            camioneta.asignarCeldaInicial(celdaMock);
+            camioneta.aplicarModificador(pozo);
+        }
+
+        assertEquals(2, camioneta.movimientos());
+    }
+
+    @Test
+    public void camionetaAplicaModificadorCambioDeVehiculoYCambiaPorMoto() {
+        CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+
+        camioneta.asignarCeldaInicial(celdaMock);
+
+        camioneta.aplicarModificador(cambioDeVehiculo);
+
+        assertEquals(Moto.class, this.tablero.getVehiculo().getClass());
+    }
+
+}

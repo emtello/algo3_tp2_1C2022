@@ -6,7 +6,7 @@ public class CambioDeVehiculo implements Modificador {
 
     @Override
     public void cruzarCon(Vehiculo vehiculo) {
-        vehiculo.reemplazarVehiculo();
+        vehiculo.aplicarModificador(this);
     }
 
     @Override
