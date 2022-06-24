@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
+import edu.fiuba.algo3.modelo.modificador.ControlPolicial;
+import edu.fiuba.algo3.modelo.modificador.Piquete;
 import edu.fiuba.algo3.modelo.modificador.Pozo;
 import org.junit.jupiter.api.Test;
 
@@ -46,6 +48,44 @@ public class AutoTest extends VehiculoTest {
         auto.aplicarModificador(cambioDeVehiculo);
 
         assertEquals(Camioneta4x4.class, this.tablero.getVehiculo().getClass());
+    }
+
+    @Test
+    public void autoAplicaModificadorPiqueteNoAtraviezaYNoEsPenalizado() {
+
+        Piquete piquete = new Piquete();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo auto = new Auto(this.tablero);
+
+        auto.asignarCeldaInicial(celdaMock);
+
+        auto.aplicarModificador(piquete);
+
+        assertEquals(0, auto.movimientos());
+
+    }
+
+    @Test
+    public void autoAplicaModificadorControlPoliciaEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo auto = new Auto(this.tablero);
+
+        auto.asignarCeldaInicial(celdaMock);
+
+        auto.aplicarModificador(controlPolicial);
+
+        assertEquals(3, auto.movimientos());
+
     }
 
 }
