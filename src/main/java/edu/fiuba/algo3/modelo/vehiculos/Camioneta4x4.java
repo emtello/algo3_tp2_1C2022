@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
+import java.util.Observable;
+
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Camioneta4x4 extends Vehiculo{

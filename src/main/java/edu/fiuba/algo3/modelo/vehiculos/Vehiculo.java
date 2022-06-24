@@ -1,20 +1,27 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.modificador.Sorpresa;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public abstract class Vehiculo {
+
+public abstract class Vehiculo extends Observable {
 
     protected Celda celdaInicial;
     protected long movimientos;
     protected Tablero tablero;
     protected Direccion direccionActual;
+    protected ArrayList<Observer> observables;
 
     public Vehiculo(Tablero tablero) {
         this.tablero = tablero;
         this.movimientos = 0;
+        this.observables = new ArrayList<Observer>();
     }
 
     public abstract void reemplazarVehiculo();
@@ -47,6 +54,7 @@ public abstract class Vehiculo {
         this.direccionActual = direccion;
 
         this.celdaInicial.mover(this, direccion);
+        this.notificarObservables();
     }
 
     public void sumarMovimientos(long cantidad) {
@@ -57,4 +65,7 @@ public abstract class Vehiculo {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
     }
 
+    public void notificarObservables() {
+        
+    }
 }

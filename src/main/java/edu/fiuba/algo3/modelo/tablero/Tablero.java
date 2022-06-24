@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import java.util.Observable;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
@@ -9,13 +11,17 @@ import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.registro.Puntaje;
 
 
-public class Tablero {
+public class Tablero extends Observable {
     
     private Vehiculo vehiculo;
     private GeneradorDeCiudad generador;
     private Registro registro;
+    private int filas;
+    private int columnas;
 
     public Tablero(int filas, int columnas) {
+        this.filas = filas;
+        this.columnas = columnas;
         this.generador = new GeneradorDeCiudad(filas, columnas);
     }
 
@@ -41,6 +47,14 @@ public class Tablero {
 
     public Vehiculo getVehiculo() {
         return this.vehiculo;
+    }
+
+    public int getFilas() {
+        return this.filas;
+    }
+
+    public int getColumnas() {
+        return this.columnas;
     }
 
     public void agregarModificador(Celda origen, Celda destino, Modificador mod) {

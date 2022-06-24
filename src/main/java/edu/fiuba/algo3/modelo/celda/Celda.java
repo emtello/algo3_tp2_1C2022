@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.celda;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Celda {
+public class Celda extends Observable{
     
     private long f;
     private long c;
