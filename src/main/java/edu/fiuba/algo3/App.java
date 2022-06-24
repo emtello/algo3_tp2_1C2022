@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,7 +26,7 @@ public class App extends Application {
         Vehiculo vehiculo = new Moto(tablero);
 
         tablero.agregarvehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(4, 4));
+        tablero.iniciarEn(new Celda(0, 0));
 
         this.vistaTablero = new VistaTablero(tablero);
         
@@ -35,6 +36,7 @@ public class App extends Application {
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
 
         VBox contenedor = new VBox(this.vistaTablero, this.vistaVehiculo);
+        contenedor.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(contenedor, 640, 640);
 

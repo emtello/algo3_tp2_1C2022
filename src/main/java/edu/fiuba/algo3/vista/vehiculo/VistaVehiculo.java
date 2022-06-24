@@ -20,8 +20,8 @@ public class VistaVehiculo extends Pane implements Observer {
 
     public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
         this.pane = new Pane();
-        this.pane.setMinWidth(10);
-        this.pane.setMinHeight(10);
+        this.pane.setMinWidth(20);
+        this.pane.setMinHeight(20);
         this.pane.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
         this.celda = vehiculo.getPosicion();

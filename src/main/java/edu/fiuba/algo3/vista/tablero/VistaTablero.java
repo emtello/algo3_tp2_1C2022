@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 
 public class VistaTablero extends Group {
 
-    private final double dimensionCelda = 30;
+    private final double dimensionCelda = 20;
     private GridPane tabla;
     private Pane[][] celdas;
 
@@ -37,12 +37,10 @@ public class VistaTablero extends Group {
                 this.tabla.add(celda, i, j);
             }
         }
-        this.tabla.setVgap(10);
-        this.tabla.setHgap(10);
+        this.tabla.setVgap(2 * dimensionCelda);
+        this.tabla.setHgap(2 * dimensionCelda);
 
         this.tabla.setAlignment(Pos.CENTER);
-        
-
         this.agregarVista(this.tabla);
     }
 
