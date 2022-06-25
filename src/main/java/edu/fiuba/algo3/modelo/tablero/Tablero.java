@@ -26,6 +26,7 @@ public class Tablero extends Observable {
     }
 
     public void iniciarEn(Celda celda) {
+        celda = this.generador.buscarCelda(celda);
         this.vehiculo.asignarCeldaInicial(celda);
     }
 
@@ -68,6 +69,10 @@ public class Tablero extends Observable {
     public void registrarPuntaje() {
         Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
+    }
+
+    public void notificarObservadores() {
+        this.vehiculo.notificarObservables();
     }
 
 }

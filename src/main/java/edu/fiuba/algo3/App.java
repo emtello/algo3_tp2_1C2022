@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
@@ -29,17 +30,19 @@ public class App extends Application {
         tablero.iniciarEn(new Celda(0, 0));
 
         this.vistaTablero = new VistaTablero(tablero);
+        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
+        
+        ControladorVehiculo controlador = new ControladorVehiculo(tablero);
         
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
+        
         tablero.addObserver(vistaVehiculo);
-        
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
 
         VBox contenedor = new VBox(this.vistaTablero, this.vistaVehiculo);
         contenedor.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(contenedor, 640, 640);
-
+        scene.setOnKeyPressed(controlador);
         stage.setScene(scene);
         stage.show();
     }

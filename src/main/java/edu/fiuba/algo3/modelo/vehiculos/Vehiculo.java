@@ -16,12 +16,12 @@ public abstract class Vehiculo extends Observable {
     protected long movimientos;
     protected Tablero tablero;
     protected Direccion direccionActual;
-    protected ArrayList<Observer> observables;
+    protected ArrayList<Observer> observadores;
 
     public Vehiculo(Tablero tablero) {
         this.tablero = tablero;
         this.movimientos = 0;
-        this.observables = new ArrayList<Observer>();
+        this.observadores = new ArrayList<Observer>();
     }
 
     public abstract void reemplazarVehiculo();
@@ -54,7 +54,6 @@ public abstract class Vehiculo extends Observable {
         this.direccionActual = direccion;
 
         this.celdaInicial.mover(this, direccion);
-        this.notificarObservables();
     }
 
     public void sumarMovimientos(long cantidad) {
@@ -63,9 +62,12 @@ public abstract class Vehiculo extends Observable {
 
     public void actualizarASiguienteCelda() {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
+        this.notificarObservables();
     }
 
     public void notificarObservables() {
-        
+        for (Observer observer : this.observadores) {
+            observer.update(this, this.getPosicion());
+        }   
     }
 }

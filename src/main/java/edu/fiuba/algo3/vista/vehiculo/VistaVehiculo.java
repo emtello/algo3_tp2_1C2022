@@ -17,8 +17,10 @@ public class VistaVehiculo extends Pane implements Observer {
 
     private Pane pane;
     private Celda celda;
+    private VistaTablero tablero;
 
     public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
+        this.tablero = tablero;
         this.pane = new Pane();
         this.pane.setMinWidth(20);
         this.pane.setMinHeight(20);
@@ -31,7 +33,12 @@ public class VistaVehiculo extends Pane implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        
+        Celda nuevaPosicion = (Celda) arg;
+
+        if (! nuevaPosicion.equals(celda)) {
+            this.tablero.agregarVistaAPosicion(this.pane, nuevaPosicion);
+        }
     }
+
     
 }
