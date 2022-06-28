@@ -1,31 +1,60 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.ciudad.Ciudad;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
-import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.registro.Puntaje;
-
+import edu.fiuba.algo3.modelo.registro.Registro;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class Tablero {
     
     private Vehiculo vehiculo;
-    private GeneradorDeCiudad generador;
+    private Ciudad ciudad;
     private Celda llegada;
     private Registro registro;
 
     public Tablero(int filas, int columnas) {
-        this.generador = new GeneradorDeCiudad(filas, columnas);
+        if (filas < 3 || columnas < 3) {
+            throw new IllegalArgumentException(
+                "El tablero debe tener al menos 3 filas y 3 columnas"
+            );
+        }
+
+        this.ciudad = new Ciudad(filas, columnas);
+    }
+
+    public Celda obtenerPosicion() {
+        return this.vehiculo.getPosicion();
+    }
+
+    public Vehiculo obtenerVehiculo() {
+        return this.vehiculo;
+    }
+
+    public long movimientos() {
+        return this.vehiculo.movimientos();
     }
 
     public void iniciarEn(Celda celda) {
-        Celda inicio = this.generador.buscarCelda(celda);
+        Celda inicio = this.ciudad.buscarCelda(celda);
         this.vehiculo.asignarCeldaInicial(inicio);
     }
 
-    public void agregarvehiculo(Vehiculo vehiculo) {
+    public void finalizarEn(Celda celda) {
+        this.llegada = celda;
+    }
+
+    public void agregarModificador(Celda ini, Celda fin, Modificador mod) {
+        this.ciudad.agregarModificador(ini, fin, mod);
+    }
+
+    public void generarAleatorio() {
+        this.ciudad.completarAleatorio();
+    }
+
+    public void usarVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
 
@@ -35,32 +64,12 @@ public class Tablero {
         return this.vehiculo.estaEn(this.llegada);
     }
 
-    public void asignarLlegada(Celda celda) {
-        this.llegada = celda;
-    }
-
-    public long movimientos() {
-        return this.vehiculo.movimientos();
-    }
-
     public void reemplazarVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
 
-    public Celda obtenerPosicion() {
-        return this.vehiculo.getPosicion();
-    }
-
-    public Vehiculo getVehiculo() {
-        return this.vehiculo;
-    }
-
-    public void agregarModificador(Celda origen, Celda destino, Modificador mod) {
-        this.generador.agregarModificador(origen, destino, mod);
-    }
-
     public void reiniciar() {
-        this.generador.reiniciar();
+        this.ciudad.reiniciar();
     }
 
     public void registrarPuntaje() {

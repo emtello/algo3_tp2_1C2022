@@ -2,7 +2,7 @@
 
 class Tablero {
     + mover(dir: Direccion)
-    + agregarVehiculo(veh: Vehiculo)
+    + usarVehiculo(veh: Vehiculo)
     + obtenerPosicion(): Celda
     + iniciarEn(celda: Celda)
 }

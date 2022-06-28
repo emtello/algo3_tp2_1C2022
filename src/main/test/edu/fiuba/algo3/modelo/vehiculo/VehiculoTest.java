@@ -11,7 +11,7 @@ import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class VehiculoTest {
     
-    Tablero tablero = new Tablero(10, 10);
+  Tablero tablero = new Tablero(10, 10);
     Vehiculo vehiculo = new Moto(this.tablero);
 
     @Test

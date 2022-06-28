@@ -45,7 +45,7 @@ public class AutoTest extends VehiculoTest {
 
         auto.aplicarModificador(cambioDeVehiculo);
 
-        assertEquals(Camioneta4x4.class, this.tablero.getVehiculo().getClass());
+        assertEquals(Camioneta4x4.class, this.tablero.obtenerVehiculo().getClass());
     }
 
 }
