@@ -36,7 +36,13 @@ public class App extends Application {
                 
         vehiculo.addObserver(vistaVehiculo);
 
-        VBox contenedor = new VBox(this.vistaTablero, this.vistaVehiculo);
+        VBox contenedor = new VBox();
+
+        contenedor.getChildren().add(this.vistaTablero);
+        contenedor.getChildren().add(this.vistaVehiculo);
+
+        contenedor.setOnKeyPressed(controlador);
+
         contenedor.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(contenedor, 640, 640);
