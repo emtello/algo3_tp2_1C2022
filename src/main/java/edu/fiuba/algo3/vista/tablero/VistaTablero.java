@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vista.tablero;
 
-
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import javafx.geometry.Insets;
@@ -49,7 +48,7 @@ public class VistaTablero extends Group {
     }
     
     public void agregarVistaAPosicion(Node nodo, Celda celda) {
-        this.celdas[(int) celda.fila()][(int) celda.columna()].getChildren().add(nodo);
+        this.celdas[(int) celda.columna()][(int) celda.fila()].getChildren().add(nodo);
     }
     
 

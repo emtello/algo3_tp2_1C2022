@@ -65,6 +65,11 @@ public abstract class Vehiculo extends Observable {
         this.notificarObservables();
     }
 
+    @Override
+    public synchronized void addObserver(Observer o) {
+        this.observadores.add(o);
+    }
+
     public void notificarObservables() {
         for (Observer observer : this.observadores) {
             observer.update(this, this.getPosicion());

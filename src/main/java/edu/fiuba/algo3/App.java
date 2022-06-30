@@ -27,16 +27,14 @@ public class App extends Application {
         Vehiculo vehiculo = new Moto(tablero);
 
         tablero.agregarvehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(0, 0));
+        tablero.iniciarEn(new Celda(4, 4));
 
         this.vistaTablero = new VistaTablero(tablero);
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
         
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);
-        
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
-        
-        tablero.addObserver(vistaVehiculo);
+                
+        vehiculo.addObserver(vistaVehiculo);
 
         VBox contenedor = new VBox(this.vistaTablero, this.vistaVehiculo);
         contenedor.setAlignment(Pos.CENTER);

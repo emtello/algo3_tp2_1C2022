@@ -6,38 +6,33 @@ import java.util.Observer;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 public class VistaVehiculo extends Pane implements Observer {
 
-    private Pane pane;
+    private ImageView modeloVehiculo;
     private Celda celda;
     private VistaTablero tablero;
 
     public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
         this.tablero = tablero;
-        this.pane = new Pane();
-        this.pane.setMinWidth(20);
-        this.pane.setMinHeight(20);
-        this.pane.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        this.celda = vehiculo.getPosicion();
+        Image image = new Image("auto-derecha.jpg");
+
+        this.modeloVehiculo = new ImageView(image);
+        this.modeloVehiculo.setFitHeight(20);
+        this.modeloVehiculo.setFitWidth(20);
         
-        tablero.agregarVistaAPosicion(this.pane, celda);
+        this.celda = vehiculo.getPosicion();
+        tablero.agregarVistaAPosicion(this.modeloVehiculo, celda);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         Celda nuevaPosicion = (Celda) arg;
-
-        if (! nuevaPosicion.equals(celda)) {
-            this.tablero.agregarVistaAPosicion(this.pane, nuevaPosicion);
-        }
+        this.tablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
     }
 
     

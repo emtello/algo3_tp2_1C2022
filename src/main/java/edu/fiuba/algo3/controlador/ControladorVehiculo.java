@@ -23,19 +23,21 @@ public class ControladorVehiculo implements EventHandler<KeyEvent> {
             if (key.getCode() == KeyCode.UP) {
                 this.tablero.mover(new Arriba());
             }
-            if (key.getCode() == KeyCode.DOWN) {
+            else if(key.getCode() == KeyCode.DOWN) {
                 this.tablero.mover(new Abajo());
             }
-            if (key.getCode() == KeyCode.RIGHT) {
+            else if (key.getCode() == KeyCode.RIGHT) {
                 this.tablero.mover(new Derecha());
             }
-            if (key.getCode() == KeyCode.LEFT) {
+            else if (key.getCode() == KeyCode.LEFT) {
                 this.tablero.mover(new Izquierda());
             }
             this.tablero.notificarObservadores();
+            System.out.println(this.tablero.obtenerPosicion().toString());
         } 
         catch (Exception ignorado)  {
             return;
         }
+        return;
     }
 }

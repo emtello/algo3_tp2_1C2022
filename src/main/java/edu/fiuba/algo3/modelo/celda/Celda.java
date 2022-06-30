@@ -56,6 +56,7 @@ public class Celda extends Observable{
             if (calle.contiene(fin)) return calle;
         }
 
+        // Ver si se puede capturar de otra forma, que salga como texto ponele?
         throw new Error("No se encontro la calle");
     }
 
@@ -83,6 +84,11 @@ public class Celda extends Observable{
         if (this.columna() != unaCelda.columna()) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.fila() + ", " + this.columna() +")";
     }
 
 }

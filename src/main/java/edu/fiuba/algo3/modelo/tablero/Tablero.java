@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
@@ -70,7 +71,7 @@ public class Tablero extends Observable {
         Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
     }
-
+    
     public void notificarObservadores() {
         this.vehiculo.notificarObservables();
     }
