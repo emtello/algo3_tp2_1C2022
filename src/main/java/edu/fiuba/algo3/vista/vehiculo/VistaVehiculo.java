@@ -18,7 +18,7 @@ public class VistaVehiculo extends Pane implements Observer {
 
     public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
         this.tablero = tablero;
-
+        
         Image image = new Image("auto-derecha.jpg");
 
         this.modeloVehiculo = new ImageView(image);
@@ -32,8 +32,29 @@ public class VistaVehiculo extends Pane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Celda nuevaPosicion = (Celda) arg;
+
+        this.rotar(this.celda, nuevaPosicion);
+        this.celda = nuevaPosicion;
         this.tablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
     }
 
+    public void rotar(Celda anterior, Celda siguiente) {
+        // X e Y pueden ser -1, 0 o 1
+        double y = anterior.fila() - siguiente.fila();
+        double x = anterior.columna() - siguiente.columna();
+
+        // Un poco feo pero soluciona el problema
+        if (y != 0) {
+            this.modeloVehiculo.setRotate((- y * 90));
+        }
+
+        if (x > 0) {
+            this.modeloVehiculo.setRotate(180);
+        }
+
+        if (x < 0) {
+            this.modeloVehiculo.setRotate(0);
+        }
+    }
     
 }

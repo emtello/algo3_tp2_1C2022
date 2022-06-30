@@ -62,7 +62,7 @@ public abstract class Vehiculo extends Observable {
 
     public void actualizarASiguienteCelda() {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
-        this.notificarObservables();
+        // this.notificarObservables();
     }
 
     @Override
