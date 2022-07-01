@@ -73,8 +73,6 @@ public class OperadorCiudad {
        
         while (!cola.isEmpty()) {
             Celda actual = cola.remove(0);
-            long i = actual.fila();
-            long j = actual.columna();
 
             // Se evitan los bordes por comodidad, pues son contemplados
             // al relacionar bidereccionalmente desde una esquina interna

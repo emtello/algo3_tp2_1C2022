@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public class Moto extends Vehiculo{
+public class Moto extends Vehiculo {
 
     private long penalizacionPorPozo = 3;
     private long penalizacionPorPiquete = 2;

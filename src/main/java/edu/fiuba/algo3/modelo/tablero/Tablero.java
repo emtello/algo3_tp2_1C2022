@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.ciudad.Ciudad;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
@@ -8,12 +11,14 @@ import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Tablero {
+public class Tablero extends Observable {
     
     private Vehiculo vehiculo;
     private Ciudad ciudad;
     private Celda llegada;
     private Registro registro;
+    private int filas;
+    private int columnas;
 
     public Tablero(int filas, int columnas) {
         if (filas < 3 || columnas < 3) {
@@ -64,6 +69,14 @@ public class Tablero {
         return this.vehiculo.estaEn(this.llegada);
     }
 
+    public int getFilas() {
+        return this.filas;
+    }
+
+    public int getColumnas() {
+        return this.columnas;
+    }
+
     public void reemplazarVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
@@ -75,6 +88,10 @@ public class Tablero {
     public void registrarPuntaje() {
         Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
+    }
+    
+    public void notificarObservadores() {
+        this.vehiculo.notificarObservables();
     }
 
 }
