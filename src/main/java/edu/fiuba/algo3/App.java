@@ -56,7 +56,7 @@ public class App extends Application {
     public void start(Stage stage) {
 
         escenario = stage;
-        escenario.setTitle("Cambiando de escenas");
+        escenario.setTitle("GPS Challenge");
 
         escenaJuego = crearEscenaJuego();
         escenaMenu = crearEscenaMenu();
@@ -100,7 +100,7 @@ public class App extends Application {
 
         contenedor.setAlignment(Pos.CENTER);
 
-        escenaJuego = new Scene(contenedor, 400, 700);
+        escenaJuego = new Scene(contenedor, 640, 640);
         return escenaJuego;
 
     }
@@ -122,8 +122,9 @@ public class App extends Application {
         boton2 = new Button("Clickear para Jugar");
         boton2.setOnAction(e -> cambiarEscenas(escenaSalirDeMenu));
         vbox2 = new VBox(label, textField, boton2, botonPuntajes);
+        vbox2.setAlignment(Pos.CENTER);
 
-        escenaMenu = new Scene(vbox2, 400, 700);
+        escenaMenu = new Scene(vbox2, 640, 640);
         return escenaMenu;
     }
 
@@ -132,9 +133,9 @@ public class App extends Application {
 
         Button botonSalirDePuntajes = new Button("Clickear para ir al Menu");
         botonSalirDePuntajes.setOnAction(e -> cambiarEscenas(escenaSalirDeMejoresPuntajes));
-        vbox2 = new VBox(label, botonSalirDePuntajes);
-
-        escenaMejoresPuntajes = new Scene(vbox2, 400, 700);
+        VBox vbox6 = new VBox(label, botonSalirDePuntajes);
+        vbox6.setAlignment(Pos.CENTER);
+        escenaMejoresPuntajes = new Scene(vbox6, 640, 640);
         return escenaMejoresPuntajes;
     }
 
@@ -150,9 +151,9 @@ public class App extends Application {
         botonNoMenu.setOnAction(e -> cambiarEscenas(escenaMenu));
         botonSiMenu = new Button("SI");
         botonSiMenu.setOnAction(e -> cambiarEscenas(escenaJuego));
-        vbox2 = new VBox(label, botonNoMenu, botonSiMenu);
-
-        escenaSalirDeMenu= new Scene(vbox2, 400, 700);
+        VBox vbox7 = new VBox(label, botonNoMenu, botonSiMenu);
+        vbox7.setAlignment(Pos.CENTER);
+        escenaSalirDeMenu= new Scene(vbox7, 640, 640);
 
         return escenaSalirDeMenu;
     }
@@ -165,9 +166,9 @@ public class App extends Application {
         botonNo.setOnAction(e -> cambiarEscenas(escenaJuego));
         botonSi = new Button("SI");
         botonSi.setOnAction(e -> cambiarEscenas(escenaMenu));
-        vbox2 = new VBox(label, botonNo, botonSi);
-
-        escenaSalirDeJuego= new Scene(vbox2, 400, 700);
+        VBox vbox8 = new VBox(label, botonNo, botonSi);
+        vbox8.setAlignment(Pos.CENTER);
+        escenaSalirDeJuego= new Scene(vbox8, 640, 640);
         return escenaSalirDeJuego;
 
     }
@@ -180,9 +181,9 @@ public class App extends Application {
         botonNoMenu2.setOnAction(e -> cambiarEscenas(escenaMejoresPuntajes));
         Button botonSiMenu2 = new Button("SI");
         botonSiMenu2.setOnAction(e -> cambiarEscenas(escenaMenu));
-        vbox2 = new VBox(label, botonNoMenu2, botonSiMenu2);
-
-        escenaSalirDeMejoresPuntajes = new Scene(vbox2, 400, 700);
+        VBox vbox9 = new VBox(label, botonNoMenu2, botonSiMenu2);
+        vbox9.setAlignment(Pos.CENTER);
+        escenaSalirDeMejoresPuntajes = new Scene(vbox9, 640, 640);
 
         return escenaSalirDeMejoresPuntajes;
     }
