@@ -8,8 +8,10 @@ import edu.fiuba.algo3.modelo.celda.Celda;
 // import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Auto;
+import edu.fiuba.algo3.modelo.vehiculos.Moto;
 // import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.vista.celda.VistaCeldaLlegada;
 import edu.fiuba.algo3.vista.modificador.VistaModificador;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
@@ -78,18 +80,19 @@ public class App extends Application {
     private Scene crearEscenaJuego() {
 
         Tablero tablero = new Tablero(10, 10);
-        Vehiculo vehiculo = new Auto(tablero);
+        Vehiculo vehiculo = new Moto(tablero);
+        Celda salida = new Celda(0, 0);
+        Celda llegada = new Celda(5, 9);
 
-        // tablero.agregarModificador(new Celda(1, 1), new Celda(1, 2), new Favorable());
-
-        VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
+        // VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
 
         tablero.usarVehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(1, 1));
+        tablero.iniciarEn(salida);
+        tablero.finalizarEn(llegada);
 
         this.vistaTablero = new VistaTablero(tablero);
-                
-        System.out.println(tablero.getCalles().size());
+        this.vistaTablero.agregarVistaAPosicion(new VistaCeldaLlegada(), llegada);
+
         for (Calle calle : tablero.getCalles()) {
             ArrayList<Celda> esquinas = calle.obtenerEsquinas();
             String nombre = calle.getModificador().getNombre();
@@ -97,7 +100,6 @@ public class App extends Application {
             VistaModificador vista = new VistaModificador(this.vistaTablero, nombre, esquinas.get(0), esquinas.get(1));
             calle.addObserver(vista);
         }
-        
         
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo.getNombre(), vehiculo.getPosicion());
         this.vistaVehiculo.setFocusTraversable(true);

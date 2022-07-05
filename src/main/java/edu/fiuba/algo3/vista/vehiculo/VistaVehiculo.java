@@ -25,17 +25,17 @@ public class VistaVehiculo extends Pane implements Observer {
 
         this.modeloVehiculo = new ImageView(image);
 
-        this.modeloVehiculo.setFitHeight(20);
-        this.modeloVehiculo.setFitWidth(20);
-        
+        this.modeloVehiculo.setFitHeight(30);
+        this.modeloVehiculo.setFitWidth(30);
+
         this.modeloVehiculo.maxHeight(20);
         this.modeloVehiculo.maxWidth(20);
-
+        
         this.modeloVehiculo.setPreserveRatio(true);
         
         BorderPane pane = new BorderPane();
 
-        pane.setMinSize(20, 20);
+        pane.setMinSize(30, 30);
         pane.setCenter(this.modeloVehiculo);
 
         tablero.agregarVistaAPosicion(pane, celda);
