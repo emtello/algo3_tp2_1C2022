@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.direccion.Arriba;
 import edu.fiuba.algo3.modelo.direccion.Derecha;
 import edu.fiuba.algo3.modelo.direccion.Izquierda;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

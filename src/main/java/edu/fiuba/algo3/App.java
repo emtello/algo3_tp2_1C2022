@@ -30,7 +30,7 @@ public class App extends Application {
     private Stage escenario;
 
     private Scene escenaJuego;
-    private VBox vbox1;
+    // private VBox vbox1;
     private VBox contenedor;
     private Button boton1;
 
