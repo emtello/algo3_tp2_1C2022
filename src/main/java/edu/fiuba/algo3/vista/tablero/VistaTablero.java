@@ -21,8 +21,8 @@ public class VistaTablero extends Group {
 
     public VistaTablero(Tablero tablero) {
         this.tabla = new GridPane();
-        int filas = tablero.getFilas() * (int) dimensionCelda;
-        int columnas = tablero.getColumnas() * (int) dimensionCelda;
+        int filas = (tablero.getFilas() * 2 - 1) * (int) dimensionCelda;
+        int columnas = (tablero.getColumnas() * 2 - 1 ) * (int) dimensionCelda;
 
         this.celdas = new Pane[filas][columnas];
 
@@ -31,13 +31,17 @@ public class VistaTablero extends Group {
                 Pane celda = new Pane();
                 celda.setMinHeight(dimensionCelda);
                 celda.setMinWidth(dimensionCelda);
-                celda.setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
+                if(i%2==1 && j%2==1){
+                    celda.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                }else{
+                    celda.setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));
+                };
                 this.celdas[i][j] = celda;
                 this.tabla.add(celda, i, j);
             }
         }
-        this.tabla.setVgap(2 * dimensionCelda);
-        this.tabla.setHgap(2 * dimensionCelda);
+        this.tabla.setVgap(0);
+        this.tabla.setHgap(0);
 
         this.tabla.setAlignment(Pos.CENTER);
         this.agregarVista(this.tabla);
