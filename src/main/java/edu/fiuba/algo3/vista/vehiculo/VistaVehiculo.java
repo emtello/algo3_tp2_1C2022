@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class VistaVehiculo extends Pane implements Observer {
@@ -16,17 +17,28 @@ public class VistaVehiculo extends Pane implements Observer {
     private Celda celda;
     private VistaTablero tablero;
 
-    public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
+    public VistaVehiculo(VistaTablero tablero, String vehiculo, Celda celda) {
         this.tablero = tablero;
+        this.celda = celda;
         
-        Image image = new Image("auto-derecha.jpg");
+        Image image = new Image(vehiculo + ".png");
 
         this.modeloVehiculo = new ImageView(image);
+
         this.modeloVehiculo.setFitHeight(20);
         this.modeloVehiculo.setFitWidth(20);
         
-        this.celda = vehiculo.getPosicion();
-        tablero.agregarVistaAPosicion(this.modeloVehiculo, celda);
+        this.modeloVehiculo.maxHeight(20);
+        this.modeloVehiculo.maxWidth(20);
+
+        this.modeloVehiculo.setPreserveRatio(true);
+        
+        BorderPane pane = new BorderPane();
+
+        pane.setMinSize(20, 20);
+        pane.setCenter(this.modeloVehiculo);
+
+        tablero.agregarVistaAPosicion(pane, celda);
     }
 
     @Override

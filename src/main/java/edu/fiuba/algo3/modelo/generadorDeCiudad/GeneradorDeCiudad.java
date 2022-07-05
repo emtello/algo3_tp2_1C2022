@@ -97,4 +97,9 @@ public class GeneradorDeCiudad {
         }
     }
 
+
+    public ArrayList<Calle> getCalles() {
+        return this.calles;
+    }
+
 }

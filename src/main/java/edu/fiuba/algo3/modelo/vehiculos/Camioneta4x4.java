@@ -12,6 +12,7 @@ public class Camioneta4x4 extends Vehiculo{
 
     public Camioneta4x4(Tablero tablero) {
         super(tablero);
+        this.nombre = "camioneta";
     }
 
     public static long probabilidadControl() {

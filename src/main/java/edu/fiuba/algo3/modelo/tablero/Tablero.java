@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
@@ -74,6 +76,10 @@ public class Tablero extends Observable {
     
     public void notificarObservadores() {
         this.vehiculo.notificarObservables();
+    }
+
+    public ArrayList<Calle> getCalles() {
+        return this.generador.getCalles();
     }
 
 }

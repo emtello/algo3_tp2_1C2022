@@ -64,6 +64,7 @@ public class Celda extends Observable{
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
+        sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
 
@@ -71,6 +72,13 @@ public class Celda extends Observable{
         for (Calle calle : this.calles) {
             calle.borrarModificadores();
         }
+    }
+
+    public Celda calcularCeldaPromedio(Celda celda) {
+        long x = this.fila() + celda.fila();
+        long y = this.columna() + celda.columna();
+
+        return new Celda(x / 2, y / 2);
     }
 
     @Override
