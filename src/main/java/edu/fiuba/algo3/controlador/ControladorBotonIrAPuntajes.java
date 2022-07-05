@@ -5,15 +5,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-public class ControladorBotonIrAMenu implements EventHandler<ActionEvent> {
+public class ControladorBotonIrAPuntajes implements EventHandler<ActionEvent> {
 
     private Stage stage;
     private Scene scene;
-
-    public ControladorBotonIrAMenu(Stage stage, Scene escenaMenu) {
+    public ControladorBotonIrAPuntajes(Stage stage, Scene escenaMejoresPuntajes) {
         this.stage = stage;
-        this.scene = escenaMenu;
+        this.scene = escenaMejoresPuntajes;
     }
 
     @Override

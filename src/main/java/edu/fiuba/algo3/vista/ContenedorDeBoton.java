@@ -7,12 +7,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ContenedorDeBoton extends HBox {
-    public ContenedorDeBoton(Stage escenario, Scene escenaSalirDeJuego) {
+    public ContenedorDeBoton(Stage stage, Scene scene) {
         super();
         this.setHeight(20);
-        this.getChildren().add(new BotonIrAMenu(escenario, escenaSalirDeJuego));
+        this.getChildren().add(new BotonIrAMenu(stage, scene));
         this.setAlignment(Pos.BOTTOM_CENTER);
-
-
     }
 }

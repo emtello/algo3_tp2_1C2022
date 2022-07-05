@@ -5,8 +5,7 @@ import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
-import edu.fiuba.algo3.vista.BotonIrAMenu;
-import edu.fiuba.algo3.vista.ContenedorDeBoton;
+import edu.fiuba.algo3.vista.*;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
 import javafx.application.Application;
@@ -29,26 +28,25 @@ public class App extends Application {
     private VistaVehiculo vistaVehiculo;
 
     private Stage escenario;
+
     private Scene escenaJuego;
-    private VBox vbox1;
     private VBox contenedor;
     private BotonIrAMenu botonIrAMenu;
 
     private Scene escenaMenu;
     private VBox vbox2;
-    private Button botonIrAJuego;
-    private Button botonIrAPuntajes;
+    private BotonIrAJuego botonIrAJuego;
+    private BotonIrAPuntajes botonIrAPuntajes;
 
     private Button botonNoJuego;
-    private Button botonSiJuego;
+    private BotonSi botonSiJuego;
 
-    private Button botonNoMenu;
+    private BotonNo botonNoMenu;
     private Button botonSiMenu;
 
     private Scene escenaMejoresPuntajes;
     private Scene escenaSalirDeJuego;
     private Scene escenaSalirDeMenu;
-
     private Scene escenaSalirDeMejoresPuntajes;
 
 
@@ -86,8 +84,7 @@ public class App extends Application {
 
         vehiculo.addObserver(vistaVehiculo);
 
-        botonIrAMenu = new BotonIrAMenu(escenario, escenaSalirDeJuego);
-        //botonIrAMenu.setOnAction(e -> cambiarEscenas(escenaSalirDeJuego));
+        botonIrAMenu = new BotonIrAMenu(this.escenario, crearEscenaSalirDeJuego());
         botonIrAMenu.setFocusTraversable(false);
 
         contenedor = new VBox();
@@ -101,12 +98,14 @@ public class App extends Application {
         contenedor.setAlignment(Pos.CENTER);
 
         escenaJuego = new Scene(contenedor, 640, 640);
-        return escenaJuego;
 
+        return escenaJuego;
     }
 
     private Scene crearEscenaMenu() {
+
         Label label = new Label("Nombre:");
+
         TextField textField = new TextField();
         textField.setPromptText("Ingresar nombre");
         textField.setFocusTraversable(false);
@@ -117,14 +116,14 @@ public class App extends Application {
             }
         });
 
-        botonIrAPuntajes = new Button("Mejores Puntajes");
-        botonIrAPuntajes.setOnAction(e -> cambiarEscenas(escenaMejoresPuntajes));
-        botonIrAJuego = new Button("Clickear para Jugar");
-        botonIrAJuego.setOnAction(e -> cambiarEscenas(escenaSalirDeMenu));
+        botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
+        botonIrAJuego = new BotonIrAJuego(this.escenario, crearEscenaSalirDeMenu());
+
         vbox2 = new VBox(label, textField, botonIrAJuego, botonIrAPuntajes);
         vbox2.setAlignment(Pos.CENTER);
 
         escenaMenu = new Scene(vbox2, 640, 640);
+
         return escenaMenu;
     }
 
@@ -147,10 +146,11 @@ public class App extends Application {
 
         Label label = new Label("Desea ir al Juego?");
 
-        botonNoMenu = new Button("NO");
-        botonNoMenu.setOnAction(e -> cambiarEscenas(escenaMenu));
+        botonNoMenu = new BotonNo(escenario, escenaMenu); //se traba, al salir de juego lo deberia cerrar
+
         botonSiMenu = new Button("SI");
         botonSiMenu.setOnAction(e -> cambiarEscenas(escenaJuego));
+
         VBox vbox7 = new VBox(label, botonNoMenu, botonSiMenu);
         vbox7.setAlignment(Pos.CENTER);
         escenaSalirDeMenu= new Scene(vbox7, 640, 640);
@@ -163,9 +163,10 @@ public class App extends Application {
         Label label = new Label("Desea ir al Menu?");
 
         botonNoJuego = new Button("NO");
-        botonNoJuego.setOnAction(e -> cambiarEscenas(escenaJuego));
-        botonSiJuego = new Button("SI");
-        botonSiJuego.setOnAction(e -> cambiarEscenas(escenaMenu));
+        botonNoJuego.setOnAction(e -> cambiarEscenas(escenaJuego)); //Se queda sin memoria heap debe ser al crear otro tablero
+
+        botonSiJuego = new BotonSi(this.escenario, crearEscenaMenu());
+
         VBox vbox8 = new VBox(label, botonNoJuego, botonSiJuego);
         vbox8.setAlignment(Pos.CENTER);
         escenaSalirDeJuego= new Scene(vbox8, 640, 640);
@@ -177,12 +178,13 @@ public class App extends Application {
 
         Label label = new Label("Desea ir al Menu?");
 
-        Button botonNoMenu2 = new Button("NO");
-        botonNoMenu2.setOnAction(e -> cambiarEscenas(escenaMejoresPuntajes));
-        Button botonSiMenu2 = new Button("SI");
-        botonSiMenu2.setOnAction(e -> cambiarEscenas(escenaMenu));
+        BotonNo botonNoMenu2 = new BotonNo(this.escenario, crearEscenaMejoresPuntajes());
+
+        BotonSi botonSiMenu2 = new BotonSi(this.escenario, crearEscenaMenu());
+
         VBox vbox9 = new VBox(label, botonNoMenu2, botonSiMenu2);
         vbox9.setAlignment(Pos.CENTER);
+
         escenaSalirDeMejoresPuntajes = new Scene(vbox9, 640, 640);
 
         return escenaSalirDeMejoresPuntajes;
