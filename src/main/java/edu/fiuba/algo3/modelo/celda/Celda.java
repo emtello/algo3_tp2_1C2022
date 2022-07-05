@@ -68,6 +68,7 @@ public class Celda extends Observable{
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
+        System.out.println(sigCelda.calles.size());
         sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
@@ -92,6 +93,7 @@ public class Celda extends Observable{
         }
 
         Celda unaCelda = (Celda) obj;
+        
         if (this.fila() != unaCelda.fila()) return false;
         if (this.columna() != unaCelda.columna()) return false;
 

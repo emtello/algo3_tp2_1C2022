@@ -80,15 +80,16 @@ public class App extends Application {
         Tablero tablero = new Tablero(10, 10);
         Vehiculo vehiculo = new Auto(tablero);
 
-        tablero.agregarModificador(new Celda(0, 0), new Celda(1, 0), new Favorable());
+        // tablero.agregarModificador(new Celda(1, 1), new Celda(1, 2), new Favorable());
 
         VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
 
-        tablero.agregarvehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(4, 4));
+        tablero.usarVehiculo(vehiculo);
+        tablero.iniciarEn(new Celda(1, 1));
 
         this.vistaTablero = new VistaTablero(tablero);
-        
+                
+        System.out.println(tablero.getCalles().size());
         for (Calle calle : tablero.getCalles()) {
             ArrayList<Celda> esquinas = calle.obtenerEsquinas();
             String nombre = calle.getModificador().getNombre();

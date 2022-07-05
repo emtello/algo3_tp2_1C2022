@@ -4,6 +4,7 @@ import java.util.ArrayList;
 // import java.util.HashMap;
 // import java.util.Set;
 
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
@@ -21,6 +22,20 @@ public class Ciudad {
         this.celdas = new ArrayList<Celda>();
 
         this.generarCaminos();
+    }
+
+    public ArrayList<Calle> obtenerCalles() {
+        ArrayList<Calle> listaCalles = new ArrayList<Calle>();
+        for (Celda celda : this.celdas) {
+            ArrayList<Calle> calles = celda.calles();
+
+            for (Calle calle : calles) {
+                if (!listaCalles.contains(calle)) {
+                    listaCalles.add(calle);
+                }
+            }
+        }
+        return listaCalles;
     }
 
     private Celda obtenerEsquinaAleatoria() {
