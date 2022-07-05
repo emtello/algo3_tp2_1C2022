@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Celda extends Observable{
+public class Celda extends Observable {
     
     private long f;
     private long c;
@@ -78,13 +78,6 @@ public class Celda extends Observable{
         }
     }
 
-    public Celda calcularCeldaPromedio(Celda celda) {
-        long x = this.fila() + celda.fila();
-        long y = this.columna() + celda.columna();
-
-        return new Celda(x / 2, y / 2);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Celda)) {
@@ -101,6 +94,15 @@ public class Celda extends Observable{
     @Override
     public String toString() {
         return "(" + this.fila() + ", " + this.columna() +")";
+    }
+
+    public Boolean esAdyacente(Celda celda) {
+        try {
+            this.obtenerCalleDeEsquina(celda);
+            return true;
+        } catch (Error e) {
+            return false;
+        }
     }
 
 }

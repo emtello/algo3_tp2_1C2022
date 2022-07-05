@@ -30,6 +30,9 @@ public class Tablero extends Observable {
         }
 
         this.ciudad = new Ciudad(filas, columnas);
+        this.registro = new Registro();
+        this.filas = filas;
+        this.columnas = columnas;
     }
 
     public Celda obtenerPosicion() {

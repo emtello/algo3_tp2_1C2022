@@ -60,11 +60,6 @@ public class Calle extends Observable{
         return this.modificador;
     }
 
-    public Celda calcularCeldaMedio() {
-        return this.celdas.get(0).calcularCeldaPromedio(this.celdas.get(1));
-    }
-
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Calle)) {

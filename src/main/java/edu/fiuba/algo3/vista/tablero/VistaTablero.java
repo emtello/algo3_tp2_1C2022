@@ -23,7 +23,6 @@ public class VistaTablero extends Group {
         this.tabla = new GridPane();
         int filas = (tablero.getFilas() * 2 - 1) * (int) dimensionCelda;
         int columnas = (tablero.getColumnas() * 2 - 1 ) * (int) dimensionCelda;
-
         this.celdas = new Pane[filas][columnas];
 
         for (int i = 0; i < tablero.getFilas() * 2 - 1; i++) {

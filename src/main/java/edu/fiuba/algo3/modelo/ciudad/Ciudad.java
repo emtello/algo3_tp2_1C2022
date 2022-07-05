@@ -84,4 +84,8 @@ public class Ciudad {
         return this.calles;
     }
 
+    public ArrayList<Celda> getEsquinas() {
+        return this.celdas;
+    }
+
 }

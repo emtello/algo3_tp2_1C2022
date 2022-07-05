@@ -77,15 +77,16 @@ public class App extends Application {
 
     private Scene crearEscenaJuego() {
 
-        Tablero tablero = new Tablero(10, 10);
-        Vehiculo vehiculo = new Auto(tablero);
+        Tablero tablero = new Tablero(15, 15);
+        tablero.generarAleatorio();
+        Vehiculo vehiculo = new Moto(tablero);
 
-        tablero.agregarModificador(new Celda(0, 0), new Celda(1, 0), new Favorable());
+        //tablero.agregarModificador(new Celda(0, 0), new Celda(1, 0), new Favorable());
 
         VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
 
         tablero.usarVehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(4, 4));
+        tablero.iniciarEn(new Celda(0, 1));
 
         this.vistaTablero = new VistaTablero(tablero);
         
@@ -96,7 +97,6 @@ public class App extends Application {
             VistaModificador vista = new VistaModificador(this.vistaTablero, nombre, esquinas.get(0), esquinas.get(1));
             calle.addObserver(vista);
         }
-        
         
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo.getNombre(), vehiculo.getPosicion());
         this.vistaVehiculo.setFocusTraversable(true);

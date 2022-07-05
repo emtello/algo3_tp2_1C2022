@@ -50,7 +50,7 @@ public class TercerEntregaTest {
         
         Direccion direccion;
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 5000; i++) {
             Celda celda = this.tablero.obtenerPosicion();
 
             direccion = direccionador.siguienteDireccion(celda);

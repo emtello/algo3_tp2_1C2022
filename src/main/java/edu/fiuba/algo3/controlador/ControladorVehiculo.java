@@ -34,7 +34,7 @@ public class ControladorVehiculo implements EventHandler<KeyEvent> {
             this.tablero.notificarObservadores();
             System.out.println(this.tablero.obtenerPosicion().toString());
         } 
-        catch (Exception ignorado)  {
+        catch (Exception ignorado) {
             return;
         }
         return;

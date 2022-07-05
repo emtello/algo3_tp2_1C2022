@@ -74,18 +74,18 @@ public class OperadorCiudad {
        
         while (!cola.isEmpty()) {
             Celda actual = cola.remove(0);
-
+            
             // Se evitan los bordes por comodidad, pues son contemplados
             // al relacionar bidereccionalmente desde una esquina interna
 
             if (this.esquinaEsBorde(actual, f, c)) continue;
-
+            
             cm = cm + this.generarAdyacencias(actual, visitados, calles);
             
             for (Calle calle : actual.calles()) {
                 Celda esquina = calle.siguienteEsquina(actual);
 
-                if (!visitados.contains(esquina)) {
+                if (!visitados.contains(esquina)) {                    
                     cola.add(esquina);
                     visitados.add(esquina);
                 }
@@ -123,17 +123,14 @@ public class OperadorCiudad {
         // entonces nunca la detectara como visitada
 
         for (Celda celdaAdyacente : celdasAdyacentes) {
+            
             Boolean ok = true;
+            
             for (Celda celdaVisitada : vtd) {
                 if (celdaAdyacente.equals(celdaVisitada)) {
-                    ArrayList<Calle> calles = celdaVisitada.calles();
-                    for (Calle calle : calles) {
-                        Celda esquina = calle.siguienteEsquina(celdaVisitada);
-                        if (esquina.equals(esqActual)) {
-                            ok = false;
-                            break;
-                        }
-                    }
+                    if (celdaVisitada.esAdyacente(esqActual)) ok = false;
+                    celdaAdyacente = celdaVisitada;
+                    break;
                 }
             }
             
