@@ -66,6 +66,7 @@ public class OperadorCiudad {
     public void generarCaminos(Ciudad ciudad, long f, long c) {
         ArrayList<Celda> visitados = new ArrayList<Celda>();
         ArrayList<Celda> cola = new ArrayList<Celda>();
+        ArrayList<Calle> calles = new ArrayList<Calle>();
 
         cola.add(this.nodoInicial);
         visitados.add(this.nodoInicial);
@@ -79,7 +80,7 @@ public class OperadorCiudad {
 
             if (this.esquinaEsBorde(actual, f, c)) continue;
 
-            cm = cm + this.generarAdyacencias(actual, visitados, f, c);
+            cm = cm + this.generarAdyacencias(actual, visitados, calles);
             
             for (Calle calle : actual.calles()) {
                 Celda esquina = calle.siguienteEsquina(actual);
@@ -93,17 +94,20 @@ public class OperadorCiudad {
 
         ciudad.setCantidadModificadores(cm);
         ciudad.setEsquinas(visitados);
+        ciudad.setCalles(calles);
     
     }
 
-    private void generarCalle(Celda esq1, Celda esq2, Modificador mod) {
+    private void generarCalle(Celda esq1, Celda esq2, Modificador mod, ArrayList<Calle> calles) {
         Calle calle = new Calle(esq1, esq2, mod);
 
         esq1.agregarCalle(calle);
         esq2.agregarCalle(calle);
+
+        calles.add(calle);
     }
 
-    private long generarAdyacencias(Celda esqActual,  ArrayList<Celda> vtd, long f, long c) {
+    private long generarAdyacencias(Celda esqActual, ArrayList<Celda> vtd, ArrayList<Calle> cVtds) {
         long i = esqActual.fila();
         long j = esqActual.columna();
 
@@ -135,7 +139,7 @@ public class OperadorCiudad {
             
             if (!ok) continue;
             
-            this.generarCalle(esqActual, celdaAdyacente, new Nulo());
+            this.generarCalle(esqActual, celdaAdyacente, new Nulo(), cVtds);
             cantidadModificadores++;
 
         }

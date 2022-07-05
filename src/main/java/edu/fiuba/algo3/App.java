@@ -1,10 +1,16 @@
 package edu.fiuba.algo3;
 
+import java.util.ArrayList;
+
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.vehiculos.Auto;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.vista.modificador.VistaModificador;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
 import javafx.application.Application;
@@ -67,19 +73,32 @@ public class App extends Application {
 
         escenario.setScene(escenaMenu);
         escenario.show();
-
     }
 
     private Scene crearEscenaJuego() {
 
         Tablero tablero = new Tablero(10, 10);
-        Vehiculo vehiculo = new Moto(tablero);
+        Vehiculo vehiculo = new Auto(tablero);
+
+        tablero.agregarModificador(new Celda(0, 0), new Celda(1, 0), new Favorable());
+
+        VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
 
         tablero.usarVehiculo(vehiculo);
         tablero.iniciarEn(new Celda(4, 4));
 
         this.vistaTablero = new VistaTablero(tablero);
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
+        
+        for (Calle calle : tablero.getCalles()) {
+            ArrayList<Celda> esquinas = calle.obtenerEsquinas();
+            String nombre = calle.getModificador().getNombre();
+            
+            VistaModificador vista = new VistaModificador(this.vistaTablero, nombre, esquinas.get(0), esquinas.get(1));
+            calle.addObserver(vista);
+        }
+        
+        
+        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo.getNombre(), vehiculo.getPosicion());
         this.vistaVehiculo.setFocusTraversable(true);
 
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);

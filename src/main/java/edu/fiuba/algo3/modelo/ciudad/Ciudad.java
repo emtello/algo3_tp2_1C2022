@@ -4,6 +4,7 @@ import java.util.ArrayList;
 // import java.util.HashMap;
 // import java.util.Set;
 
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
@@ -14,6 +15,7 @@ public class Ciudad {
     private int filas;
     private int columnas;
     private long cantidadModificadores;
+    private ArrayList<Calle> calles;
     
     public Ciudad(int filas, int columnas) {
         this.filas = filas;
@@ -26,6 +28,10 @@ public class Ciudad {
     private Celda obtenerEsquinaAleatoria() {
         int random = (int) (Math.random() * this.celdas.size());
         return this.celdas.get(random);
+    }
+
+    public void setCalles(ArrayList<Calle> calles) {
+        this.calles = calles;
     }
 
     public void setCantidadModificadores(long cantidad) {
@@ -72,6 +78,10 @@ public class Ciudad {
 
     public long cantidadModificadores() {
         return this.cantidadModificadores;
+    }
+
+    public ArrayList<Calle> getCalles() {
+        return this.calles;
     }
 
 }

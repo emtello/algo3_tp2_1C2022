@@ -1,30 +1,31 @@
 package edu.fiuba.algo3.modelo.calle;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.modelo.modificador.Nulo;
 
-public class Calle {
+public class Calle extends Observable{
 
     private Modificador modificador;
     private ArrayList<Celda> celdas;
+    private ArrayList<Observer> observadores;
 
     public Calle(Celda esq1, Celda esq2, Modificador modificador) {
         this.celdas = new ArrayList<Celda>();
         this.celdas.add(esq1);
         this.celdas.add(esq2);
         this.modificador = modificador;
+        this.observadores = new ArrayList<Observer>();
     }
 
     public void cruzarCon(Vehiculo vehiculo) {
         this.modificador.cruzarCon(vehiculo);
-    }
-
-    public String simboloModificador() {
-        return this.modificador.simbolo();
+        this.modificador = new Nulo();
     }
 
     public Celda siguienteEsquina(Celda esquinaActual) {
@@ -33,6 +34,10 @@ public class Calle {
         if (esquinaActual.equals(this.celdas.get(0))) {
             return this.celdas.get(1);
         } else return this.celdas.get(0);
+    }
+
+    public ArrayList<Celda> obtenerEsquinas() {
+        return this.celdas;
     }
 
     public boolean contiene(Celda celda) {
@@ -55,6 +60,10 @@ public class Calle {
         return this.modificador;
     }
 
+    public Celda calcularCeldaMedio() {
+        return this.celdas.get(0).calcularCeldaPromedio(this.celdas.get(1));
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -70,6 +79,18 @@ public class Calle {
             }
         }
         return true;
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        this.observadores.add(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : this.observadores) {
+            observer.update(this, this.modificador.getNombre());
+        }
     }
     
 }

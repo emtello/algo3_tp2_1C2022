@@ -10,6 +10,7 @@ public class Auto extends Vehiculo {
     
     public Auto(Tablero tablero) {
         super(tablero);
+        this.nombre = "auto";
     }
 
     @Override

@@ -18,6 +18,8 @@ public abstract class Vehiculo extends Observable {
     protected Direccion direccionActual;
     protected ArrayList<Observer> observadores;
 
+    protected String nombre;
+
     public Vehiculo(Tablero tablero) {
         this.tablero = tablero;
         this.movimientos = 0;
@@ -76,5 +78,9 @@ public abstract class Vehiculo extends Observable {
         for (Observer observer : this.observadores) {
             observer.update(this, this.getPosicion());
         }   
+    }
+
+    public String getNombre() {
+        return this.nombre;
     }
 }
