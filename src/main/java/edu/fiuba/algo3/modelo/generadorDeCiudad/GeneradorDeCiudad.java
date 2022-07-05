@@ -7,8 +7,13 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.excepcion.CeldaFueraDeRango;
+import edu.fiuba.algo3.modelo.modificador.ControlPolicial;
+import edu.fiuba.algo3.modelo.modificador.Desfavorable;
+import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.modificador.Nulo;
+import edu.fiuba.algo3.modelo.modificador.Piquete;
+import edu.fiuba.algo3.modelo.modificador.Pozo;
 
 public class GeneradorDeCiudad {
     private Celda[][] celdas;
@@ -74,7 +79,10 @@ public class GeneradorDeCiudad {
 
         origen.agregarCalle(calle);
         destino.agregarCalle(calle);
-        this.calles.add(calle);
+
+        if (!this.calles.contains(calle)) {
+            this.calles.add(calle);
+        }
     }  
 
     public void agregarModificador(Celda origen, Celda destino, Modificador mod) {
@@ -97,6 +105,27 @@ public class GeneradorDeCiudad {
         }
     }
 
+
+    public void completarAleatorio() {
+        ArrayList<Modificador> mod = new ArrayList<Modificador>();
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Nulo());
+        mod.add(new Pozo());
+        mod.add(new Piquete());
+        mod.add(new ControlPolicial());
+        mod.add(new Favorable());
+        mod.add(new Desfavorable());
+
+        for (Calle calle : calles) {
+            int random = (int) (Math.random() * mod.size());        
+            calle.agregarModificador(mod.get(random));
+        }
+    }
 
     public ArrayList<Calle> getCalles() {
         return this.calles;

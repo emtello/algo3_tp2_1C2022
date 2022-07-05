@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.modificador.Favorable;
+// import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
+// import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.modificador.VistaModificador;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
@@ -36,7 +36,7 @@ public class App extends Application {
     private Stage escenario;
 
     private Scene escenaJuego;
-    private VBox vbox1;
+    // private VBox vbox1;
     private VBox contenedor;
     private Button boton1;
 

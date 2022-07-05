@@ -27,7 +27,7 @@ public class TercerEntregaTest {
 
     public void iniciarConfig(Vehiculo vehiculo) {
         this.tablero.usarVehiculo(vehiculo);
-        // this.tablero.generarAleatorio();
+        this.tablero.generarAleatorio();
         this.tablero.iniciarEn(this.celdaInicial);
     }
     
