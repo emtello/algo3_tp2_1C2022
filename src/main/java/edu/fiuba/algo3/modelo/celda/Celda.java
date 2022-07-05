@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.celda;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Celda {
+public class Celda extends Observable{
     
     private long f;
     private long c;
@@ -59,6 +60,7 @@ public class Celda {
             if (calle.contiene(fin)) return calle;
         }
 
+        // Ver si se puede capturar de otra forma, que salga como texto ponele?
         throw new Error("No se encontro la calle");
     }
 
@@ -66,6 +68,7 @@ public class Celda {
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
+        sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
 
@@ -73,6 +76,13 @@ public class Celda {
         for (Calle calle : this.calles) {
             calle.borrarModificadores();
         }
+    }
+
+    public Celda calcularCeldaPromedio(Celda celda) {
+        long x = this.fila() + celda.fila();
+        long y = this.columna() + celda.columna();
+
+        return new Celda(x / 2, y / 2);
     }
 
     @Override
@@ -86,6 +96,11 @@ public class Celda {
         if (this.columna() != unaCelda.columna()) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.fila() + ", " + this.columna() +")";
     }
 
 }

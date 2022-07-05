@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
 import edu.fiuba.algo3.modelo.modificador.*;
+import java.util.Observable;
+
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Auto extends Vehiculo {
@@ -10,6 +12,7 @@ public class Auto extends Vehiculo {
     
     public Auto(Tablero tablero) {
         super(tablero);
+        this.nombre = "auto";
     }
 
     @Override

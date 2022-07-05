@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class Desfavorable implements Modificador, Sorpresa {
 
+    private final String nombre = "sorpresa";
+
     @Override
     public void cruzarCon(Vehiculo vehiculo) {
         vehiculo.sorpresa(this);
@@ -19,6 +21,10 @@ public class Desfavorable implements Modificador, Sorpresa {
     @Override
     public String simbolo() {
         return "DE";
+    }
+    
+    public String getNombre() {
+        return nombre;
     }
 
 }

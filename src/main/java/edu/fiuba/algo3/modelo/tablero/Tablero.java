@@ -1,28 +1,55 @@
 package edu.fiuba.algo3.modelo.tablero;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.ciudad.Ciudad;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
+import edu.fiuba.algo3.modelo.generadorDeCiudad.GeneradorDeCiudad;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Tablero {
+public class Tablero extends Observable {
     
     private Vehiculo vehiculo;
-    private Ciudad ciudad;
+    // private Ciudad ciudad;
+    private GeneradorDeCiudad generador;
     private Celda llegada;
     private Registro registro;
+    private int filas;
+    private int columnas;
 
     public Tablero(int filas, int columnas) {
+        this.filas = filas;
+        this.columnas = columnas;
+
         if (filas < 3 || columnas < 3) {
             throw new IllegalArgumentException(
                 "El tablero debe tener al menos 3 filas y 3 columnas"
             );
         }
 
-        this.ciudad = new Ciudad(filas, columnas);
+        // this.ciudad = new Ciudad(filas, columnas);
+        this.generador = new GeneradorDeCiudad(filas, columnas);
+        this.generarAleatorio();
+    }
+
+    public ArrayList<Calle> getCalles() {
+        // return this.ciudad.obtenerCalles();
+        return this.generador.getCalles();
+    }
+
+    public int getFilas() {
+        return this.filas;
+    }
+
+    public int getColumnas() {
+        return this.columnas;
     }
 
     public Celda obtenerPosicion() {
@@ -38,7 +65,9 @@ public class Tablero {
     }
 
     public void iniciarEn(Celda celda) {
-        Celda inicio = this.ciudad.buscarCelda(celda);
+        // Celda inicio = this.ciudad.buscarCelda(celda);
+        Celda inicio = this.generador.buscarCelda(celda);
+
         this.vehiculo.asignarCeldaInicial(inicio);
     }
 
@@ -47,11 +76,13 @@ public class Tablero {
     }
 
     public void agregarModificador(Celda ini, Celda fin, Modificador mod) {
-        this.ciudad.agregarModificador(ini, fin, mod);
+        // this.ciudad.agregarModificador(ini, fin, mod);
+        this.generador.agregarModificador(ini, fin, mod);
     }
 
     public void generarAleatorio() {
-        this.ciudad.completarAleatorio();
+        // this.ciudad.completarAleatorio();
+        this.generador.completarAleatorio();
     }
 
     public void usarVehiculo(Vehiculo vehiculo) {
@@ -69,12 +100,17 @@ public class Tablero {
     }
 
     public void reiniciar() {
-        this.ciudad.reiniciar();
+        // this.ciudad.reiniciar();
+        this.generador.reiniciar();
     }
 
     public void registrarPuntaje() {
         Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
+    }
+    
+    public void notificarObservadores() {
+        this.vehiculo.notificarObservables();
     }
 
 }

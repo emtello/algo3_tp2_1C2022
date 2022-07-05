@@ -1,20 +1,29 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public abstract class Vehiculo {
+
+public abstract class Vehiculo extends Observable {
 
     protected Celda celdaInicial;
     protected long movimientos;
     protected Tablero tablero;
     protected Direccion direccionActual;
+    protected ArrayList<Observer> observadores;
+
+    protected String nombre;
 
     public Vehiculo(Tablero tablero) {
         this.tablero = tablero;
         this.movimientos = 0;
+        this.observadores = new ArrayList<Observer>();
     }
 
     public abstract void aplicarModificador(Modificador modificador);
@@ -53,10 +62,25 @@ public abstract class Vehiculo {
 
     public void actualizarASiguienteCelda() {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
+        // this.notificarObservables();
     }
 
     public Boolean estaEn(Celda celda) {
         return this.celdaInicial.equals(celda);
     }
 
+    @Override
+    public synchronized void addObserver(Observer o) {
+        this.observadores.add(o);
+    }
+
+    public void notificarObservables() {
+        for (Observer observer : this.observadores) {
+            observer.update(this, this.getPosicion());
+        }   
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
 }
