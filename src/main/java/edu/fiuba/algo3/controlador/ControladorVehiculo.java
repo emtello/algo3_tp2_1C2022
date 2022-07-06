@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.direccion.Abajo;
 import edu.fiuba.algo3.modelo.direccion.Arriba;
 import edu.fiuba.algo3.modelo.direccion.Derecha;
@@ -11,30 +12,37 @@ import javafx.scene.input.KeyEvent;
 
 public class ControladorVehiculo implements EventHandler<KeyEvent> {
     private Tablero tablero;
+    private App app;
 
-    public ControladorVehiculo(Tablero tablero) {
+    public ControladorVehiculo(Tablero tablero, App app) {
+        this.app = app;
         this.tablero = tablero;
     }
 
     @Override
     public void handle(KeyEvent key) {
+        Boolean llego = false;
+
         try {
             if (key.getCode() == KeyCode.UP) {
-                this.tablero.mover(new Arriba());
+                llego = this.tablero.mover(new Arriba());
             }
             else if(key.getCode() == KeyCode.DOWN) {
-                this.tablero.mover(new Abajo());
+                llego = this.tablero.mover(new Abajo());
             }
             else if (key.getCode() == KeyCode.RIGHT) {
-                this.tablero.mover(new Derecha());
+                llego = this.tablero.mover(new Derecha());
             }
             else if (key.getCode() == KeyCode.LEFT) {
-                this.tablero.mover(new Izquierda());
+                llego = this.tablero.mover(new Izquierda());
             }
+            
             this.tablero.notificarObservadores();
             System.out.println(this.tablero.obtenerPosicion().toString());
-        } 
-        catch (Exception ignorado) {
+            
+            if (llego) this.app.mostrarVentanaJuegoCompleto();
+            
+        } catch (Exception ignorado) {
             return;
         }
         return;

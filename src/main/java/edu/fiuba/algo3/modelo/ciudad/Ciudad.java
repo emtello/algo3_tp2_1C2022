@@ -16,6 +16,8 @@ public class Ciudad {
     private int columnas;
     private long cantidadModificadores;
     private ArrayList<Calle> calles;
+    private Celda celdaInicio;
+    private Celda celdaFinal;
     
     public Ciudad(int filas, int columnas) {
         this.filas = filas;
@@ -100,6 +102,23 @@ public class Ciudad {
 
     public ArrayList<Celda> getEsquinas() {
         return this.celdas;
+    }
+
+    public Celda iniciaEn(Celda celda) {
+        this.celdaInicio = this.buscarCelda(celda);
+        return this.celdaInicio;
+    }
+
+    public void finalizaEn(Celda celda) {
+        this.celdaFinal = this.buscarCelda(celda);
+    }
+
+    public Celda getInicio() {
+        return this.celdaInicio;
+    }
+
+    public Celda getLlegada() {
+        return this.celdaFinal;
     }
 
 }

@@ -3,7 +3,10 @@ package edu.fiuba.algo3.vista.vehiculo;
 import java.util.Observable;
 import java.util.Observer;
 
+import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,30 +17,21 @@ public class VistaVehiculo extends Pane implements Observer {
 
     private ImageView modeloVehiculo;
     private Celda celda;
-    private VistaTablero tablero;
+    private VistaTablero vistaTablero;
+    ControladorVehiculo controladorVehiculo;
 
-    public VistaVehiculo(VistaTablero tablero, String vehiculo, Celda celda) {
-        this.tablero = tablero;
+    public VistaVehiculo(VistaTablero vistaTablero, String vehiculo, Celda celda) {
+        this.vistaTablero = vistaTablero;
         this.celda = celda;
         
-        Image image = new Image(vehiculo + ".png");
+        this.modeloVehiculo = this.obtenerImagen(vehiculo);
 
-        this.modeloVehiculo = new ImageView(image);
-
-        this.modeloVehiculo.setFitHeight(20);
-        this.modeloVehiculo.setFitWidth(20);
-
-        this.modeloVehiculo.maxHeight(20);
-        this.modeloVehiculo.maxWidth(20);
-        
-        this.modeloVehiculo.setPreserveRatio(true);
-        
         BorderPane pane = new BorderPane();
 
         pane.setMinSize(20, 20);
         pane.setCenter(this.modeloVehiculo);
 
-        tablero.agregarVistaAPosicion(pane, celda);
+        vistaTablero.agregarVistaAPosicion(pane, celda);
     }
 
     @Override
@@ -46,7 +40,24 @@ public class VistaVehiculo extends Pane implements Observer {
 
         this.rotar(this.celda, nuevaPosicion);
         this.celda = nuevaPosicion;
-        this.tablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
+
+        this.vistaTablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
+    }
+
+    public ImageView obtenerImagen(String vehiculo) {
+        Image image = new Image(vehiculo + ".png");
+
+        ImageView modeloVehiculo = new ImageView(image);
+
+        modeloVehiculo.setFitHeight(20);
+        modeloVehiculo.setFitWidth(20);
+
+        modeloVehiculo.maxHeight(20);
+        modeloVehiculo.maxWidth(20);
+        
+        modeloVehiculo.setPreserveRatio(true);
+        
+        return modeloVehiculo;
     }
 
     public void rotar(Celda anterior, Celda siguiente) {

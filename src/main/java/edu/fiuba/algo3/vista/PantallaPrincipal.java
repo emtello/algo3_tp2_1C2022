@@ -31,4 +31,5 @@ public class PantallaPrincipal {
 
         return new Scene(contenedorVertical);
     }
+    
 }
