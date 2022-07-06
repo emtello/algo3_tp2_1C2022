@@ -13,6 +13,8 @@ public class Puntaje implements Comparable<Puntaje> {
         return this.puntaje;
     }
 
+    public String getUsuario() { return this.usuario; }
+
     @Override
     public int compareTo(Puntaje otroPuntaje) {
         if (this.getPuntos() > otroPuntaje.getPuntos()) {

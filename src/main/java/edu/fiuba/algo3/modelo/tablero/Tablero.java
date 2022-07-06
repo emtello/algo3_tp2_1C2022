@@ -24,6 +24,7 @@ public class Tablero extends Observable {
         this.filas = filas;
         this.columnas = columnas;
         this.generador = new GeneradorDeCiudad(filas, columnas);
+        this.registro = new Registro(); ///nuevo
     }
 
     public void iniciarEn(Celda celda) {
@@ -67,13 +68,18 @@ public class Tablero extends Observable {
         this.generador.reiniciar();
     }
 
-    public void registrarPuntaje() {
-        Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
+    public void registrarPuntaje(String usuario) { //agregue usuario string
+        Puntaje puntaje = new Puntaje(usuario, this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
     }
     
     public void notificarObservadores() {
         this.vehiculo.notificarObservables();
+    }
+
+    public String obtenerNombre(){
+        Puntaje puntaje = this.registro.obtenerPuntaje(0);
+        return puntaje.getUsuario();
     }
 
 }

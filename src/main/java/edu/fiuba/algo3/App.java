@@ -27,6 +27,8 @@ public class App extends Application {
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
 
+    private Tablero tablero;
+
     private Stage escenario;
 
     private Scene escenaJuego;
@@ -39,7 +41,7 @@ public class App extends Application {
     private BotonIrAPuntajes botonIrAPuntajes;
 
     private Button botonNoJuego;
-    private BotonSi botonSiJuego;
+    private BotonSiSalirDeJuego botonSiJuego;
 
     private BotonNo botonNoMenu;
     private Button botonSiMenu;
@@ -70,7 +72,7 @@ public class App extends Application {
 
     private Scene crearEscenaJuego() {
 
-        Tablero tablero = new Tablero(10, 10);
+        this.tablero = new Tablero(10, 10);
         Vehiculo vehiculo = new Moto(tablero);
 
         tablero.agregarvehiculo(vehiculo);
@@ -97,6 +99,8 @@ public class App extends Application {
 
         contenedor.setAlignment(Pos.CENTER);
 
+        contenedor.setSpacing(10);
+
         escenaJuego = new Scene(contenedor, 640, 640);
 
         return escenaJuego;
@@ -106,21 +110,14 @@ public class App extends Application {
 
         Label label = new Label("Nombre:");
 
-        TextField textField = new TextField();
-        textField.setPromptText("Ingresar nombre");
-        textField.setFocusTraversable(false);
-        textField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println(textField.getText());
-            }
-        });
+        IngresoDeNombre ingresoDeNombre = new IngresoDeNombre(this.tablero);
 
         botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
         botonIrAJuego = new BotonIrAJuego(this.escenario, crearEscenaSalirDeMenu());
 
-        vbox2 = new VBox(label, textField, botonIrAJuego, botonIrAPuntajes);
+        vbox2 = new VBox(label, ingresoDeNombre, botonIrAJuego, botonIrAPuntajes);
         vbox2.setAlignment(Pos.CENTER);
+        vbox2.setSpacing(10);
 
         escenaMenu = new Scene(vbox2, 640, 640);
 
@@ -132,8 +129,10 @@ public class App extends Application {
 
         Button botonSalirDePuntajes = new Button("Clickear para ir al Menu");
         botonSalirDePuntajes.setOnAction(e -> cambiarEscenas(escenaSalirDeMejoresPuntajes));
+
         VBox vbox6 = new VBox(label, botonSalirDePuntajes);
         vbox6.setAlignment(Pos.CENTER);
+        vbox6.setSpacing(10);
         escenaMejoresPuntajes = new Scene(vbox6, 640, 640);
         return escenaMejoresPuntajes;
     }
@@ -153,6 +152,7 @@ public class App extends Application {
 
         VBox vbox7 = new VBox(label, botonNoMenu, botonSiMenu);
         vbox7.setAlignment(Pos.CENTER);
+        vbox7.setSpacing(10);
         escenaSalirDeMenu= new Scene(vbox7, 640, 640);
 
         return escenaSalirDeMenu;
@@ -165,10 +165,11 @@ public class App extends Application {
         botonNoJuego = new Button("NO");
         botonNoJuego.setOnAction(e -> cambiarEscenas(escenaJuego)); //Se queda sin memoria heap debe ser al crear otro tablero
 
-        botonSiJuego = new BotonSi(this.escenario, crearEscenaMenu());
+        botonSiJuego = new BotonSiSalirDeJuego(this.tablero, this.escenario, crearEscenaMenu());
 
         VBox vbox8 = new VBox(label, botonNoJuego, botonSiJuego);
         vbox8.setAlignment(Pos.CENTER);
+        vbox8.setSpacing(10);
         escenaSalirDeJuego= new Scene(vbox8, 640, 640);
         return escenaSalirDeJuego;
 
@@ -184,6 +185,7 @@ public class App extends Application {
 
         VBox vbox9 = new VBox(label, botonNoMenu2, botonSiMenu2);
         vbox9.setAlignment(Pos.CENTER);
+        vbox9.setSpacing(10);
 
         escenaSalirDeMejoresPuntajes = new Scene(vbox9, 640, 640);
 
