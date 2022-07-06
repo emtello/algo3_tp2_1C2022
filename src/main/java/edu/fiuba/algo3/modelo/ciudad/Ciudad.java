@@ -25,6 +25,20 @@ public class Ciudad {
         this.generarCaminos();
     }
 
+    public ArrayList<Calle> obtenerCalles() {
+        ArrayList<Calle> listaCalles = new ArrayList<Calle>();
+        for (Celda celda : this.celdas) {
+            ArrayList<Calle> calles = celda.calles();
+
+            for (Calle calle : calles) {
+                if (!listaCalles.contains(calle)) {
+                    listaCalles.add(calle);
+                }
+            }
+        }
+        return listaCalles;
+    }
+
     private Celda obtenerEsquinaAleatoria() {
         int random = (int) (Math.random() * this.celdas.size());
         return this.celdas.get(random);

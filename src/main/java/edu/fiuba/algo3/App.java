@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.vista.celda.VistaCeldaLlegada;
 import edu.fiuba.algo3.vista.modificador.VistaModificador;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
@@ -80,16 +79,19 @@ public class App extends Application {
         Tablero tablero = new Tablero(15, 15);
         tablero.generarAleatorio();
         Vehiculo vehiculo = new Moto(tablero);
-
-        //tablero.agregarModificador(new Celda(0, 0), new Celda(1, 0), new Favorable());
+        tablero.usarVehiculo(vehiculo);
 
         VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
 
-        tablero.usarVehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(0, 1));
+        Celda salida = new Celda(1, 0);
+        Celda llegada = new Celda(5, 14);
+
+        tablero.iniciarEn(salida);
+        tablero.finalizarEn(llegada);
 
         this.vistaTablero = new VistaTablero(tablero);
-        
+        this.vistaTablero.agregarVistaAPosicion(new VistaCeldaLlegada(), llegada);
+
         for (Calle calle : tablero.getCalles()) {
             ArrayList<Celda> esquinas = calle.obtenerEsquinas();
             String nombre = calle.getModificador().getNombre();

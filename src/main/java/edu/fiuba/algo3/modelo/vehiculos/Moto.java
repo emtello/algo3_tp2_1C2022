@@ -9,8 +9,6 @@ public class Moto extends Vehiculo {
     private long penalizacionPorPiquete = 2;
     private long penalizacionPorControlPolicial = 3;
 
-
-    
     public Moto(Tablero tablero) {
         super(tablero);
         this.nombre = "moto";

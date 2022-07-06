@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -48,7 +47,9 @@ public class Tablero extends Observable {
     }
 
     public void iniciarEn(Celda celda) {
+        // Celda inicio = this.ciudad.buscarCelda(celda);
         Celda inicio = this.ciudad.buscarCelda(celda);
+
         this.vehiculo.asignarCeldaInicial(inicio);
     }
 
@@ -57,10 +58,12 @@ public class Tablero extends Observable {
     }
 
     public void agregarModificador(Celda ini, Celda fin, Modificador mod) {
+        // this.ciudad.agregarModificador(ini, fin, mod);
         this.ciudad.agregarModificador(ini, fin, mod);
     }
 
     public void generarAleatorio() {
+        // this.ciudad.completarAleatorio();
         this.ciudad.completarAleatorio();
     }
 
@@ -87,6 +90,7 @@ public class Tablero extends Observable {
     }
 
     public void reiniciar() {
+        // this.ciudad.reiniciar();
         this.ciudad.reiniciar();
     }
 

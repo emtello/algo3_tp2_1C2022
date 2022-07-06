@@ -85,6 +85,7 @@ public class Celda extends Observable {
         }
 
         Celda unaCelda = (Celda) obj;
+        
         if (this.fila() != unaCelda.fila()) return false;
         if (this.columna() != unaCelda.columna()) return false;
 

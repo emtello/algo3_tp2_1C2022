@@ -4,7 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,10 +26,10 @@ public class VistaVehiculo extends Pane implements Observer {
 
         this.modeloVehiculo.setFitHeight(20);
         this.modeloVehiculo.setFitWidth(20);
-        
+
         this.modeloVehiculo.maxHeight(20);
         this.modeloVehiculo.maxWidth(20);
-
+        
         this.modeloVehiculo.setPreserveRatio(true);
         
         BorderPane pane = new BorderPane();
