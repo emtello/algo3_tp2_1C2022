@@ -42,7 +42,7 @@ public class TableroTest {
         Vehiculo moto = new Moto(tablero);
 
         tablero.usarVehiculo(moto);
-        tablero.iniciarEn(new Celda(0, 0));
+        tablero.iniciarEn(new Celda(1, 0));
 
         assertThrows(CeldaFueraDeRango.class, () -> tablero.mover(new Arriba()));
     }
