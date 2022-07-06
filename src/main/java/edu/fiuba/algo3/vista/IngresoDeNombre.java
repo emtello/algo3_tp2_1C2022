@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 
 public class IngresoDeNombre extends TextField {
 
-    public IngresoDeNombre(Tablero tablero) {
+    public IngresoDeNombre() {
         super();
-        this.setPromptText("Ingresar Nombre");
+        this.setPromptText("Ingresar Nombre y luego haga click en Jugar");
         this.setFocusTraversable(false);
-        this.setOnAction(new ControladorIngresoDeNombre(this, tablero));
+       // this.setOnAction(new ControladorIngresoDeNombre());
     }
 }

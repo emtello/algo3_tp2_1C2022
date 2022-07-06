@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
@@ -9,20 +10,24 @@ import edu.fiuba.algo3.vista.*;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
+
+    public TableView<Puntos> tablaDePuntajes;
 
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
@@ -63,7 +68,7 @@ public class App extends Application {
         escenaSalirDeJuego = crearEscenaSalirDeJuego();
         escenaMejoresPuntajes = crearEscenaMejoresPuntajes();
         escenaSalirDeMenu = crearEscenaSalirDeMenu();
-        escenaSalirDeMejoresPuntajes = crearEscenaSalirDeMejoresPuntajes();
+        this.escenaSalirDeMejoresPuntajes = crearEscenaSalirDeMejoresPuntajes();
 
         escenario.setScene(escenaMenu);
         escenario.show();
@@ -110,35 +115,66 @@ public class App extends Application {
 
         Label label = new Label("Nombre:");
 
-        IngresoDeNombre ingresoDeNombre = new IngresoDeNombre(this.tablero);
+        IngresoDeNombre ingresoDeNombre = new IngresoDeNombre();
 
         botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
-        botonIrAJuego = new BotonIrAJuego(this.escenario, crearEscenaSalirDeMenu());
+        botonIrAJuego = new BotonIrAJuego(ingresoDeNombre, this.tablero, this.escenario, crearEscenaSalirDeMenu());
 
         vbox2 = new VBox(label, ingresoDeNombre, botonIrAJuego, botonIrAPuntajes);
         vbox2.setAlignment(Pos.CENTER);
         vbox2.setSpacing(10);
+        vbox2.setPadding(new Insets(20));
 
         escenaMenu = new Scene(vbox2, 640, 640);
 
         return escenaMenu;
     }
 
+    private TableView<Puntos> crearTablaDePuntajes() {
+
+        tablaDePuntajes = new TableView<>();
+
+        //Columna Usuarios
+        TableColumn<Puntos, String> columnaUsuario = new TableColumn<>("Usuario");
+        columnaUsuario.setMinWidth(20);
+        columnaUsuario.setCellValueFactory(new PropertyValueFactory<Puntos, String>("usuario"));
+
+        //Columna Puntajes
+        TableColumn<Puntos, Long> columnaPuntaje = new TableColumn<>("Puntaje");
+        columnaPuntaje.setMinWidth(20);
+        columnaPuntaje.setCellValueFactory(new PropertyValueFactory<Puntos, Long>("puntaje"));
+
+        tablaDePuntajes.getColumns().add(columnaUsuario);
+        tablaDePuntajes.getColumns().add(columnaPuntaje);
+        tablaDePuntajes.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
+        tablaDePuntajes.setItems(getPuntajes());
+
+        return tablaDePuntajes;
+    }
+
+    public ObservableList<Puntos> getPuntajes() { //HACER LISTA SOLO 5
+        ObservableList<Puntos> puntajes = FXCollections.observableArrayList();
+        puntajes.addAll(
+                new Puntos("juan", 3),
+                new Puntos("juan", 3),
+                new Puntos("a", 100)
+        );
+        return puntajes;
+    }
+
     private Scene crearEscenaMejoresPuntajes() {
         Label label = new Label("Mejores Puntajes");
 
         Button botonSalirDePuntajes = new Button("Clickear para ir al Menu");
-        botonSalirDePuntajes.setOnAction(e -> cambiarEscenas(escenaSalirDeMejoresPuntajes));
+        botonSalirDePuntajes.setOnAction(e -> cambiarEscenas(escenaSalirDeMejoresPuntajes)); //Stack overflow
 
-        VBox vbox6 = new VBox(label, botonSalirDePuntajes);
+        VBox vbox6 = new VBox(10, label, crearTablaDePuntajes(), botonSalirDePuntajes);
         vbox6.setAlignment(Pos.CENTER);
-        vbox6.setSpacing(10);
-        escenaMejoresPuntajes = new Scene(vbox6, 640, 640);
-        return escenaMejoresPuntajes;
-    }
+        vbox6.setPadding(new Insets(20));
 
-    public void cambiarEscenas(Scene escena){
-        escenario.setScene(escena);
+        escenaMejoresPuntajes = new Scene(vbox6, 640, 640);
+
+        return escenaMejoresPuntajes;
     }
 
     private Scene crearEscenaSalirDeMenu() {
@@ -150,9 +186,9 @@ public class App extends Application {
         botonSiMenu = new Button("SI");
         botonSiMenu.setOnAction(e -> cambiarEscenas(escenaJuego));
 
-        VBox vbox7 = new VBox(label, botonNoMenu, botonSiMenu);
+        VBox vbox7 = new VBox(10, label, botonNoMenu, botonSiMenu);
         vbox7.setAlignment(Pos.CENTER);
-        vbox7.setSpacing(10);
+
         escenaSalirDeMenu= new Scene(vbox7, 640, 640);
 
         return escenaSalirDeMenu;
@@ -167,9 +203,9 @@ public class App extends Application {
 
         botonSiJuego = new BotonSiSalirDeJuego(this.tablero, this.escenario, crearEscenaMenu());
 
-        VBox vbox8 = new VBox(label, botonNoJuego, botonSiJuego);
+        VBox vbox8 = new VBox(10, label, botonNoJuego, botonSiJuego);
         vbox8.setAlignment(Pos.CENTER);
-        vbox8.setSpacing(10);
+
         escenaSalirDeJuego= new Scene(vbox8, 640, 640);
         return escenaSalirDeJuego;
 
@@ -190,6 +226,10 @@ public class App extends Application {
         escenaSalirDeMejoresPuntajes = new Scene(vbox9, 640, 640);
 
         return escenaSalirDeMejoresPuntajes;
+    }
+
+    public void cambiarEscenas(Scene escena){
+        escenario.setScene(escena);
     }
 
     public static void main(String[] args) {

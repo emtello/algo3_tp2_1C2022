@@ -7,19 +7,10 @@ import javafx.event.EventHandler;
 
 public class ControladorIngresoDeNombre implements EventHandler<ActionEvent> {
 
-    private IngresoDeNombre ingresoDeNombre;
-    private Tablero tablero;
-
-    public ControladorIngresoDeNombre(IngresoDeNombre ingresoDeNombre, Tablero tablero){
-        this.ingresoDeNombre = ingresoDeNombre;
-        this.tablero = tablero;
+    public ControladorIngresoDeNombre(){
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        String nombre = ingresoDeNombre.getText();
-        this.tablero.registrarPuntaje(nombre);
-        System.out.println(nombre);
-        System.out.println(this.tablero.obtenerNombre());
     }
 }
