@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Celda extends Observable{
+public class Celda extends Observable {
     
     private long f;
     private long c;
@@ -27,6 +27,10 @@ public class Celda extends Observable{
         return c;
     }
 
+    public ArrayList<Calle> calles() {
+        return calles;
+    }
+    
     public Celda buscarSiguiente(Direccion direccion) {
         ArrayList<Celda> esquinas = this.obtenerEsquinas();
 
@@ -64,6 +68,7 @@ public class Celda extends Observable{
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
+        // sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
 
@@ -80,6 +85,7 @@ public class Celda extends Observable{
         }
 
         Celda unaCelda = (Celda) obj;
+        
         if (this.fila() != unaCelda.fila()) return false;
         if (this.columna() != unaCelda.columna()) return false;
 
@@ -89,6 +95,15 @@ public class Celda extends Observable{
     @Override
     public String toString() {
         return "(" + this.fila() + ", " + this.columna() +")";
+    }
+
+    public Boolean esAdyacente(Celda celda) {
+        try {
+            this.obtenerCalleDeEsquina(celda);
+            return true;
+        } catch (Error e) {
+            return false;
+        }
     }
 
 }

@@ -10,14 +10,14 @@ import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class ModificadorTest {
     
-    Tablero tablero = new Tablero(10, 10);
+  Tablero tablero = new Tablero(10, 10);
     Vehiculo moto = new Moto(this.tablero);
     Celda celdaInicial = new Celda(0, 0);
     Celda celdaFinal = new Celda(0, 1);
     Direccion direccion = new Derecha();
 
     public void iniciarConfig(Vehiculo vehiculo, Modificador modificador) {    
-        this.tablero.agregarvehiculo(vehiculo);
+        this.tablero.usarVehiculo(vehiculo);
         this.tablero.iniciarEn(celdaInicial);
         
         Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);

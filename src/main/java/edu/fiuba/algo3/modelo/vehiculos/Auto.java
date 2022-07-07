@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.vehiculos;
 
-import java.util.Observable;
-
+import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Auto extends Vehiculo {
@@ -11,39 +10,52 @@ public class Auto extends Vehiculo {
     
     public Auto(Tablero tablero) {
         super(tablero);
+        this.nombre = "auto";
     }
 
-    public static long probabilidadControl() {
-        return 5;
-    }
-
-    @Override
-    public void reemplazarVehiculo() {        
-        Vehiculo reemplazo = new Camioneta4x4(this.tablero);
-
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
-
-        this.tablero.reemplazarVehiculo(reemplazo);
-
-        this.actualizarASiguienteCelda();
+    public Auto (Vehiculo vehiculo) {
+        super(vehiculo);
+        this.nombre = "auto";
     }
 
     @Override
-    public void pozo() {
+    public void aplicarModificador(Modificador modificador) {
+        //
+    }
+
+    @Override
+    public void aplicarModificador(Pozo pozo) {
         this.sumarMovimientos(this.penalizacionPorPozo);
         this.actualizarASiguienteCelda();
     }
 
     @Override
-    public void piquete() {
+    public void aplicarModificador(Piquete piquete) {
         // Nada
     }
 
     @Override
-    public void controlPolicial() {
+    public void aplicarModificador(ControlPolicial controlPolicial) {
         this.sumarMovimientos(this.penalizacionPorControlPolicial);
         this.actualizarASiguienteCelda();
+    }
+
+    @Override
+    public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
+        // Vehiculo reemplazo = new Camioneta4x4(this.tablero);
+        Vehiculo reemplazo = new Camioneta4x4(this);
+
+        // reemplazo.asignarCeldaInicial(this.celdaInicial);
+        // reemplazo.sumarMovimientos(this.movimientos);
+        // reemplazo.setObservadores(this.observadores);
+
+        this.tablero.reemplazarVehiculo(reemplazo);
+        reemplazo.actualizarASiguienteCelda();
+        // this.actualizarASiguienteCelda();
+    }
+
+    public static long probabilidadControl() {
+        return 5;
     }
 
 }

@@ -4,38 +4,54 @@ import java.util.Observable;
 import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class VistaVehiculo extends Pane implements Observer {
 
+    private final double tamanioVehiculo = 15;
     private ImageView modeloVehiculo;
-    private Celda celda;
+    private Celda posicionAnterior;
     private VistaTablero tablero;
+    private Tablero modeloTablero;
 
-    public VistaVehiculo(VistaTablero tablero, Vehiculo vehiculo) {
+    public VistaVehiculo(VistaTablero tablero, Tablero modeloTablero) {
         this.tablero = tablero;
+        this.modeloTablero = modeloTablero;
+        this.posicionAnterior = this.modeloTablero.obtenerPosicion();
         
-        Image image = new Image("auto-derecha.jpg");
+        this.modeloVehiculo = new ImageView();
+        this.modeloVehiculo.setFitHeight(tamanioVehiculo);
+        this.modeloVehiculo.setFitWidth(tamanioVehiculo);
+        this.modeloVehiculo.maxHeight(tamanioVehiculo);
+        this.modeloVehiculo.maxWidth(tamanioVehiculo);
+        this.modeloVehiculo.setPreserveRatio(true);
 
-        this.modeloVehiculo = new ImageView(image);
-        this.modeloVehiculo.setFitHeight(20);
-        this.modeloVehiculo.setFitWidth(20);
+        BorderPane pane = new BorderPane();
         
-        this.celda = vehiculo.getPosicion();
-        tablero.agregarVistaAPosicion(this.modeloVehiculo, celda);
+        pane.setMinSize(20, 20);
+        pane.setCenter(this.modeloVehiculo);
+        
+        this.setNuevoAuto(this.modeloTablero.obtenerTipoVehiculo());
+        tablero.agregarVistaAPosicion(pane, this.posicionAnterior);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         Celda nuevaPosicion = (Celda) arg;
 
-        this.rotar(this.celda, nuevaPosicion);
-        this.celda = nuevaPosicion;
+        this.setNuevoAuto(this.modeloTablero.obtenerTipoVehiculo());
+        this.rotar(this.posicionAnterior, nuevaPosicion);
+        this.posicionAnterior = nuevaPosicion;
         this.tablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
+    }
+
+    public void setNuevoAuto(String nombre) {
+        this.modeloVehiculo.setImage(new Image(nombre + ".png"));
     }
 
     public void rotar(Celda anterior, Celda siguiente) {
@@ -56,5 +72,6 @@ public class VistaVehiculo extends Pane implements Observer {
             this.modeloVehiculo.setRotate(0);
         }
     }
+    
     
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
@@ -18,21 +17,17 @@ import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
 import edu.fiuba.algo3.modelo.direccion.Derecha;
 
 public class PrimerEntregaTest {
-    Tablero tablero = new Tablero(10, 10);
+  Tablero tablero = new Tablero(10, 10);
     Vehiculo moto = new Moto(this.tablero);
-    Celda celdaInicial = new Celda(0, 0);
-    Celda celdaFinal = new Celda(0, 1);
+    Celda celdaInicial = new Celda(1, 0);
+    Celda celdaFinal = new Celda(1, 1);
     Direccion direccion = new Derecha();
 
     public void iniciarConfig(Vehiculo vehiculo, Modificador modificador) {
-        this.tablero.agregarvehiculo(vehiculo);
+        this.tablero.usarVehiculo(vehiculo);
         this.tablero.iniciarEn(celdaInicial);
         
-        Calle calle = new Calle(this.celdaInicial, this.celdaFinal, modificador);
-        this.tablero.agregarModificador(this.celdaInicial, this.celdaFinal, modificador);
-        
-        this.celdaInicial.agregarCalle(calle);
-        this.celdaFinal.agregarCalle(calle);
+        this.tablero.agregarModificador(celdaInicial, celdaFinal, modificador);
     }
 
     @Test
@@ -96,7 +91,7 @@ public class PrimerEntregaTest {
 
         long cantMovimientosInicialEsperado = 0;
         long cantMovimientosFinalEsperado = 1;
-        long filaFinalEsperada = 0;
+        long filaFinalEsperada = 1;
         long columnaFinalEsperada = 0;
 
         assertEquals(cantMovimientosInicialEsperado, auto.movimientos());
@@ -117,7 +112,7 @@ public class PrimerEntregaTest {
 
         long cantMovimientosInicialEsperado = 0;
         long cantMovimientosFinalEsperado = 1;
-        long filaFinalEsperada = 0;
+        long filaFinalEsperada = 1;
         long columnaFinalEsperada = 0;
 
         assertEquals(cantMovimientosInicialEsperado, camioneta.movimientos());
@@ -138,7 +133,7 @@ public class PrimerEntregaTest {
 
         long cantMovimientosInicialEsperado = 0;
         long cantMovimientosFinalEsperado = 3;
-        long filaFinalEsperada = 0;
+        long filaFinalEsperada = 1;
         long columnaFinalEsperada = 1;
 
         assertEquals(cantMovimientosInicialEsperado, moto.movimientos());

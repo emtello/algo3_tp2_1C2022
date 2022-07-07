@@ -1,11 +1,17 @@
 package edu.fiuba.algo3;
 
+import java.util.ArrayList;
+
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.vista.celda.VistaCeldaLlegada;
+import edu.fiuba.algo3.vista.modificador.VistaModificador;
+import edu.fiuba.algo3.vista.puntaje.VistaPuntaje;
 import edu.fiuba.algo3.vista.*;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
@@ -27,16 +33,16 @@ import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
  */
 public class App extends Application {
 
-    public TableView<Puntos> tablaDePuntajes;
-
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
+    private VistaPuntaje vistaPuntaje;
 
     private Tablero tablero;
 
     private Stage escenario;
 
     private Scene escenaJuego;
+    private VBox vbox1;
     private VBox contenedor;
     private BotonIrAMenu botonIrAMenu;
 
@@ -54,6 +60,7 @@ public class App extends Application {
     private Scene escenaMejoresPuntajes;
     private Scene escenaSalirDeJuego;
     private Scene escenaSalirDeMenu;
+
     private Scene escenaSalirDeMejoresPuntajes;
 
 
@@ -68,7 +75,7 @@ public class App extends Application {
         escenaSalirDeJuego = crearEscenaSalirDeJuego();
         escenaMejoresPuntajes = crearEscenaMejoresPuntajes();
         escenaSalirDeMenu = crearEscenaSalirDeMenu();
-        this.escenaSalirDeMejoresPuntajes = crearEscenaSalirDeMejoresPuntajes();
+        escenaSalirDeMejoresPuntajes = crearEscenaSalirDeMejoresPuntajes();
 
         escenario.setScene(escenaMenu);
         escenario.show();
@@ -78,17 +85,36 @@ public class App extends Application {
     private Scene crearEscenaJuego() {
 
         this.tablero = new Tablero(10, 10);
+        Tablero tablero = new Tablero(15, 15);
+        tablero.generarAleatorio();
         Vehiculo vehiculo = new Moto(tablero);
+        tablero.usarVehiculo(vehiculo);
 
-        tablero.agregarvehiculo(vehiculo);
-        tablero.iniciarEn(new Celda(4, 4));
+        Celda salida = new Celda(1, 0);
+        Celda llegada = new Celda(5, 14);
+
+        tablero.iniciarEn(salida);
+        tablero.finalizarEn(llegada);
 
         this.vistaTablero = new VistaTablero(tablero);
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo);
+        this.vistaTablero.agregarVistaAPosicion(new VistaCeldaLlegada(), llegada);
+
+        for (Calle calle : tablero.getCalles()) {
+            ArrayList<Celda> esquinas = calle.obtenerEsquinas();
+            String nombre = calle.getModificador().getNombre();
+
+            VistaModificador vista = new VistaModificador(this.vistaTablero, nombre, esquinas.get(0), esquinas.get(1));
+            calle.addObserver(vista);
+        }
+
+        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, tablero);
         this.vistaVehiculo.setFocusTraversable(true);
 
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);
 
+        this.vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
+
+        tablero.addObserver(vistaPuntaje);
         vehiculo.addObserver(vistaVehiculo);
 
         botonIrAMenu = new BotonIrAMenu(this.escenario, crearEscenaSalirDeJuego());
@@ -107,8 +133,8 @@ public class App extends Application {
         contenedor.setSpacing(10);
 
         escenaJuego = new Scene(contenedor, 640, 640);
-
         return escenaJuego;
+
     }
 
     private Scene crearEscenaMenu() {

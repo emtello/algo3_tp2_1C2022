@@ -30,7 +30,7 @@ public class CambioDeVehiculoTest extends ModificadorTest {
 
         cambioDeVehiculo.cruzarCon(moto);
 
-        assertEquals(Auto.class, this.tablero.getVehiculo().getClass());
+        assertEquals(Auto.class, this.tablero.obtenerVehiculo().getClass());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class CambioDeVehiculoTest extends ModificadorTest {
 
         cambioDeVehiculo.cruzarCon(auto);
 
-        assertEquals(Camioneta4x4.class, this.tablero.getVehiculo().getClass());
+        assertEquals(Camioneta4x4.class, this.tablero.obtenerVehiculo().getClass());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CambioDeVehiculoTest extends ModificadorTest {
 
         cambioDeVehiculo.cruzarCon(camioneta);
 
-        assertEquals(Moto.class, this.tablero.getVehiculo().getClass());
+        assertEquals(Moto.class, this.tablero.obtenerVehiculo().getClass());
     }
     
 }

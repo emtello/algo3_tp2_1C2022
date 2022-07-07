@@ -6,7 +6,7 @@ import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.modificador.Sorpresa;
+import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 
@@ -18,19 +18,27 @@ public abstract class Vehiculo extends Observable {
     protected Direccion direccionActual;
     protected ArrayList<Observer> observadores;
 
+    protected String nombre;
+
     public Vehiculo(Tablero tablero) {
         this.tablero = tablero;
         this.movimientos = 0;
         this.observadores = new ArrayList<Observer>();
     }
 
-    public abstract void reemplazarVehiculo();
+    public Vehiculo(Vehiculo vehiculo) {
+        this.tablero = vehiculo.tablero;
+        this.sumarMovimientos(vehiculo.movimientos());
+        this.setObservadores(vehiculo.observadores);
+        this.asignarCeldaInicial(vehiculo.getPosicion());
+        this.direccionActual = vehiculo.direccionActual;
+    }
 
-    public abstract void pozo();
-
-    public abstract void piquete();
-
-    public abstract void controlPolicial();
+    public abstract void aplicarModificador(Modificador modificador);
+    public abstract void aplicarModificador(Pozo pozo);
+    public abstract void aplicarModificador(Piquete piquete);
+    public abstract void aplicarModificador(ControlPolicial controlPolicial);
+    public  abstract void aplicarModificador(CambioDeVehiculo cambioDeVehiculo);
 
     public void sorpresa(Sorpresa sorpresa) {
         this.movimientos = sorpresa.aplicarSorpresa(this.movimientos);
@@ -62,7 +70,10 @@ public abstract class Vehiculo extends Observable {
 
     public void actualizarASiguienteCelda() {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
-        // this.notificarObservables();
+    }
+
+    public Boolean estaEn(Celda celda) {
+        return this.celdaInicial.equals(celda);
     }
 
     @Override
@@ -74,5 +85,13 @@ public abstract class Vehiculo extends Observable {
         for (Observer observer : this.observadores) {
             observer.update(this, this.getPosicion());
         }   
+    }
+
+    protected void setObservadores(ArrayList<Observer> observadores) {
+        this.observadores = observadores;
+    }
+
+    public String getNombre() {
+        return this.nombre;
     }
 }
