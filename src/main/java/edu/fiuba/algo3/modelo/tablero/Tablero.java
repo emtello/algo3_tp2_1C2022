@@ -129,11 +129,16 @@ public class Tablero extends Observable {
         Puntaje puntaje = this.registro.obtenerPuntaje(0);
         return puntaje.getUsuario();
     }
+
     public void registrarPuntaje(String usuario) { //agregue usuario string
         Puntaje puntaje = new Puntaje(usuario, this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
     }
 
+    public ArrayList<Puntaje> getPuntajes() {
+        System.out.println(this.registro.obtenerPuntajes());
+        return this.registro.obtenerPuntajes();
+    }
 }
 
 

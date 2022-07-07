@@ -29,7 +29,7 @@ public class ControladorBotonIrAJuego implements EventHandler<ActionEvent> {
         String nombre = ingresoDeNombre.getText();
         this.tablero.registrarPuntaje(nombre);
        // System.out.println(nombre);
-       // System.out.println(this.tablero.obtenerNombre());
+       System.out.println(this.tablero.obtenerNombre());
         this.stage.setScene(this.scene);
 
     }

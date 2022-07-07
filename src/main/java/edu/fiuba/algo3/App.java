@@ -33,7 +33,7 @@ import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
  */
 public class App extends Application {
 
-    private TableView<Puntos> tablaDePuntajes;
+    private TableView<Puntaje> tablaDePuntajes;
 
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
@@ -50,7 +50,9 @@ public class App extends Application {
     private Scene escenaMenu;
     private VBox vbox2;
     private BotonIrAJuego botonIrAJuego;
-    private BotonIrAPuntajes botonIrAPuntajes;
+    // private BotonIrAPuntajes botonIrAPuntajes;
+    private Button botonIrAPuntajes;
+
 
     private Button botonNoJuego;
     private BotonSiSalirDeJuego botonSiJuego;
@@ -143,7 +145,10 @@ public class App extends Application {
 
         IngresoDeNombre ingresoDeNombre = new IngresoDeNombre();
 
-        botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
+        // botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
+        botonIrAPuntajes = new Button("Ir a puntajes");
+        botonIrAPuntajes.setOnAction(e -> cambiarEscenas(crearEscenaMejoresPuntajes()));
+
         botonIrAJuego = new BotonIrAJuego(ingresoDeNombre, this.tablero, this.escenario, crearEscenaSalirDeMenu());
 
         vbox2 = new VBox(label, ingresoDeNombre, botonIrAJuego, botonIrAPuntajes);
@@ -156,19 +161,19 @@ public class App extends Application {
         return escenaMenu;
     }
 
-    private TableView<Puntos> crearTablaDePuntajes() {
+    private TableView<Puntaje> crearTablaDePuntajes() {
 
         tablaDePuntajes = new TableView<>();
 
         //Columna Usuarios
-        TableColumn<Puntos, String> columnaUsuario = new TableColumn<>("Usuario");
+        TableColumn<Puntaje, String> columnaUsuario = new TableColumn<>("Usuario");
         columnaUsuario.setMinWidth(20);
-        columnaUsuario.setCellValueFactory(new PropertyValueFactory<Puntos, String>("usuario"));
+        columnaUsuario.setCellValueFactory(new PropertyValueFactory<Puntaje, String>("usuario"));
 
         //Columna Puntajes
-        TableColumn<Puntos, Long> columnaPuntaje = new TableColumn<>("Puntaje");
+        TableColumn<Puntaje, Long> columnaPuntaje = new TableColumn<>("Puntaje");
         columnaPuntaje.setMinWidth(20);
-        columnaPuntaje.setCellValueFactory(new PropertyValueFactory<Puntos, Long>("puntaje"));
+        columnaPuntaje.setCellValueFactory(new PropertyValueFactory<Puntaje, Long>("puntaje"));
 
         tablaDePuntajes.getColumns().add(columnaUsuario);
         tablaDePuntajes.getColumns().add(columnaPuntaje);
@@ -178,13 +183,16 @@ public class App extends Application {
         return tablaDePuntajes;
     }
 
-    public ObservableList<Puntos> getPuntajes() { //HACER LISTA SOLO 5
-        ObservableList<Puntos> puntajes = FXCollections.observableArrayList();
-        puntajes.addAll(
-                new Puntos("juan", 3),
-                new Puntos("juan", 3),
-                new Puntos("a", 100)
-        );
+    public ObservableList<Puntaje> getPuntajes() { //HACER LISTA SOLO 5
+        ObservableList<Puntaje> puntajes = FXCollections.observableArrayList();
+
+        puntajes.addAll(tablero.getPuntajes());
+
+        // puntajes.addAll(
+        //         new Puntaje("juan", 3),
+        //         new Puntaje("juan", 3),
+        //         new Puntaje("a", 100)
+        // );
         return puntajes;
     }
 

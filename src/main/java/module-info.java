@@ -10,4 +10,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.tablero;
     exports edu.fiuba.algo3.modelo.vehiculos;
     exports edu.fiuba.algo3.modelo.ciudad;
+    exports edu.fiuba.algo3.modelo.registro;
 }

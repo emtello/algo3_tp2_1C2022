@@ -15,6 +15,11 @@ public class Registro {
         this.puntajes.add(puntaje);
     }
 
+    public ArrayList<Puntaje> obtenerPuntajes() {
+        this.ordenarMayorAMenor();
+        return this.puntajes;
+    }
+
     public void ordenarMayorAMenor() {
         // Es de menor movimientos a mayor movimientos el puntaje?
         Collections.sort(this.puntajes);
