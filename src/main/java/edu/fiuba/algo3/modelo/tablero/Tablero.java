@@ -14,7 +14,7 @@ import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class Tablero extends Observable {
-    
+
     private Vehiculo vehiculo;
     private Ciudad ciudad;
     private Celda llegada;
@@ -26,7 +26,7 @@ public class Tablero extends Observable {
     public Tablero(int filas, int columnas) {
         if (filas < 3 || columnas < 3) {
             throw new IllegalArgumentException(
-                "El tablero debe tener al menos 3 filas y 3 columnas"
+                    "El tablero debe tener al menos 3 filas y 3 columnas"
             );
         }
         this.observers = new ArrayList<Observer>();
@@ -34,25 +34,6 @@ public class Tablero extends Observable {
         this.registro = new Registro();
         this.filas = filas;
         this.columnas = columnas;
-        this.generador = new GeneradorDeCiudad(filas, columnas);
-        this.registro = new Registro(); ///nuevo
-    }
-
-    public void iniciarEn(Celda celda) {
-        celda = this.generador.buscarCelda(celda);
-        this.vehiculo.asignarCeldaInicial(celda);
-    }
-
-    public void agregarvehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
-    public void mover(Direccion direccion) {
-        this.vehiculo.mover(direccion);
-    }
-
-    public void reemplazarVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
     }
 
     public Celda obtenerPosicion() {
@@ -119,11 +100,11 @@ public class Tablero extends Observable {
         this.ciudad.reiniciar();
     }
 
-    public void registrarPuntaje(String usuario) { //agregue usuario string
-        Puntaje puntaje = new Puntaje(usuario, this.vehiculo.movimientos());
+    public void registrarPuntaje() {
+        Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
     }
-    
+
     public void notificarObservadores() {
         this.vehiculo.notificarObservables();
     }
@@ -148,5 +129,12 @@ public class Tablero extends Observable {
         Puntaje puntaje = this.registro.obtenerPuntaje(0);
         return puntaje.getUsuario();
     }
+    public void registrarPuntaje(String usuario) { //agregue usuario string
+        Puntaje puntaje = new Puntaje(usuario, this.vehiculo.movimientos());
+        this.registro.cargarPuntaje(puntaje);
+    }
 
 }
+
+
+

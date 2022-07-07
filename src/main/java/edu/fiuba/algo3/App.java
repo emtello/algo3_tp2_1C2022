@@ -33,6 +33,8 @@ import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
  */
 public class App extends Application {
 
+    private TableView<Puntos> tablaDePuntajes;
+
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
     private VistaPuntaje vistaPuntaje;
@@ -42,7 +44,6 @@ public class App extends Application {
     private Stage escenario;
 
     private Scene escenaJuego;
-    private VBox vbox1;
     private VBox contenedor;
     private BotonIrAMenu botonIrAMenu;
 
@@ -84,8 +85,7 @@ public class App extends Application {
 
     private Scene crearEscenaJuego() {
 
-        this.tablero = new Tablero(10, 10);
-        Tablero tablero = new Tablero(15, 15);
+        tablero = new Tablero(15, 15);
         tablero.generarAleatorio();
         Vehiculo vehiculo = new Moto(tablero);
         tablero.usarVehiculo(vehiculo);
