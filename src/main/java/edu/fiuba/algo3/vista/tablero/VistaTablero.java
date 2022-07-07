@@ -60,10 +60,4 @@ public class VistaTablero extends Group {
 
         this.celdas[(int) y / 2 ][(int) x / 2].getChildren().add(node);
     }
-
-    public void agregarPuntaje(Node contenedor) {
-        contenedor.setLayoutX(10);
-        contenedor.setLayoutY(10);
-        this.agregarVista(contenedor);
-    }
 }

@@ -7,6 +7,9 @@ import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class VistaPuntaje extends Group implements Observer {
@@ -21,9 +24,13 @@ public class VistaPuntaje extends Group implements Observer {
         this.vistaTablero = vistaTablero;
 
         this.contenedorTexto = new Text((String.valueOf(puntaje)));
+        this.contenedorTexto.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         this.contenedor = new HBox(this.contenedorTexto);
+
+        this.contenedor.setLayoutX(10);
+        this.contenedor.setLayoutY(10);
      
-        this.vistaTablero.agregarPuntaje(this.contenedor);
+        this.vistaTablero.agregarVista(this.contenedor);
     }
 
     @Override
