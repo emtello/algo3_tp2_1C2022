@@ -14,6 +14,11 @@ public class Camioneta4x4 extends Vehiculo{
         this.nombre = "camioneta";
     }
 
+    public Camioneta4x4(Vehiculo vehiculo) {
+        super(vehiculo);
+        this.nombre = "camioneta";
+    }
+
     @Override
     public void aplicarModificador(Modificador modificador) {
 
@@ -43,14 +48,16 @@ public class Camioneta4x4 extends Vehiculo{
 
     @Override
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
-        Vehiculo reemplazo = new Moto(this.tablero);
+        // Vehiculo reemplazo = new Moto(this.tablero);
+        Vehiculo reemplazo = new Moto(this);
 
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
+        // reemplazo.asignarCeldaInicial(this.celdaInicial);
+        // reemplazo.sumarMovimientos(this.movimientos);
+        // reemplazo.setObservadores(this.observadores);
 
         this.tablero.reemplazarVehiculo(reemplazo);
-
-        this.actualizarASiguienteCelda();
+        reemplazo.actualizarASiguienteCelda();
+        //this.actualizarASiguienteCelda();
     }
 
     public static long probabilidadControl() {

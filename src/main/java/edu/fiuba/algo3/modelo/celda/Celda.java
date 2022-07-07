@@ -68,7 +68,7 @@ public class Celda extends Observable {
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
-        sigCalle.notifyObservers();
+        // sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
 

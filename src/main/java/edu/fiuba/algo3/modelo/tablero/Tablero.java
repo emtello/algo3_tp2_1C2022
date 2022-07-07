@@ -42,6 +42,10 @@ public class Tablero extends Observable {
         return this.vehiculo;
     }
 
+    public String obtenerTipoVehiculo() {
+        return this.vehiculo.getNombre();
+    }
+
     public long movimientos() {
         return this.vehiculo.movimientos();
     }

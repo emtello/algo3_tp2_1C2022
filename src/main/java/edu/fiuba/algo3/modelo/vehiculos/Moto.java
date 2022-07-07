@@ -14,6 +14,11 @@ public class Moto extends Vehiculo {
         this.nombre = "moto";
     }
 
+    public Moto (Vehiculo vehiculo) {
+        super(vehiculo);
+        this.nombre = "moto";
+    }
+
     @Override
     public void aplicarModificador(Modificador modificador) {
         //
@@ -41,14 +46,17 @@ public class Moto extends Vehiculo {
 
     @Override
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
-        Vehiculo reemplazo = new Auto(this.tablero);
+        // Vehiculo reemplazo = new Auto(this.tablero);
+        Vehiculo reemplazo = new Auto(this);
 
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
+
+        // reemplazo.asignarCeldaInicial(this.celdaInicial);
+        // reemplazo.sumarMovimientos(this.movimientos);
+        // reemplazo.setObservadores(this.observadores);
 
         this.tablero.reemplazarVehiculo(reemplazo);
-
-        this.actualizarASiguienteCelda();
+        reemplazo.actualizarASiguienteCelda();
+        // this.actualizarASiguienteCelda();
 
     }
 

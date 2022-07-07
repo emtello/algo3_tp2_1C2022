@@ -26,6 +26,14 @@ public abstract class Vehiculo extends Observable {
         this.observadores = new ArrayList<Observer>();
     }
 
+    public Vehiculo(Vehiculo vehiculo) {
+        this.tablero = vehiculo.tablero;
+        this.sumarMovimientos(vehiculo.movimientos());
+        this.setObservadores(vehiculo.observadores);
+        this.asignarCeldaInicial(vehiculo.getPosicion());
+        this.direccionActual = vehiculo.direccionActual;
+    }
+
     public abstract void aplicarModificador(Modificador modificador);
     public abstract void aplicarModificador(Pozo pozo);
     public abstract void aplicarModificador(Piquete piquete);
@@ -62,7 +70,6 @@ public abstract class Vehiculo extends Observable {
 
     public void actualizarASiguienteCelda() {
         this.celdaInicial = this.celdaInicial.buscarSiguiente(this.direccionActual);
-        // this.notificarObservables();
     }
 
     public Boolean estaEn(Celda celda) {
@@ -78,6 +85,10 @@ public abstract class Vehiculo extends Observable {
         for (Observer observer : this.observadores) {
             observer.update(this, this.getPosicion());
         }   
+    }
+
+    protected void setObservadores(ArrayList<Observer> observadores) {
+        this.observadores = observadores;
     }
 
     public String getNombre() {

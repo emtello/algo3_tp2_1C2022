@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.ciudad.Ciudad;
+import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
 import edu.fiuba.algo3.modelo.modificador.ControlPolicial;
 import edu.fiuba.algo3.modelo.modificador.Desfavorable;
 import edu.fiuba.algo3.modelo.modificador.Favorable;
@@ -29,6 +30,7 @@ public class OperadorCiudad {
         mod.add(new ControlPolicial());
         mod.add(new Favorable());
         mod.add(new Desfavorable());
+        mod.add(new CambioDeVehiculo());
 
         return mod;
     }

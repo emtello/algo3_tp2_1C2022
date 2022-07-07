@@ -81,8 +81,6 @@ public class App extends Application {
         Vehiculo vehiculo = new Moto(tablero);
         tablero.usarVehiculo(vehiculo);
 
-        VistaModificador vistaModificadores[] = new VistaModificador[tablero.getFilas()];
-
         Celda salida = new Celda(1, 0);
         Celda llegada = new Celda(5, 14);
 
@@ -100,7 +98,7 @@ public class App extends Application {
             calle.addObserver(vista);
         }
         
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo.getNombre(), vehiculo.getPosicion());
+        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, tablero);
         this.vistaVehiculo.setFocusTraversable(true);
 
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);
