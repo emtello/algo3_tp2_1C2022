@@ -90,7 +90,7 @@ public class App extends Application {
 
         this.vistaTablero = new VistaTablero(tablero);
         this.vistaTablero.agregarVistaAPosicion(new VistaCeldaLlegada(), llegada);
-        
+
         for (Calle calle : tablero.getCalles()) {
             ArrayList<Celda> esquinas = calle.obtenerEsquinas();
             String nombre = calle.getModificador().getNombre();
@@ -101,9 +101,10 @@ public class App extends Application {
         
         this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, tablero);
         this.vistaVehiculo.setFocusTraversable(true);
-        this.vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
-        
+
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);
+
+        this.vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
 
         tablero.addObserver(vistaPuntaje);
         vehiculo.addObserver(vistaVehiculo);
