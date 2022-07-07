@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.celda.VistaCeldaLlegada;
 import edu.fiuba.algo3.vista.modificador.VistaModificador;
+import edu.fiuba.algo3.vista.puntaje.VistaPuntaje;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import edu.fiuba.algo3.vista.vehiculo.VistaVehiculo;
 import javafx.application.Application;
@@ -103,6 +104,9 @@ public class App extends Application {
 
         ControladorVehiculo controlador = new ControladorVehiculo(tablero);
 
+        VistaPuntaje vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
+
+        tablero.addObserver(vistaPuntaje);
         vehiculo.addObserver(vistaVehiculo);
 
         boton1 = new Button("Clickear para ir a Menu");

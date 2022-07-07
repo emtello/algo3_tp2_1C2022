@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class VistaTablero extends Group {
@@ -58,5 +59,11 @@ public class VistaTablero extends Group {
         long y = origen.columna() * 2 + destino.columna() * 2;
 
         this.celdas[(int) y / 2 ][(int) x / 2].getChildren().add(node);
+    }
+
+    public void agregarPuntaje(Node contenedor) {
+        contenedor.setLayoutX(10);
+        contenedor.setLayoutY(10);
+        this.agregarVista(contenedor);
     }
 }

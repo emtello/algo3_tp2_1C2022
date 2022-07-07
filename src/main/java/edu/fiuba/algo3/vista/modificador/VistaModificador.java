@@ -18,6 +18,7 @@ public class VistaModificador extends Group implements Observer {
     public VistaModificador(VistaTablero vistaTablero, String modificador, Celda origen, Celda destino) {
         this.pane = new ImageView();
         
+        // Para optimizar
         if (modificador != "nulo") {
             Image image = new Image(modificador + ".png");
             
@@ -31,6 +32,6 @@ public class VistaModificador extends Group implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        this.pane.setImage(null); 
+        this.pane.setImage(new Image(arg.toString() + ".png")); 
     }
 }

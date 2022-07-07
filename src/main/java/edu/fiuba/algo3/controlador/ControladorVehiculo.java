@@ -32,6 +32,7 @@ public class ControladorVehiculo implements EventHandler<KeyEvent> {
                 this.tablero.mover(new Izquierda());
             }
             this.tablero.notificarObservadores();
+            this.tablero.notifyObservers();
             System.out.println(this.tablero.obtenerPosicion().toString());
         } 
         catch (Exception ignorado) {

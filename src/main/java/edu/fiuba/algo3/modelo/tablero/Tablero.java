@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -20,6 +21,7 @@ public class Tablero extends Observable {
     private Registro registro;
     private int filas;
     private int columnas;
+    private ArrayList<Observer> observers;
 
     public Tablero(int filas, int columnas) {
         if (filas < 3 || columnas < 3) {
@@ -27,7 +29,7 @@ public class Tablero extends Observable {
                 "El tablero debe tener al menos 3 filas y 3 columnas"
             );
         }
-
+        this.observers = new ArrayList<Observer>();
         this.ciudad = new Ciudad(filas, columnas);
         this.registro = new Registro();
         this.filas = filas;
@@ -109,6 +111,18 @@ public class Tablero extends Observable {
 
     public ArrayList<Calle> getCalles() {
         return this.ciudad.getCalles();
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        this.observers.add(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update(this, this.movimientos());
+        }
     }
 
 }
