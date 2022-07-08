@@ -12,7 +12,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 *.iml
 docs/informe/main.aux
-docs/informe/main.pdf
 docs/informe/main.fls
 docs/informe/main.log
 docs/informe/main.fdb_latexmk
