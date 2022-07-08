@@ -13,19 +13,13 @@ public class ControladorBotonIrAJuego implements EventHandler<ActionEvent> {
 
     private IngresoDeNombre ingresoDeNombre;
 
-    public ControladorBotonIrAJuego(IngresoDeNombre ingresoDeNombre, Stage stage, Scene escenaJuego) {
-        this.ingresoDeNombre = ingresoDeNombre;
+    public ControladorBotonIrAJuego(Stage stage, Scene escenaJuego) {
         this.stage = stage;
         this.scene = escenaJuego;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        // String nombre = ingresoDeNombre.getText();
-        // this.tablero.registrarPuntaje(nombre);
-       // System.out.println(nombre);
-    //    System.out.println(this.tablero.obtenerNombre());
         this.stage.setScene(this.scene);
-
     }
 }

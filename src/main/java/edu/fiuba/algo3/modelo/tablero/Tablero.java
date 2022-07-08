@@ -17,7 +17,7 @@ public class Tablero {
     
     private Vehiculo vehiculo;
     private Ciudad ciudad;
-    private Registro registro;
+    // private Registro registro;
     private int filas;
     private int columnas;
 
@@ -29,7 +29,7 @@ public class Tablero {
         }
 
         this.ciudad = new Ciudad(filas, columnas);
-        this.registro = new Registro();
+        // this.registro = new Registro();
         this.filas = filas;
         this.columnas = columnas;
     }
@@ -100,14 +100,18 @@ public class Tablero {
         );
     }
 
-    public void registrarPuntaje() {
-        Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
-        this.registro.cargarPuntaje(puntaje);
-    }
+    // public void registrarPuntaje(String nombre) {
+    //     Puntaje puntaje = new Puntaje(nombre, this.vehiculo.movimientos());
+    //     this.registro.cargarPuntaje(puntaje);
+    // }
 
     public ArrayList<Calle> getCalles() {
         return this.ciudad.getCalles();
     }
+
+    // public ArrayList<Puntaje> obtenerPuntajes() {
+    //     return this.registro.obtenerPuntajes();
+    // }
 
 }
 

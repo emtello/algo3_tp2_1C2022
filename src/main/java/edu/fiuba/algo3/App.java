@@ -3,6 +3,7 @@ package edu.fiuba.algo3;
 import java.util.ArrayList;
 
 import edu.fiuba.algo3.controlador.ControladorJuego;
+import edu.fiuba.algo3.controlador.ControladorRegistro;
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -38,6 +39,7 @@ public class App extends Application {
 
     private TableView<Puntaje> tablaDePuntajes;
     private ControladorJuego juego;
+    private ControladorRegistro registro;
 
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
@@ -70,6 +72,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        this.iniciarRegistro();
         escenario = stage;
         escenario.setTitle("GPS Challenge");
 
@@ -86,6 +89,10 @@ public class App extends Application {
 
     public void iniciarJuego() {
         this.juego = new ControladorJuego(7, 7);
+    }
+
+    public void iniciarRegistro() {
+        this.registro = new ControladorRegistro();
     }
 
     private Scene crearEscenaJuego() {
@@ -143,17 +150,20 @@ public class App extends Application {
 
     private Scene crearEscenaMenu() {
 
-        Label label = new Label("Nombre:");
+        Label label = new Label("Bienvenido al GPS Challenge");
 
-        IngresoDeNombre ingresoDeNombre = new IngresoDeNombre();
+        // IngresoDeNombre ingresoDeNombre = new IngresoDeNombre();
 
         // botonIrAPuntajes = new BotonIrAPuntajes(this.escenario, crearEscenaMejoresPuntajes());
         botonIrAPuntajes = new Button("Ir a puntajes");
         botonIrAPuntajes.setOnAction(e -> cambiarEscenas(crearEscenaMejoresPuntajes()));
 
-        botonIrAJuego = new BotonIrAJuego(ingresoDeNombre, this.escenario, crearEscenaSalirDeMenu());
+        Button botonIrAlJuego = new Button("Jugar");
+        botonIrAlJuego.setOnAction(e -> this.reiniciarJuego());
 
-        vbox2 = new VBox(label, ingresoDeNombre, botonIrAJuego, botonIrAPuntajes);
+        // botonIrAJuego = new BotonIrAJuego(this.escenario, crearEscenaSalirDeMenu());
+
+        vbox2 = new VBox(label, botonIrAlJuego, botonIrAPuntajes);
         vbox2.setAlignment(Pos.CENTER);
         vbox2.setSpacing(10);
         vbox2.setPadding(new Insets(20));
@@ -180,7 +190,7 @@ public class App extends Application {
         tablaDePuntajes.getColumns().add(columnaUsuario);
         tablaDePuntajes.getColumns().add(columnaPuntaje);
         tablaDePuntajes.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        // tablaDePuntajes.setItems(getPuntajes());
+        tablaDePuntajes.setItems(getPuntajes());
 
         return tablaDePuntajes;
     }
@@ -188,17 +198,13 @@ public class App extends Application {
     public ObservableList<Puntaje> getPuntajes() { //HACER LISTA SOLO 5
         ObservableList<Puntaje> puntajes = FXCollections.observableArrayList();
 
-        //puntajes.addAll(this.juego.getTablero().getPuntajes());
+        puntajes.addAll(this.registro.getPuntajes());
 
-        // puntajes.addAll(
-        //         new Puntaje("juan", 3),
-        //         new Puntaje("juan", 3),
-        //         new Puntaje("a", 100)
-        // );
         return puntajes;
     }
 
     public void mostrarVentanaJuegoCompleto() {
+        escenaJuegoCompleto = crearEscenaJuegoCompleto();
         this.cambiarEscenas(escenaJuegoCompleto);
     }
 
@@ -224,13 +230,28 @@ public class App extends Application {
     private Scene crearEscenaJuegoCompleto() {
         Label label = new Label("Juego Completo");
 
+        Label labelIngreso = new Label("Ingrese su nombre para registrarlo");
+        TextField ingresoNombre = new TextField();
+
+        Button botonIngresoNombre = new Button("Guardar puntación");
+        botonIngresoNombre.setOnAction(e -> registro.registrar(botonIngresoNombre, ingresoNombre, this.juego));
+
         Button botonSalirDeJuego = new Button("Clickear para ir al Menu");
         botonSalirDeJuego.setOnAction(e -> cambiarEscenas(escenaSalirDeJuego));
 
         Button botonReiniciarJuego = new Button("Clickear para reiniciar");
         botonReiniciarJuego.setOnAction(e -> reiniciarJuego());
 
-        VBox vbox5 = new VBox(label, botonSalirDeJuego, botonReiniciarJuego);
+        VBox vbox5 = new VBox(
+            label, 
+            labelIngreso,
+            ingresoNombre,
+            botonIngresoNombre,
+            botonSalirDeJuego, 
+            botonReiniciarJuego
+        );
+        vbox5.setSpacing(10);
+        vbox5.setPadding(new Insets(10));
         vbox5.setAlignment(Pos.CENTER);
 
         escenaJuegoCompleto = new Scene(vbox5, 640, 640);
@@ -264,7 +285,9 @@ public class App extends Application {
         Button botonSalirDeMenu = new Button("Clickear para salir");
         botonSalirDeMenu.setOnAction(e -> cambiarEscenas(escenaMenu));
         VBox vbox3 = new VBox(label, botonAuto, botonMoto, botonCamioneta4x4, botonSalirDeMenu);
+        
         vbox3.setAlignment(Pos.CENTER);
+        vbox3.setSpacing(10);
 
         escenaSalirDeMenu = new Scene(vbox3, 640, 640);
         return escenaSalirDeMenu;
@@ -282,7 +305,6 @@ public class App extends Application {
 
         escenaSalirDeJuego= new Scene(vbox8, 640, 640);
         return escenaSalirDeJuego;
-
     }
 
     private Scene crearEscenaSalirDeMejoresPuntajes() {

@@ -7,10 +7,10 @@ import javafx.stage.Stage;
 
 public class BotonIrAJuego extends Button {
 
-    public BotonIrAJuego(IngresoDeNombre ingresoDeNombre, Stage stage, Scene scene) {
+    public BotonIrAJuego(Stage stage, Scene scene) {
         super();
         this.setText("Clickear para Jugar");
         this.setMinHeight(20);
-        this.setOnAction(new ControladorBotonIrAJuego(ingresoDeNombre, stage, scene));
+        this.setOnAction(new ControladorBotonIrAJuego(stage, scene));
     }
 }

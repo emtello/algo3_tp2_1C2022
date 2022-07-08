@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
+import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
@@ -109,5 +110,13 @@ public class ControladorJuego implements Observable {
         this.tablero.iniciarEn(this.salida);
         this.llegada = this.tablero.finalizarEnCeldaAleatoria();
     }
+
+    // public void registrarPuntaje(String ingreso) {
+    //     this.tablero.registrarPuntaje(ingreso);
+    // }
+
+    // public ArrayList<Puntaje> getPuntajes() {
+    //     return this.tablero.obtenerPuntajes();
+    // }
 
 }

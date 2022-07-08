@@ -21,7 +21,7 @@ public class Calle {
 
     public void cruzarCon(Vehiculo vehiculo) {
         this.modificador.cruzarCon(vehiculo);
-        this.modificador = new Nulo();
+        // this.modificador = new Nulo();
     }
 
     public Celda siguienteEsquina(Celda esquinaActual) {
