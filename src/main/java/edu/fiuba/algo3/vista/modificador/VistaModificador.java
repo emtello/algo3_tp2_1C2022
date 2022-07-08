@@ -5,7 +5,6 @@ import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
