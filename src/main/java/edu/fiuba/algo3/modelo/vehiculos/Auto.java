@@ -39,12 +39,12 @@ public class Auto extends Vehiculo {
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
         Vehiculo reemplazo = new Camioneta4x4(this.tablero);
 
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
-
         this.tablero.reemplazarVehiculo(reemplazo);
 
-        this.actualizarASiguienteCelda();
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.setDireccionActual(this.direccionActual);
+        reemplazo.setMovimientos(this.movimientos);
+        reemplazo.actualizarASiguienteCelda();
     }
 
     public static long probabilidadControl() {

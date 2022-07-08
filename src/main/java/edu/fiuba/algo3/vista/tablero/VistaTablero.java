@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vista.tablero;
 
+import edu.fiuba.algo3.controlador.ControladorJuego;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vista.celda.VistaCelda;
@@ -15,16 +16,19 @@ public class VistaTablero extends Group {
 
     private GridPane tabla;
     private Pane[][] celdas;
+    private ControladorJuego juego;
 
-    public VistaTablero(Tablero tablero) {
+    public VistaTablero(ControladorJuego juego) {
+        this.juego = juego;
         this.tabla = new GridPane();
-        int filas = (tablero.getFilas() * 2 - 1);
-        int columnas = (tablero.getColumnas() * 2 - 1);
+
+        int filas = (this.juego.getFilas() * 2 - 1);
+        int columnas = (this.juego.getColumnas() * 2 - 1);
 
         this.celdas = new Pane[filas][columnas];
 
-        for (int i = 0; i < tablero.getFilas() * 2 - 1; i++) {
-            for (int j = 0; j < tablero.getColumnas() * 2 - 1; j++ ) {
+        for (int i = 0; i < this.juego.getFilas() * 2 - 1; i++) {
+            for (int j = 0; j < this.juego.getColumnas() * 2 - 1; j++ ) {
                 VistaCelda celda;
     
                 if(i%2==1 && j%2==1){
@@ -38,8 +42,6 @@ public class VistaTablero extends Group {
                 this.tabla.add(celda, i, j);
             }
         }
-        // this.tabla.setVgap(0);
-        // this.tabla.setHgap(0);
 
         this.tabla.setAlignment(Pos.CENTER);
         this.agregarVista(this.tabla);
@@ -59,4 +61,5 @@ public class VistaTablero extends Group {
 
         this.celdas[(int) y / 2 ][(int) x / 2].getChildren().add(node);
     }
+
 }

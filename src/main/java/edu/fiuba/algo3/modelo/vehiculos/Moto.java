@@ -43,12 +43,12 @@ public class Moto extends Vehiculo {
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
         Vehiculo reemplazo = new Auto(this.tablero);
 
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
-
         this.tablero.reemplazarVehiculo(reemplazo);
-
-        this.actualizarASiguienteCelda();
+        
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.setDireccionActual(this.direccionActual);
+        reemplazo.setMovimientos(this.movimientos);
+        reemplazo.actualizarASiguienteCelda();
 
     }
 

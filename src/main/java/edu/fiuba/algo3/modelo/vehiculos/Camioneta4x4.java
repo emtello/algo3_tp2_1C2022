@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
-public class Camioneta4x4 extends Vehiculo{
+public class Camioneta4x4 extends Vehiculo {
 
     private long pozosAtravezados = 0;
     private long penalizacionPorPozo = 2;
@@ -45,12 +45,11 @@ public class Camioneta4x4 extends Vehiculo{
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
         Vehiculo reemplazo = new Moto(this.tablero);
 
-        reemplazo.asignarCeldaInicial(this.celdaInicial);
-        reemplazo.sumarMovimientos(this.movimientos);
-
         this.tablero.reemplazarVehiculo(reemplazo);
-
-        this.actualizarASiguienteCelda();
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.setDireccionActual(this.direccionActual);
+        reemplazo.setMovimientos(this.movimientos);
+        reemplazo.actualizarASiguienteCelda();
     }
 
     public static long probabilidadControl() {

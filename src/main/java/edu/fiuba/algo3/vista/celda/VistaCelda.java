@@ -12,8 +12,8 @@ public class VistaCelda extends Pane {
     private final int dimensionCelda = 20;
 
     public VistaCelda(Color color) {
-        
         this.setMinSize(dimensionCelda, dimensionCelda);
         this.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
+    
 }

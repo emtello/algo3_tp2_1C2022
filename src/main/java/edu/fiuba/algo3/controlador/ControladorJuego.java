@@ -1,11 +1,14 @@
 package edu.fiuba.algo3.controlador;
 
+import java.util.ArrayList;
+
+import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
+import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class ControladorJuego {
+public class ControladorJuego implements Observable {
 
     private Tablero tablero;
     private long filas;
@@ -13,6 +16,8 @@ public class ControladorJuego {
     private Vehiculo vehiculo;
     private Celda salida;
     private Celda llegada;
+
+    private ArrayList<Observer> observadores;
     
     public ControladorJuego(long filas, long columnas) {
         this.filas = filas;
@@ -25,14 +30,26 @@ public class ControladorJuego {
 
         this.tablero.generarAleatorio();
         
-        this.vehiculo = new Moto(tablero);
-        this.tablero.usarVehiculo(vehiculo);
-
         this.salida = new Celda(1, 0);
-        this.llegada = new Celda(5, 14);
 
-        this.tablero.iniciarEn(salida);
-        this.tablero.finalizarEn(llegada);
+        this.observadores = new ArrayList<Observer>();
+    }
+
+    @Override
+    public void agregar(Observer observer) {
+        this.observadores.add(observer);
+    }
+
+    @Override
+    public void eliminar(Observer observer) {
+        this.observadores.remove(observer);
+    }
+
+    @Override
+    public void notificar() {
+        for (Observer observer : this.observadores) {
+            observer.update();
+        }
     }
 
     public Tablero getTablero() {
@@ -41,6 +58,14 @@ public class ControladorJuego {
 
     public Vehiculo getVehiculo() {
         return this.tablero.obtenerVehiculo();
+    }
+
+    public int getFilas() {
+        return (int) this.filas;
+    }
+
+    public int getColumnas() {
+        return (int) this.columnas;
     }
 
     public Celda getLlegada() {
@@ -55,7 +80,34 @@ public class ControladorJuego {
         this.tablero.reiniciar();
         this.tablero.generarAleatorio();
         this.tablero.iniciarEn(salida);
-        this.tablero.finalizarEn(llegada);
+        this.tablero.finalizarEnCeldaAleatoria();
+    }
+
+    public long getMovimientos() {
+        return this.tablero.movimientos();
+    }
+
+    public Boolean mover(Direccion direccion) {
+        Boolean ok = this.tablero.mover(direccion);
+        this.vehiculo = this.tablero.obtenerVehiculo();
+        
+        return ok;
+    }
+
+    public Celda obtenerPosicion() {
+        return this.tablero.obtenerPosicion();
+    }
+
+    public ArrayList<Calle> getCalles() {
+        return this.tablero.getCalles();
+    }
+
+    public void usarVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+        this.tablero.usarVehiculo(this.vehiculo);
+        
+        this.tablero.iniciarEn(this.salida);
+        this.llegada = this.tablero.finalizarEnCeldaAleatoria();
     }
 
 }

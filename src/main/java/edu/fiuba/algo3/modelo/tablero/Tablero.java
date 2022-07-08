@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -12,7 +13,7 @@ import edu.fiuba.algo3.modelo.registro.Puntaje;
 import edu.fiuba.algo3.modelo.registro.Registro;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Tablero extends Observable {
+public class Tablero {
     
     private Vehiculo vehiculo;
     private Ciudad ciudad;
@@ -51,8 +52,12 @@ public class Tablero extends Observable {
         this.vehiculo.asignarCeldaInicial(celdaInicial);
     }
 
-    public void finalizarEn(Celda celda) {
-        this.ciudad.finalizaEn(celda);
+    public Celda finalizarEnCeldaAleatoria() {
+        return this.ciudad.finalizarEnCeldaAleatoria();
+    } 
+
+    public Celda finalizarEn(Celda celda) {
+        return this.ciudad.finalizaEn(celda);
     }
 
     public void agregarModificador(Celda ini, Celda fin, Modificador mod) {
@@ -98,10 +103,6 @@ public class Tablero extends Observable {
     public void registrarPuntaje() {
         Puntaje puntaje = new Puntaje("usuario", this.vehiculo.movimientos());
         this.registro.cargarPuntaje(puntaje);
-    }
-    
-    public void notificarObservadores() {
-        this.vehiculo.notificarObservables();
     }
 
     public ArrayList<Calle> getCalles() {

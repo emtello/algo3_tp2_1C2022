@@ -109,8 +109,26 @@ public class Ciudad {
         return this.celdaInicio;
     }
 
-    public void finalizaEn(Celda celda) {
+    public Boolean esquinaEsBorde(Celda esqActual, long f, long c) {
+        long i = esqActual.fila();
+        long j = esqActual.columna();
+        
+        return (i == 0 || j == 0 || i == f - 1 || j == c - 1);
+    }
+
+    public Celda finalizarEnCeldaAleatoria() {
+        while (true) {
+            Celda celda = this.celdas.get((int) (Math.random() * this.celdas.size()));
+            if (esquinaEsBorde(celda, this.filas, this.columnas)) {
+                this.celdaFinal = celda;
+                return this.celdaFinal;
+            }
+        }
+    }
+
+    public Celda finalizaEn(Celda celda) {
         this.celdaFinal = this.buscarCelda(celda);
+        return this.celdaFinal;
     }
 
     public Celda getInicio() {

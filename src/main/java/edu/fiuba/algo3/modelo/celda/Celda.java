@@ -1,13 +1,12 @@
 package edu.fiuba.algo3.modelo.celda;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
-public class Celda extends Observable {
+public class Celda {
     
     private long f;
     private long c;
@@ -68,7 +67,6 @@ public class Celda extends Observable {
         Celda sigCelda = this.buscarSiguiente(dir);
         Calle sigCalle = this.obtenerCalleDeEsquina(sigCelda);
     
-        sigCalle.notifyObservers();
         sigCalle.cruzarCon(vehiculo);
     }
 

@@ -1,26 +1,22 @@
 package edu.fiuba.algo3.modelo.calle;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.modelo.modificador.Nulo;
 
-public class Calle extends Observable{
+public class Calle {
 
     private Modificador modificador;
     private ArrayList<Celda> celdas;
-    private ArrayList<Observer> observadores;
 
     public Calle(Celda esq1, Celda esq2, Modificador modificador) {
         this.celdas = new ArrayList<Celda>();
         this.celdas.add(esq1);
         this.celdas.add(esq2);
         this.modificador = modificador;
-        this.observadores = new ArrayList<Observer>();
     }
 
     public void cruzarCon(Vehiculo vehiculo) {
@@ -73,19 +69,8 @@ public class Calle extends Observable{
                 return false;
             }
         }
+        
         return true;
-    }
-
-    @Override
-    public synchronized void addObserver(Observer o) {
-        this.observadores.add(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : this.observadores) {
-            observer.update(this, this.modificador.getNombre());
-        }
     }
     
 }

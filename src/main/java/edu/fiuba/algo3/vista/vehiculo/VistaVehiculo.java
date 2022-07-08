@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.vista.vehiculo;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.ResourceBundle.Control;
 
-import edu.fiuba.algo3.controlador.ControladorVehiculo;
+import edu.fiuba.algo3.controlador.ControladorJuego;
+import edu.fiuba.algo3.controlador.Observer;
 import edu.fiuba.algo3.modelo.celda.Celda;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import edu.fiuba.algo3.vista.tablero.VistaTablero;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,49 +13,45 @@ import javafx.scene.layout.Pane;
 
 public class VistaVehiculo extends Pane implements Observer {
 
+    private final double tamanioVehiculo = 15;
     private ImageView modeloVehiculo;
-    private Celda celda;
-    private VistaTablero vistaTablero;
-    ControladorVehiculo controladorVehiculo;
+    private Celda posicionAnterior;
+    private VistaTablero tablero;
+    private ControladorJuego juego;
 
-    public VistaVehiculo(VistaTablero vistaTablero, String vehiculo, Celda celda) {
-        this.vistaTablero = vistaTablero;
-        this.celda = celda;
+    public VistaVehiculo(VistaTablero tablero, ControladorJuego juego) {
+        this.tablero = tablero;
+        this.juego = juego;
+        this.posicionAnterior = this.juego.obtenerPosicion();
         
-        this.modeloVehiculo = this.obtenerImagen(vehiculo);
+        this.modeloVehiculo = new ImageView();
+        this.modeloVehiculo.setFitHeight(tamanioVehiculo);
+        this.modeloVehiculo.setFitWidth(tamanioVehiculo);
+        this.modeloVehiculo.maxHeight(tamanioVehiculo);
+        this.modeloVehiculo.maxWidth(tamanioVehiculo);
+        this.modeloVehiculo.setPreserveRatio(true);
 
         BorderPane pane = new BorderPane();
-
+        
         pane.setMinSize(20, 20);
         pane.setCenter(this.modeloVehiculo);
-
-        vistaTablero.agregarVistaAPosicion(pane, celda);
+        
+        this.setNuevoAuto(this.juego.getVehiculo().getNombre());
+        tablero.agregarVistaAPosicion(pane, this.posicionAnterior);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        Celda nuevaPosicion = (Celda) arg;
+    public void update() {
+        Celda nuevaPosicion = this.juego.getVehiculo().getPosicion();
 
-        this.rotar(this.celda, nuevaPosicion);
-        this.celda = nuevaPosicion;
-
-        this.vistaTablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
+        this.setNuevoAuto(this.juego.getVehiculo().getNombre());
+        this.rotar(this.posicionAnterior, nuevaPosicion);
+        this.posicionAnterior = nuevaPosicion;
+        this.tablero.agregarVistaAPosicion(this.modeloVehiculo, nuevaPosicion);
     }
 
-    public ImageView obtenerImagen(String vehiculo) {
-        Image image = new Image(vehiculo + ".png");
-
-        ImageView modeloVehiculo = new ImageView(image);
-
-        modeloVehiculo.setFitHeight(20);
-        modeloVehiculo.setFitWidth(20);
-
-        modeloVehiculo.maxHeight(20);
-        modeloVehiculo.maxWidth(20);
-        
-        modeloVehiculo.setPreserveRatio(true);
-        
-        return modeloVehiculo;
+    public void setNuevoAuto(String nombre) {
+        this.modeloVehiculo.setImage(new Image(nombre + ".png"));
     }
 
     public void rotar(Celda anterior, Celda siguiente) {
@@ -78,5 +72,6 @@ public class VistaVehiculo extends Pane implements Observer {
             this.modeloVehiculo.setRotate(0);
         }
     }
+    
     
 }
