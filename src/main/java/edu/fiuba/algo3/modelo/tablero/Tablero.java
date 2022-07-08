@@ -17,7 +17,6 @@ public class Tablero extends Observable {
 
     private Vehiculo vehiculo;
     private Ciudad ciudad;
-    private Celda llegada;
     private Registro registro;
     private int filas;
     private int columnas;
@@ -53,14 +52,13 @@ public class Tablero extends Observable {
     }
 
     public void iniciarEn(Celda celda) {
-        // Celda inicio = this.ciudad.buscarCelda(celda);
-        Celda inicio = this.ciudad.buscarCelda(celda);
+        Celda celdaInicial = this.ciudad.iniciaEn(celda);
 
-        this.vehiculo.asignarCeldaInicial(inicio);
+        this.vehiculo.asignarCeldaInicial(celdaInicial);
     }
 
     public void finalizarEn(Celda celda) {
-        this.llegada = celda;
+        this.ciudad.finalizaEn(celda);
     }
 
     public void agregarModificador(Celda ini, Celda fin, Modificador mod) {
@@ -80,7 +78,7 @@ public class Tablero extends Observable {
     public Boolean mover(Direccion direccion) {
         this.vehiculo.mover(direccion);
 
-        return this.vehiculo.estaEn(this.llegada);
+        return this.vehiculo.estaEn(this.ciudad.getLlegada());
     }
 
     public int getFilas() {
@@ -96,8 +94,11 @@ public class Tablero extends Observable {
     }
 
     public void reiniciar() {
-        // this.ciudad.reiniciar();
         this.ciudad.reiniciar();
+        this.ciudad.completarAleatorio();
+        this.vehiculo.asignarCeldaInicial(
+            this.ciudad.getInicio()
+        );
     }
 
     public void registrarPuntaje() {

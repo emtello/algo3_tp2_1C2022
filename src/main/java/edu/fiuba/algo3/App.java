@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 
 import java.util.ArrayList;
 
+import edu.fiuba.algo3.controlador.ControladorJuego;
 import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -34,6 +35,7 @@ import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 public class App extends Application {
 
     private TableView<Puntaje> tablaDePuntajes;
+    private ControladorJuego juego;
 
     private VistaTablero vistaTablero;
     private VistaVehiculo vistaVehiculo;
@@ -63,6 +65,7 @@ public class App extends Application {
     private Scene escenaMejoresPuntajes;
     private Scene escenaSalirDeJuego;
     private Scene escenaSalirDeMenu;
+    private Scene escenaJuegoCompleto;
 
     private Scene escenaSalirDeMejoresPuntajes;
 
@@ -78,24 +81,22 @@ public class App extends Application {
         escenaMejoresPuntajes = crearEscenaMejoresPuntajes();
         escenaSalirDeMenu = crearEscenaSalirDeMenu();
         escenaSalirDeMejoresPuntajes = crearEscenaSalirDeMejoresPuntajes();
+        escenaJuegoCompleto = crearEscenaJuegoCompleto();
 
         escenario.setScene(escenaMenu);
         escenario.show();
+    }
 
+    public void iniciarJuego() {
+        this.juego = new ControladorJuego(15, 15);
     }
 
     private Scene crearEscenaJuego() {
+        this.iniciarJuego();
 
-        tablero = new Tablero(15, 15);
-        tablero.generarAleatorio();
-        Vehiculo vehiculo = new Moto(tablero);
-        tablero.usarVehiculo(vehiculo);
-
-        Celda salida = new Celda(1, 0);
-        Celda llegada = new Celda(5, 14);
-
-        tablero.iniciarEn(salida);
-        tablero.finalizarEn(llegada);
+        this.tablero = this.juego.getTablero();
+        Vehiculo vehiculo = this.juego.getVehiculo();
+        Celda llegada = this.juego.getLlegada();
 
         this.vistaTablero = new VistaTablero(tablero);
         this.vistaTablero.agregarVistaAPosicion(new VistaCeldaLlegada(), llegada);
@@ -108,10 +109,10 @@ public class App extends Application {
             calle.addObserver(vista);
         }
 
-        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, tablero);
+        this.vistaVehiculo = new VistaVehiculo(this.vistaTablero, vehiculo.getNombre(), vehiculo.getPosicion());
         this.vistaVehiculo.setFocusTraversable(true);
 
-        ControladorVehiculo controlador = new ControladorVehiculo(tablero);
+        ControladorVehiculo controlador = new ControladorVehiculo(tablero, this);
 
         this.vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
 
@@ -125,6 +126,7 @@ public class App extends Application {
 
         contenedor.getChildren().add(this.vistaTablero);
         contenedor.getChildren().add(this.vistaVehiculo);
+        
         contenedor.setOnKeyPressed(controlador);
 
         contenedor.getChildren().add(botonIrAMenu);
@@ -201,6 +203,10 @@ public class App extends Application {
         return puntajes;
     }
 
+    public void mostrarVentanaJuegoCompleto() {
+        this.cambiarEscenas(escenaJuegoCompleto);
+    }
+
     private Scene crearEscenaMejoresPuntajes() {
         Label label = new Label("Mejores Puntajes");
 
@@ -214,6 +220,24 @@ public class App extends Application {
         escenaMejoresPuntajes = new Scene(vbox6, 640, 640);
 
         return escenaMejoresPuntajes;
+    }
+
+
+    private Scene crearEscenaJuegoCompleto() {
+        Label label = new Label("Juego Completo");
+
+        Button botonSalirDeJuego = new Button("Clickear para ir al Menu");
+        botonSalirDeJuego.setOnAction(e -> cambiarEscenas(escenaSalirDeJuego));
+
+        Button botonReiniciarJuego = new Button("Clickear para reiniciar");
+        botonReiniciarJuego.setOnAction(e -> reiniciarJuego());
+
+        VBox vbox5 = new VBox(label, botonSalirDeJuego, botonReiniciarJuego);
+        vbox5.setAlignment(Pos.CENTER);
+
+        escenaJuegoCompleto = new Scene(vbox5, 640, 640);
+        
+        return escenaJuegoCompleto;
     }
 
     private Scene crearEscenaSalirDeMenu() {
