@@ -1,38 +1,76 @@
 @startuml modelo-actual
 
 class Tablero {
-    + mover(dir: Direccion)
+    - filas : int
+    - columnas : int
+    - ciudad : Ciudad
+    - vehiculo : Vehiculo
+
+    + mover(dir: Direccion) : bool
     + usarVehiculo(veh: Vehiculo)
-    + obtenerPosicion(): Celda
     + iniciarEn(celda: Celda)
+    + finalizarEn(celda: Celda) : Celda
+    + finalizarEnCeldaAleatoria() : Celda
+    + generarAleatorio()
+    + reiniciar()
+    + agregarModificador(origen: Celda, destino: Celda, mod: Modificador)
+    + obtenerPosicion() : Celda
+    + movimientos() : long
+    + obtenerVehiculo() : Vehiculo
+    + getFilas() : int
+    + getColumnas() : int
+    + getCalles() : Array<Calle>
+    + reemplazarVehiculo(vehiculo: Vehiculo)
 }
 
-class Calle {
-    + cruzarCon(veh: Vehiculo)
-    + proximaEsquina(esquinaActual: Celda): Celda
-    + contiene(esquina: Celda): Boolean
-    + agregarCelda(esquina: Celda)
+@enduml
+
+
+' @startuml
+' class Calle {
+'     + cruzarCon(veh: Vehiculo)
+'     + agregarCelda(esquina: Celda)
+'     + agregarModificador(mod: Modificador)
+'     + borrarModificadores()
+'     + siguienteEsquina(esquinaActual: Celda): Celda
+'     + obtenerEsquinas() : Array<Esquina>
+'     + contiene(esquina: Celda): Boolean
+' }
+
+' abstract Vehiculo {
+'     - movimientos: long
+
+'     + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+'     + {abstract} aplicarModificador(pozo: Pozo)
+'     + {abstract} aplicarModificador(piquete: Piquete)
+'     + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
+'     + sorpresa(sorpresa: Sorpresa)
+'     + sumarMovimientos()
+'     + mover(dir: Direccion)
+' }
+
+' interface Sorpresa {
+'     + {abstract} aplicar(mov: long)
+' }
+
+' interface Modificador {
+'     + {abstract} cruzarCon(veh: Vehiculo)
+' }
+
+' @enduml
+
+class Registro {
+
 }
 
-abstract Vehiculo {
-    - movimientos: long
 
-    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
-    + {abstract} aplicarModificador(pozo: Pozo)
-    + {abstract} aplicarModificador(piquete: Piquete)
-    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
-    + sorpresa(sorpresa: Sorpresa)
-    + sumarMovimientos()
-    + mover(dir: Direccion)
-}
+@startuml diagrama-ciudad
 
-interface Sorpresa {
-    + {abstract} aplicar(mov: long)
-}
-
-interface Modificador {
-    + {abstract} cruzarCon(veh: Vehiculo)
-}
+Ciudad -->"0..*" Celda
+Ciudad --> "0..*" Calle
+Calle "*" <-> "*" Celda
+Ciudad .> OperadorCiudad
+OperadorCiudad --> Celda
 
 class Celda {
     - f: Int
@@ -44,37 +82,75 @@ class Celda {
     + mover(veh: Vehiculo, dir: Direccion): Celda
 }
 
-class Registro {
+class Calle {
+    - modificador : Modificador
 
+    + cruzarCon(veh: Vehiculo)
+    + agregarCelda(esquina: Celda)
+    + agregarModificador(Modificador mod)
+    + borrarModificadores()
+    + siguienteEsquina(esquinaActual: Celda): Celda
+    + obtenerEsquinas() : Array<Esquina>
+    + contiene(esquina: Celda): Boolean
 }
 
-class GeneradorDeCiudad {
+class Ciudad {
     - filas: Int
     - columnas: Int
-    + buscarCelda(celda: Celda): Celda
+    - cantidadModificadores : long
+    - celdaInicio : Celda
+    - celdaFinal : Celda
+
     - generarCeldas():
-    - generarCaminos():
-    - agregarCeldas(esq1: Celda, esq2: Celda, mod: Modificador)
+    - generarCaminos()
+    + reiniciar()
+    + completarAleatorio()
+    + iniciarEn(celda: Celda) : Celda
+    + finalizarEn(celda: Celda) : Celda
+    + finalizarEnCeldaAleatoria() : Celda
+    + buscarCelda(celda: Celda): Celda
+    + agregarModificador(origen: Celda, destino: Celda, mod: Modificador)
+    + cantidadModificadores() : long
+    + esquinaEsBorde(esquinaActual : Celda, fila: long, columna: long) : bool
+    + setCalles(calles: Array<Calle>)
+    + setCantidadModificadores(cantidad: long)
+    + setEsquinas(celdas: Array<Celda>)
+    + obtenerCalles() : Array<Calle>
+    - obtenerCeldaAleatoria() : Celda
+    + getCalles() : Array<Calle>
+    + getInicio() : Celda
+    + getLlegada() : Celda
 }
 
-interface Direccion {
-    + {abstract} mover(f, c, esquinas: Array<Celdas>): Celda
+class OperadorCiudad {
+    + obtenerModificadores() : Array<Modificador>
+    + completarAleatorio()
+    + generarCaminos()
+    + generarCalles()
+    + generarAdyacencias() : long
+    + esquinaEsBorde(esquinaActual: Celda, fila: long, columna: long) :
+    + buscarCalle(calle: Calle) : Calle
 }
 
-Calle .up.> Vehiculo
-Celda .left.> Vehiculo
-Vehiculo ..> Direccion
-Vehiculo .up.> Sorpresa
-Tablero -left- Vehiculo
-Tablero --> GeneradorDeCiudad
-GeneradorDeCiudad .down.> Celda
-Vehiculo --> Celda
-Tablero -up-> Registro
-Calle -up-> Modificador
-Modificador .right.> Vehiculo
-Celda "2" -left- "4" Calle
-Tablero ..> Direccion
-Celda .right.> Direccion
+
+' interface Direccion {
+'     + {abstract} mover(f, c, esquinas: Array<Celdas>): Celda
+' }
+
+' Calle .up.> Vehiculo
+' Celda .left.> Vehiculo
+' Vehiculo ..> Direccion
+' Vehiculo .up.> Sorpresa
+' Tablero -left- Vehiculo
+' Tablero --> Ciudad
+' Ciudad .down.> Celda
+' Vehiculo --> Celda
+' Tablero -up-> Registro
+' Calle -up-> Modificador
+' Modificador .right.> Vehiculo
+' Celda "2" -left- "4" Calle
+' Tablero ..> Direccion
+' Celda .right.> Direccion
 
 @enduml
 
@@ -111,7 +187,12 @@ Izquierda .up.|> Direccion
 
 abstract Vehiculo {
     - movimientos: long
+    - tablero : Tablero
+    - direccionActual : Direccion
+    - celdaInicial : Celda
+    - nombre : String
 
+    + {abstract} aplicarModificador(mod: Modificador)
     + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
     + {abstract} aplicarModificador(pozo: Pozo)
     + {abstract} aplicarModificador(piquete: Piquete)
@@ -119,32 +200,42 @@ abstract Vehiculo {
     + sorpresa(sorpresa: Sorpresa)
     + sumarMovimientos()
     + mover(dir: Direccion)
+    + getPosicion() : Celda
+    + asignarCeldaInicial(celda: Celda)
+    + setDireccionActual(direccion: Direccion)
+    + setMovimientos(movimentos: long)
+    + actualizarASiguienteCelda()
+    + estaEn(celda: Celda) : bool
+    + getNombre() : String
 }
 
 class 4x4 {
-    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
-    + {abstract} aplicarModificador(pozo: Pozo)
-    + {abstract} aplicarModificador(piquete: Piquete)
-    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
+    + aplicarModificador(mod: Modificador)
+    + aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + aplicarModificador(pozo: Pozo)
+    + aplicarModificador(piquete: Piquete)
+    + aplicarModificador(controlPolicial: ControlPolicial)
 }
 
 class Moto {
-    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
-    + {abstract} aplicarModificador(pozo: Pozo)
-    + {abstract} aplicarModificador(piquete: Piquete)
-    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
+    + aplicarModificador(mod: Modificador)
+    + aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + aplicarModificador(pozo: Pozo)
+    + aplicarModificador(piquete: Piquete)
+    + aplicarModificador(controlPolicial: ControlPolicial)
 }
 
 class Auto {
-    + {abstract} aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
-    + {abstract} aplicarModificador(pozo: Pozo)
-    + {abstract} aplicarModificador(piquete: Piquete)
-    + {abstract} aplicarModificador(controlPolicial: ControlPolicial)
+    + aplicarModificador(mod: Modificador)
+    + aplicarModificador(cambioDeVehiculo: CambioDeVehiculo)
+    + aplicarModificador(pozo: Pozo)
+    + aplicarModificador(piquete: Piquete)
+    + aplicarModificador(controlPolicial: ControlPolicial)
 }
 
-4x4 -up-|> Vehiculo
-Auto --|> Vehiculo
-Moto --|> Vehiculo
+4x4 -down-|> Vehiculo
+Auto -up-|> Vehiculo
+Moto -up-|> Vehiculo
 
 @enduml
 
@@ -152,42 +243,73 @@ Moto --|> Vehiculo
 
 interface Modificador {
     + {abstract} cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
 class Pozo {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
 class ControlPolicial {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
 class Piquete {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
 class Favorable {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
+    + aplicarSorpresa(movimientos: long)
 }
 
 class Desfavorable {
-    + cruzarCon(veh: Vehiculo)
+    - nombre : String
+    + cruzarCon(veh: Vehiculo
+    + String getNombre() : String
+    + aplicarSorpresa(movimientos: long)
 }
 
 class CambioDeVehiculo {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
 class Nulo {
+    - nombre : String
     + cruzarCon(veh: Vehiculo)
+    + String getNombre() : String
 }
 
-Favorable ..|> Modificador
-Desfavorable .left.|> Modificador
-CambioDeVehiculo .up.|> Modificador
-Pozo .right.|> Modificador
-Piquete ..|> Modificador
-ControlPolicial .up.|> Modificador
-Nulo ..|> Modificador
+interface Sorpresa {
+    + aplicarSorpresa
+}
+
+' Favorable ..|> Modificador
+' Desfavorable .down.|> Modificador
+' CambioDeVehiculo .up.|> Modificador
+' Pozo .right.|> Modificador
+' Piquete ..|> Modificador
+' ControlPolicial .up.|> Modificador
+' Nulo ..|> Modificador
+Favorable .down.|> Modificador
+Desfavorable .down.|> Modificador
+Modificador ..|> CambioDeVehiculo
+Modificador ..|> Pozo 
+Modificador ..|> Piquete 
+Modificador ..|>  ControlPolicial 
+Nulo .|> Modificador
+Sorpresa <|.. Favorable
+Sorpresa <|.. Desfavorable
+
 
 @enduml
