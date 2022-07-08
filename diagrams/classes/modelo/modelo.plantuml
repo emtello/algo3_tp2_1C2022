@@ -303,10 +303,10 @@ interface Sorpresa {
 ' Nulo ..|> Modificador
 Favorable .down.|> Modificador
 Desfavorable .down.|> Modificador
-Modificador ..|> CambioDeVehiculo
-Modificador ..|> Pozo 
-Modificador ..|> Piquete 
-Modificador ..|>  ControlPolicial 
+Modificador <|.. CambioDeVehiculo
+Modificador <|.. Pozo 
+Modificador <|.. Piquete 
+Modificador <|..  ControlPolicial 
 Nulo .|> Modificador
 Sorpresa <|.. Favorable
 Sorpresa <|.. Desfavorable
