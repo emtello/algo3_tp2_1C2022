@@ -6,11 +6,11 @@ title Un auto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se cam
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "vehiculo:vehiculo" as vehiculo
+participant "auto:Auto" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant ":CambioDeVehiculo" as cambioDeVehiculo
-participant "auto:Vehiculo" as vehiculo
+participant "camioneta:Camioneta4x4" as nuevovehiculo
 
 activate tablero
 
@@ -36,28 +36,33 @@ calle -> cambioDeVehiculo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 
-cambioDeVehiculo -> vehiculo: reemplazarVehiculo()
+cambioDeVehiculo -> vehiculo: aplicarModificador(self)
+
+create nuevovehiculo
 
 deactivate cambioDeVehiculo
-activate vehiculo
-
-vehiculo -> vehiculo : reemplazarVehiculo()
-
-vehiculo --> vehiculo : camioneta: Camioneta4X4 
-
-vehiculo -> vehiculo: sumarMovimiento(1)
+vehiculo -> nuevovehiculo: <<create>>
+activate nuevovehiculo
+nuevovehiculo --> vehiculo: camioneta
+vehiculo -> tablero: reemplazarVehiculo(camioneta)
+vehiculo -> nuevovehiculo: asignarCeldaInicial(self.celda)
+vehiculo -> nuevovehiculo: setDireccionActual(self.celda)
+vehiculo -> nuevovehiculo: setMovimientos(self.celda)
 
 deactivate vehiculo
+nuevovehiculo -> nuevovehiculo: sumarMovimiento(1)
+
 
 deactivate celda
 
 user -> tablero: movimientos()
 
-tablero -> vehiculo: movimientos()
-vehiculo --> tablero: X 
-deactivate vehiculo
+tablero -> nuevovehiculo: movimientos()
+nuevovehiculo --> tablero: X + 1
 
-tablero --> user: X
+deactivate nuevovehiculo
+
+tablero --> user: X + 1
 
 deactivate tablero
 

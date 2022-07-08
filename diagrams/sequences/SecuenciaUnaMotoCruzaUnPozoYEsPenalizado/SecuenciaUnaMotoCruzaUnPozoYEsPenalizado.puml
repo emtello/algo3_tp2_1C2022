@@ -6,13 +6,16 @@ title Una moto atraviesa la ciudad y se encuentra con un Pozo. Es penalizada en 
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "vehiculo:vehiculo" as vehiculo
+participant "moto:Moto" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant "pozo:Pozo" as pozo
-participant "moto:Moto" as moto
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
 
 activate tablero
+
 
 user -> tablero: mover(dir: Direccion)
 
@@ -32,20 +35,15 @@ deactivate celda
 activate pozo
 
 calle -> pozo: cruzarCon(jug: vehiculo)
+
 deactivate calle
-pozo -> vehiculo: obtenerVehiculo()
 
-vehiculo --> pozo: moto: Moto
+pozo -> vehiculo: aplicarModificador(self)
 
-activate moto
-
-pozo -> moto: pozo(vehiculo: vehiculo)
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
 
 deactivate pozo
 
-moto -> vehiculo: sumarMovimentos(3)
-
-deactivate moto
 deactivate calle
 deactivate celda
 
@@ -58,6 +56,7 @@ deactivate vehiculo
 tablero --> user: X + 3
 
 deactivate tablero
+
 
 @enduml
 

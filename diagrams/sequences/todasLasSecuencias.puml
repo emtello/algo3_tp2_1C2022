@@ -1,0 +1,457 @@
+ @startuml SecuenciaAutoCambiaVehiculo
+' Caso de uso 
+' Un auto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se cambia el auto.por una camioneta.
+
+title Un auto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se cambia el auto por una camioneta
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "auto:Auto" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant ":CambioDeVehiculo" as cambioDeVehiculo
+participant "camioneta:Camioneta4x4" as nuevovehiculo
+
+activate tablero
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+
+activate cambioDeVehiculo
+
+calle -> cambioDeVehiculo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+cambioDeVehiculo -> vehiculo: aplicarModificador(self)
+
+create nuevovehiculo
+
+deactivate cambioDeVehiculo
+vehiculo -> nuevovehiculo: <<create>>
+activate nuevovehiculo
+nuevovehiculo --> vehiculo: camioneta
+vehiculo -> tablero: reemplazarVehiculo(camioneta)
+vehiculo -> nuevovehiculo: asignarCeldaInicial(self.celda)
+vehiculo -> nuevovehiculo: setDireccionActual(self.celda)
+vehiculo -> nuevovehiculo: setMovimientos(self.celda)
+
+deactivate vehiculo
+nuevovehiculo -> nuevovehiculo: sumarMovimiento(1)
+
+
+deactivate celda
+
+user -> tablero: movimientos()
+
+tablero -> nuevovehiculo: movimientos()
+nuevovehiculo --> tablero: X + 1
+
+deactivate nuevovehiculo
+
+tablero --> user: X + 1
+
+deactivate tablero
+
+@enduml
+
+@startuml SecuenciaAutoCruzaUnPozoYEsPenalizado
+' Caso de uso 
+' Un auto atraviesa la ciudad y se encuentra con un Pozo. Es penalizado en tres movimientos.
+
+title Un auto atraviesa la ciudad y se encuentra con un Pozo. Es penalizado en tres movimientos.
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "auto:vehiculo" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "pozo:Pozo" as pozo
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
+
+activate tablero
+
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+activate pozo
+
+calle -> pozo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+pozo -> vehiculo: aplicarModificador(self)
+
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
+
+deactivate pozo
+
+deactivate calle
+deactivate celda
+
+user -> tablero: movimientos()
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X + 3
+
+deactivate vehiculo
+
+tablero --> user: X + 3
+
+deactivate tablero
+
+@enduml
+
+@startuml SecuenciaMotoCambiaVehiculo
+' Caso de uso 
+' Una moto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se cambia la moto por un auto.
+
+title Una moto atraviesa la ciudad y se encuentra con un CambioDeVehiculo. Se cambia la moto por un auto.
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "moto:Moto" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant ":CambioDeVehiculo" as cambioDeVehiculo
+participant "auto:Auto" as nuevovehiculo
+
+activate tablero
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+
+activate cambioDeVehiculo
+
+calle -> cambioDeVehiculo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+cambioDeVehiculo -> vehiculo: aplicarModificador(self)
+
+create nuevovehiculo
+
+deactivate cambioDeVehiculo
+vehiculo -> nuevovehiculo: <<create>>
+activate nuevovehiculo
+nuevovehiculo --> vehiculo: auto
+vehiculo -> tablero: reemplazarVehiculo(auto)
+vehiculo -> nuevovehiculo: asignarCeldaInicial(self.celda)
+vehiculo -> nuevovehiculo: setDireccionActual(self.celda)
+vehiculo -> nuevovehiculo: setMovimientos(self.celda)
+
+deactivate vehiculo
+nuevovehiculo -> nuevovehiculo: sumarMovimiento(1)
+
+
+deactivate celda
+
+user -> tablero: movimientos()
+
+tablero -> nuevovehiculo: movimientos()
+nuevovehiculo --> tablero: X + 1
+
+deactivate nuevovehiculo
+
+tablero --> user: X + 1
+
+deactivate tablero
+
+
+@enduml
+@startuml SecuenciaUnaCamionetaCruzaUnPozoYNoEsPenalizado
+' Caso de uso 
+' Una camioneta atraviesa la ciudad y se encuentra con un Pozo. No penalizada .
+
+title Un camioneta atraviesa la ciudad y se encuentra con un Pozo. No es penalizada.
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "camioneta:Camioneta4x4" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "pozo:Pozo" as pozo
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
+
+activate tablero
+
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+activate pozo
+
+calle -> pozo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+pozo -> vehiculo: aplicarModificador(self)
+deactivate pozo
+
+alt if self.pozosAtravezados < 3
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
+
+end alt
+
+
+deactivate calle
+deactivate celda
+
+user -> tablero: movimientos()
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X + 3
+
+deactivate vehiculo
+
+tablero --> user: X + 3
+
+deactivate tablero
+@enduml
+
+
+@startuml SecuenciaUnaMotoCruzaUnPozoYEsPenalizado
+' Caso de uso 
+' Una moto atraviesa la ciudad y se encuentra con un Pozo. Es penalizada en tres movimientos.
+
+title Una moto atraviesa la ciudad y se encuentra con un Pozo. Es penalizada en tres movimientos.
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "moto:Moto" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "pozo:Pozo" as pozo
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
+
+activate tablero
+
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+activate pozo
+
+calle -> pozo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+pozo -> vehiculo: aplicarModificador(self)
+
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
+
+deactivate pozo
+
+deactivate calle
+deactivate celda
+
+user -> tablero: movimientos()
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X + 3
+
+deactivate vehiculo
+
+tablero --> user: X + 3
+
+deactivate tablero
+
+
+@enduml
+
+ @startuml SecuenciaVehiculoCruzaSorpresaDesfavorable
+' Caso de uso 
+' Un auto atraviesa la ciudad y se encuentra con una Sorpresa Favorable. 
+
+title Un vehiculo atraviesa la ciudad y se encuentra con una sorpresa Desfavolrable. 
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "auto:vehiculo" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "desfavorable:Desfavorable" as pozo
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
+
+activate tablero
+
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+activate pozo
+
+calle -> pozo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+pozo -> vehiculo: aplicarSorpresa(self)
+
+vehiculo -> pozo: aplicarSorpresa(self.movimientos)
+pozo --> vehiculo: self.movimientos = movimentosCalculados
+
+
+
+deactivate pozo
+
+deactivate calle
+deactivate celda
+
+user -> tablero: movimientos()
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X * 1.2
+
+deactivate vehiculo
+
+tablero --> user: X * 1.2
+
+deactivate tablero
+
+@enduml
+
+ @startuml SecuenciaVehiculoCambiaVehiculo
+' Caso de uso 
+' Un auto atraviesa la ciudad y se encuentra con una Sorpresa Favorable. 
+
+title Un vehiculo atraviesa la ciudad y se encuentra con una sorpresa Favolrable. 
+
+
+Actor Usuario as user
+participant "tablero:Tablero" as tablero
+participant "auto:vehiculo" as vehiculo
+participant "celda:Celda" as celda
+participant "calle:Calle" as calle
+participant "favorable:Favorable" as pozo
+
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
+
+activate tablero
+
+
+user -> tablero: mover(dir: Direccion)
+
+activate vehiculo
+
+tablero -> vehiculo: mover(dir: Direccion)
+
+activate celda
+
+vehiculo -> celda: mover(self, dir: Direccion)
+
+activate calle
+
+celda -> calle: cruzarCon(jug: vehiculo)
+
+deactivate celda
+activate pozo
+
+calle -> pozo: cruzarCon(jug: vehiculo)
+
+deactivate calle
+
+pozo -> vehiculo: aplicarSorpresa(self)
+
+vehiculo -> pozo: aplicarSorpresa(self.movimientos)
+pozo --> vehiculo: self.movimientos = movimentosCalculados
+
+
+
+deactivate pozo
+
+deactivate calle
+deactivate celda
+
+user -> tablero: movimientos()
+tablero -> vehiculo: movimientos()
+vehiculo --> tablero: X * 0.8
+
+deactivate vehiculo
+
+tablero --> user: X * 0.8
+
+deactivate tablero
+
+
+@enduml
+

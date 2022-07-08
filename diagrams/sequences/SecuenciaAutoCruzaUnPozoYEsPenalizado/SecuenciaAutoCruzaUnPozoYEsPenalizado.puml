@@ -6,11 +6,10 @@ title Un auto atraviesa la ciudad y se encuentra con un Pozo. Es penalizado en t
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "vehiculo:vehiculo" as vehiculo
+participant "auto:vehiculo" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant "pozo:Pozo" as pozo
-participant "auto:Auto" as auto
 
 ' participant "Direccion" as direccion
 ' participant "Modificador" as modificador
@@ -39,19 +38,12 @@ calle -> pozo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 
-pozo -> vehiculo: obtenerVehiculo()
+pozo -> vehiculo: aplicarModificador(self)
 
-vehiculo --> pozo: auto: Auto
-
-activate auto
-
-pozo -> auto: pozo(vehiculo: vehiculo)
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
 
 deactivate pozo
 
-auto -> vehiculo: sumarMovimentos(3)
-
-deactivate auto
 deactivate calle
 deactivate celda
 

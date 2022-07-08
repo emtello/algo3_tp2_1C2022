@@ -6,14 +6,16 @@ title Un camioneta atraviesa la ciudad y se encuentra con un Pozo. No es penaliz
 
 Actor Usuario as user
 participant "tablero:Tablero" as tablero
-participant "vehiculo:vehiculo" as vehiculo
+participant "camioneta:Camioneta4x4" as vehiculo
 participant "celda:Celda" as celda
 participant "calle:Calle" as calle
 participant "pozo:Pozo" as pozo
-participant "camioneta:Camioneta4X4" as camioneta
 
+' participant "Direccion" as direccion
+' participant "Modificador" as modificador
 
 activate tablero
+
 
 user -> tablero: mover(dir: Direccion)
 
@@ -36,28 +38,26 @@ calle -> pozo: cruzarCon(jug: vehiculo)
 
 deactivate calle
 
-pozo -> vehiculo: obtenerVehiculo()
-
-vehiculo --> pozo: camioneta:Camioneta4X4
-
-activate camioneta
-
-pozo -> camioneta: pozo(vehiculo: vehiculo) 
-
-deactivate camioneta
+pozo -> vehiculo: aplicarModificador(self)
 deactivate pozo
+
+alt if self.pozosAtravezados < 3
+vehiculo -> vehiculo: sumarMovimientos(self.penalizacion)
+
+end alt
+
+
 deactivate calle
 deactivate celda
 
 user -> tablero: movimientos()
-
 tablero -> vehiculo: movimientos()
-vehiculo --> tablero: X 
+vehiculo --> tablero: X + 3
+
 deactivate vehiculo
 
-tablero --> user: X 
+tablero --> user: X + 3
 
 deactivate tablero
-
 @enduml
 

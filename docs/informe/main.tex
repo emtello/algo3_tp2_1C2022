@@ -48,25 +48,28 @@
 
 \section{Introducción}\label{sec:intro}
 
+Es un juego programado en Java utilizado el paradigma orientado a objetos. Sumado a esto, se utilizaron las prácticas de Test Driven Development.
+
+El concepto del juego es, utilizando un vehículo, atravesar una ciudad con obstáculos y llegar hasta una meta.
+
 \section{Supuestos}\label{sec:supuestos}
   \begin{itemize}
-    \item Una calle tiene solo un modificador
-    \item Se le debe indicar al vehiculo donde inicia
-    \item Se le debe indicar al vehiculo donde termina
-    \item Asumimos que solo hay un vehiculo
-    \item Las calles conectan 2 celdas
-    \item El tablero es de dimensión variable
-    \item Las sorpresas quedan en el tablero cuando se las cruza
+    \item Una calle tiene solo un modificador.
+    \item Se le debe indicar al vehiculo donde inicia.
+    \item Se le debe indicar al vehiculo donde termina.
+    \item Asumimos que solo hay un vehiculo.
+    \item Las calles conectan 2 celdas.
+    \item El tablero es de dimensión variable.
+    \item Las sorpresas quedan en el tablero cuando se las cruza.
   \end{itemize}
 \section{Diagramas de clase}\label{sec:diagramasdeclase}
 
-Este es el esquema general de la aplicación. Más adelante, hay un esquema de secuencia donde se puede ver como interactuan entre si los objetos.
-
+A continuación se desarrollan los diagramas de clase que están presente en el modelo del juego. Más adelante, hay un esquema de secuencia donde se puede ver como interactuan entre si los objetos.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{diagramas/modelo-actual.png}
-  \caption{\label{fig:seq01} Diagrama de clase general}
+  \caption{\label{fig:seq01} Diagrama de clase Tablero}
 \end{figure}
 
 \begin{figure}[H]
@@ -94,13 +97,10 @@ Este es el esquema general de la aplicación. Más adelante, hay un esquema de s
   \caption{\label{fig:seq05} Diagrama de clase Vehículo}
 \end{figure}
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.8\textwidth]{diagrama_clase01.png}
-% \caption{\label{fig:class01}Explicacion diagrama}
-% \end{figure}
 
 \section{Detalles de implementación}\label{sec:implementacion}
+
+En todas las clases se utilizaron los pilares de la programación orientada a objetos. Cada clase tiene su delegación correspondiente.
 
 \subsubsection[Tablero]{Tablero}
 
@@ -127,26 +127,25 @@ En este metodo se recibe la cantidad de movimientos del vehiculo y se calcula la
 
 \subsubsection[Vehiculo]{Vehiculo}
 
-Al aplicarse una modificación al vehiculo, sabe como responder al mensaje que se le envía.
+Responde cuando el Tablero le manda el mensaje de mover con una dirección dada. A su vez, le envía un mensaje a su posición de mover y se va actualizar la posición a la correspondiente. Al aplicarse un Modificador al vehiculo, sabe como responder al mensaje que se le envía.
 
 
 \subsubsection[Calle]{Calle}
 
-La clase Calle guarda las referencias de 2 celdas, generando una conexión entre ellas. Cuando el vehiculo cruza por la calle, Calle le envía el respectivo mensaje.
+La clase Calle guarda las referencias de 2 celdas, generando una conexión entre ellas. Cuando el vehiculo cruza por la calle, Calle le envía el mensaje al Modificador que se va a cruzar con un Vehículo.
 
 
-% \section{Excepciones}\label{sec:excepciones}
-% % Explicación de cada una de las excepciones creadas y con qué fin fueron creadas.
+\section{Excepciones}\label{sec:excepciones}
+% Explicación de cada una de las excepciones creadas y con qué fin fueron creadas.
 
-% \begin{description}
-% \item[Exception] Explicacion excepcion 1
-% \item[Excepcion] Explicacion excepcion 2
-% \end{description}
+\begin{description}
+\item[Exception] CeldaFueraDeRango: Se lanza cuando se quiere acceder a una celda que no existe dentro del tablero.
+\end{description}
 
 \section{Diagramas de secuencia}\label{sec:diagramasdesecuencia}
 % Mostrar las secuencias interesantes que hayan implementado. Pueden agregar texto para explicar si algo no queda claro.
 
-Introducción
+A continuación desarrollaremos el proceso del juego mediante los diagramas de secuencia.
 
 
 \subsubsection[Una moto atraviesa la ciudad y se encuentra con un Pozo. Es penalizada en tres movimientos]{Una moto atraviesa la ciudad y se encuentra con un Pozo. Es penalizada en tres movimientos}
