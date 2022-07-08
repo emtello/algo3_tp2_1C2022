@@ -34,11 +34,10 @@
     \begin{tabular}{ | l | l | l | } % Datos del alumno
       \hline
       Alumno & Padrón & Email \\ \hline
-      Alvaro Martin & 105040 & alvaro.martin1307@gmail.com \\ \hline
+      Alvaro Martín & 105040 & alvaro.martin1307@gmail.com \\ \hline
       Franco Macke & 105974 & fmacke@fi.uba.ar \\ \hline
-      Tomás Ayala & 105336 & tayala@fi.uba.ar \\ \hline
       Guillermina Hoffmann & 104406 & ghoffmann@fi.uba.ar \\ \hline
-      Álvaro Martín & 105040 & alvaro.martin1307@gmail.com \\ \hline
+      Juan Martin Iglesias & 107018 & @mail.com \\ \hline
   	\end{tabular}
     \vfill
     \vfill
@@ -51,7 +50,7 @@
 
 \section{Supuestos}\label{sec:supuestos}
   \begin{itemize}
-    \item Una calle puede tener más de un modificador
+    \item Una calle tiene solo un modificador
     \item Se le debe indicar al vehiculo donde inicia
     \item Asumimos que solo hay un vehiculo
     \item Las calles conectan 2 celdas
@@ -64,25 +63,25 @@ Este es el esquema general de la aplicación. Más adelante, hay un esquema de s
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/modelo-inicial.png}
+  \includegraphics[width=1\textwidth]{diagramas/modelo.png}
   \caption{\label{fig:seq01} Diagrama de clase general}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/ClaseDireccion.png}
+  \includegraphics[width=1\textwidth]{diagramas/direcciones.png}
   \caption{\label{fig:seq02} Diagrama de clase direccion}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/ClaseModificador.png}
+  \includegraphics[width=1\textwidth]{diagramas/modificadores.png}
   \caption{\label{fig:seq03} Diagrama de clase modificador}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/ClaseVehiculo.png}
+  \includegraphics[width=1\textwidth]{diagramas/vehiculos.png}
   \caption{\label{fig:seq04} Diagrama de clase vehículo}
 \end{figure}
 
@@ -100,21 +99,20 @@ La clase Tablero se encarga del manejo del juego. Delega su comportamiento a las
 
 \subsubsection[Modificador]{Modificador}
 
-Esta interfaz está formada por el método “cruzarCon(Vehiculo vehiculo)”. Este método es utilizado por una instancia de la clase Calle para comunicarse con una clase que implementa Modificador. 
+Esta interfaz está formada por el método “cruzarCon(Vehiculo vehiculo)”. Este método es utilizado por una instancia de la clase Calle para comunicarse con una clase que implementa Modificador.
 Las clases que implementan esta interfaz son: Piquete, Favorable, Desfavorable, Nulo, Pozo, ControlPolicial y CambioDeVehiculo. En cada una de estas clases se implementa el método de la siguiente forma:
 
 \begin{itemize}
-  \item Nulo: implementa el método de forma que solo se suma un movimiento al vehiculo. Utiliza la instancia de vehiculo que recibe por argumento y llama al método “sumarMovimientos(int numero)”. 
-  \item Pozo: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método pozo(Vehiculo vehiculo). 
-  \item Piquete: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “piquete(Vehiculo vehiculo)”. 
-  \item ControlPolicial: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo obtiene el vehículo de este con el método “get.vehiculo()” y luego con esta instancia de vehículo llama al método “controlPolicial(Vehiculo vehiculo)”. 
-  \item CambioDeVehiculo: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “reemplazarVehiculo()”.
-  \item Desfavorable: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “sorpresaDesfavorable()”.
-  \item Favorable: el método además de sumar un movimiento al vehiculo, por medio de la instancia de vehiculo llama al método “sorpresaFavorable()”.
-  \item Todas las clases utilizan el método “sumarMovimientos(int numero)” de la clase vehiculo para sumar un movimiento. 
+  \item Nulo: Utiliza la instancia de vehiculo que recibe por argumento y llama al método “actualizarASiguienteCelda();”. Al cruzarse un Vehiculo con un Modificador Nulo solo cambia de celda. El modificador Nulo delega en el objeto Vehiculo el cambio de celda y suma de movimiento.
+  \item En el caso de los modificadores Pozo, Piquete, ControlPolicial y CambioDeVehiculo todos estos utilizan la instancia de vehiculo que reciben por argumento y llaman al método “aplicarModificador(this);” enviando en cada caso una instancia de Modificador correspondiente a su tipo. Estos modificadores delegan en el Vehiculo aplicar el modificador ya que dependiendo del tipo de Vehiculo y tipo de Modificador se realizan diferentes acciones.
+  \item En el caso de los modificadores Favorable y Desfavorable utilizan la instancia de vehiculo que reciben por argumento y llaman al método "sorpresa(this);", enviando por argumento una instancia de su tipo.
 \end{itemize}
+\subsubsection[Sorpresa]{Sorpresa}
 
-\subsubsection[vehiculo]{vehiculo}
+Esta interfaz esta formada por el metodo  “long aplicarSorpresa(long movimientos);”  y es implementada por las clases Favorable y Desfavorable.
+En este metodo se recibe la cantidad de movimientos del vehiculo y se calcula la penalizacion de movimientos. En el caso de Favorable se reduce la cantidad de movimientos en un 20\% y Desfavorable aumenta la cantidad de movimientos en un 25\%.
+
+\subsubsection[Vehiculo]{Vehiculo}
 
 Al aplicarse una modificación al vehiculo, sabe como responder al mensaje que se le envía.
 
