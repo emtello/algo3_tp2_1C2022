@@ -38,7 +38,7 @@ public class VistaPuntaje extends Group implements Observer {
     public void update() {
         this.puntaje = this.juego.getMovimientos();
         this.contenedorTexto.setText(String.valueOf(this.puntaje));
-        this.vistaTablero.agregarVista(this.contenedor);
+        // this.vistaTablero.agregarVista(this.contenedor);
     }
     
 }

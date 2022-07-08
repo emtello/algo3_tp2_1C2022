@@ -24,7 +24,7 @@ public class Tablero {
     public Tablero(int filas, int columnas) {
         if (filas < 3 || columnas < 3) {
             throw new IllegalArgumentException(
-                "El tablero debe tener al menos 3 filas y 3 columnas"
+                    "El tablero debe tener al menos 3 filas y 3 columnas"
             );
         }
 
@@ -110,3 +110,6 @@ public class Tablero {
     }
 
 }
+
+
+

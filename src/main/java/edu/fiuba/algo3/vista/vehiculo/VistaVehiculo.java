@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.vista.vehiculo;
 
-import java.util.ResourceBundle.Control;
-
 import edu.fiuba.algo3.controlador.ControladorJuego;
 import edu.fiuba.algo3.controlador.Observer;
 import edu.fiuba.algo3.modelo.celda.Celda;

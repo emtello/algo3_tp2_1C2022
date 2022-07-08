@@ -63,7 +63,11 @@ public abstract class Vehiculo {
     }
 
     public void sumarMovimientos(long cantidad) {
-        this.movimientos += cantidad;
+        try {
+            this.movimientos += cantidad;
+        } catch (Exception e) {
+            System.out.println("Llegaste al maximo puntaje");
+        }
     }
 
     public void actualizarASiguienteCelda() {
