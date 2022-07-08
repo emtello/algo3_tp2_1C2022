@@ -94,7 +94,7 @@ public class App extends Application {
     private Scene crearEscenaJuego() {
         this.iniciarJuego();
 
-        this.tablero = this.juego.getTablero();
+        Tablero tablero = this.juego.getTablero();
         Vehiculo vehiculo = this.juego.getVehiculo();
         Celda llegada = this.juego.getLlegada();
 
@@ -116,8 +116,8 @@ public class App extends Application {
 
         this.vistaPuntaje = new VistaPuntaje(this.vistaTablero, tablero.movimientos());
 
-        tablero.addObserver(vistaPuntaje);
         vehiculo.addObserver(vistaVehiculo);
+        tablero.addObserver(vistaPuntaje);
 
         botonIrAMenu = new BotonIrAMenu(this.escenario, crearEscenaSalirDeJuego());
         botonIrAMenu.setFocusTraversable(false);
@@ -179,7 +179,7 @@ public class App extends Application {
         tablaDePuntajes.getColumns().add(columnaUsuario);
         tablaDePuntajes.getColumns().add(columnaPuntaje);
         tablaDePuntajes.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        tablaDePuntajes.setItems(getPuntajes());
+        // tablaDePuntajes.setItems(getPuntajes());
 
         return tablaDePuntajes;
     }
@@ -204,6 +204,7 @@ public class App extends Application {
     }
 
     public void mostrarVentanaJuegoCompleto() {
+        System.out.println("AS");
         this.cambiarEscenas(escenaJuegoCompleto);
     }
 
@@ -247,6 +248,7 @@ public class App extends Application {
         botonNoMenu = new BotonNo(escenario, escenaMenu); //se traba, al salir de juego lo deberia cerrar
 
         botonSiMenu = new Button("SI");
+
         botonSiMenu.setOnAction(e -> {
             escenaJuego = crearEscenaJuego();
             cambiarEscenas(escenaJuego);

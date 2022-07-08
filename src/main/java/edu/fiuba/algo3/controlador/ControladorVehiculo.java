@@ -37,12 +37,11 @@ public class ControladorVehiculo implements EventHandler<KeyEvent> {
                 llego = this.tablero.mover(new Izquierda());
             }
             
+            this.tablero.notificar();
             this.tablero.notificarObservadores();
-            this.tablero.notifyObservers();
-            System.out.println(this.tablero.obtenerPosicion().toString());
             
-            if (llego) this.app.mostrarVentanaJuegoCompleto();
-            
+            if (llego) {
+                this.app.mostrarVentanaJuegoCompleto();}            
         } catch (Exception ignorado) {
             return;
         }

@@ -115,12 +115,11 @@ public class Tablero extends Observable {
     }
 
     @Override
-    public synchronized void addObserver(Observer o) {
+    public void addObserver(Observer o) {
         this.observers.add(o);
     }
 
-    @Override
-    public void notifyObservers() {
+    public void notificar() {
         for (Observer observer : this.observers) {
             observer.update(this, this.movimientos());
         }

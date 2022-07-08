@@ -38,7 +38,9 @@ public class VistaVehiculo extends Pane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Celda nuevaPosicion = (Celda) arg;
+        Vehiculo v = (Vehiculo) o;
 
+        this.setNuevoAuto(v.getNombre());
         this.rotar(this.celda, nuevaPosicion);
         this.celda = nuevaPosicion;
 
@@ -50,11 +52,11 @@ public class VistaVehiculo extends Pane implements Observer {
 
         ImageView modeloVehiculo = new ImageView(image);
 
-        modeloVehiculo.setFitHeight(20);
-        modeloVehiculo.setFitWidth(20);
+        modeloVehiculo.setFitHeight(15);
+        modeloVehiculo.setFitWidth(15);
 
-        modeloVehiculo.maxHeight(20);
-        modeloVehiculo.maxWidth(20);
+        modeloVehiculo.maxHeight(15);
+        modeloVehiculo.maxWidth(15);
         
         modeloVehiculo.setPreserveRatio(true);
         

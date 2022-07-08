@@ -37,7 +37,7 @@ public class VistaPuntaje extends Group implements Observer {
     public void update(Observable o, Object arg) {
         this.puntaje = (long) arg;
         this.contenedorTexto.setText(String.valueOf(this.puntaje));
-        this.vistaTablero.agregarVista(this.contenedor);
+        // this.vistaTablero.agregarVista(this.contenedor);
     }
     
 }
