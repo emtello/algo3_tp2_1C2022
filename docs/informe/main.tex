@@ -52,9 +52,11 @@
   \begin{itemize}
     \item Una calle tiene solo un modificador
     \item Se le debe indicar al vehiculo donde inicia
+    \item Se le debe indicar al vehiculo donde termina
     \item Asumimos que solo hay un vehiculo
     \item Las calles conectan 2 celdas
     \item El tablero es de dimensión variable
+    \item Las sorpresas quedan en el tablero cuando se las cruza
   \end{itemize}
 \section{Diagramas de clase}\label{sec:diagramasdeclase}
 
@@ -63,39 +65,50 @@ Este es el esquema general de la aplicación. Más adelante, hay un esquema de s
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/modelo.png}
+  \includegraphics[width=1\textwidth]{diagramas/modelo-actual.png}
   \caption{\label{fig:seq01} Diagrama de clase general}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/direcciones.png}
-  \caption{\label{fig:seq02} Diagrama de clase direccion}
+  \includegraphics[width=1\textwidth]{diagramas/diagrama-ciudad.png}
+  \caption{\label{fig:seq02} Diagrama de clase Ciudad}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{diagramas/interface-direccion.png}
+  \caption{\label{fig:seq03} Diagrama de clase Direccion}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/modificadores.png}
-  \caption{\label{fig:seq03} Diagrama de clase modificador}
+  \includegraphics[width=1\textwidth]{diagramas/interface-modificador-sorpresa.png}
+  \caption{\label{fig:seq04} Diagrama de clase Modificador}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{diagramas/vehiculos.png}
-  \caption{\label{fig:seq04} Diagrama de clase vehículo}
+  \includegraphics[width=1\textwidth]{diagramas/interface-vehiculo.png}
+  \caption{\label{fig:seq05} Diagrama de clase Vehículo}
 \end{figure}
 
-\begin{figure}[H]
-\centering
+% \begin{figure}[H]
+% \centering
 % \includegraphics[width=0.8\textwidth]{diagrama_clase01.png}
-\caption{\label{fig:class01}Explicacion diagrama}
-\end{figure}
+% \caption{\label{fig:class01}Explicacion diagrama}
+% \end{figure}
 
 \section{Detalles de implementación}\label{sec:implementacion}
 
 \subsubsection[Tablero]{Tablero}
 
 La clase Tablero se encarga del manejo del juego. Delega su comportamiento a las clases correspondientes para el desarrollo.
+
+\subsubsection[Ciudad]{Ciudad}
+
+La clase Ciudad se encarga de la generación de la ciudad y el posicionamiento de los objetos del tablero.
 
 \subsubsection[Modificador]{Modificador}
 
