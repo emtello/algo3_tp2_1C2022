@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vista.modificador;
 
-import edu.fiuba.algo3.controlador.ControladorJuego;
 import edu.fiuba.algo3.controlador.ControladorModificador;
 import edu.fiuba.algo3.controlador.Observer;
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -14,13 +13,11 @@ public class VistaModificador extends Group implements Observer {
 
     private ImageView pane;
     private String modificador;
-    private ControladorJuego juego;
     private Celda origen;
     private Celda destino;
 
-    public VistaModificador(VistaTablero vistaTablero, ControladorJuego juego, Celda origen, Celda destino) {
+    public VistaModificador(VistaTablero vistaTablero, Celda origen, Celda destino) {
         this.pane = new ImageView();
-        this.juego = juego;
         this.modificador = actualizarModificador(origen, destino);
         this.origen = origen;
         this.destino = destino;
@@ -46,4 +43,5 @@ public class VistaModificador extends Group implements Observer {
         this.modificador = actualizarModificador(origen, destino);
         this.pane.setImage(new Image(this.modificador + ".png")); 
     }
+    
 }

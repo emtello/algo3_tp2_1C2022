@@ -88,7 +88,7 @@ public class App extends Application {
     }
 
     public void iniciarJuego() {
-        this.juego = new ControladorJuego(7, 7);
+        this.juego = new ControladorJuego(8, 8);
     }
 
     public void iniciarRegistro() {
@@ -109,7 +109,6 @@ public class App extends Application {
             
             VistaModificador vista = new VistaModificador(
                 this.vistaTablero,
-                this.juego,
                 esquinas.get(0),
                 esquinas.get(1))
             ;

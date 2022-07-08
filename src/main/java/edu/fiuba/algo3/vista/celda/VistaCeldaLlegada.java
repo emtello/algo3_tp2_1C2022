@@ -4,6 +4,6 @@ import javafx.scene.paint.Color;
 
 public class VistaCeldaLlegada extends VistaCelda {
     public VistaCeldaLlegada() {
-        super(Color.ALICEBLUE);
+        super(Color.GREEN);
     }
 }
