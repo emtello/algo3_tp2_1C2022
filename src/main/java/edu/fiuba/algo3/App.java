@@ -69,7 +69,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-
         escenario = stage;
         escenario.setTitle("GPS Challenge");
 
@@ -183,6 +182,12 @@ public class App extends Application {
         return tablaDePuntajes;
     }
 
+    public void reiniciarJuego() {
+        this.juego.reiniciar();
+        escenaJuego = crearEscenaJuego();
+        this.cambiarEscenas(escenaJuego);
+    }
+
     public ObservableList<Puntaje> getPuntajes() { //HACER LISTA SOLO 5
         ObservableList<Puntaje> puntajes = FXCollections.observableArrayList();
 
@@ -218,9 +223,11 @@ public class App extends Application {
         botonNoMenu = new BotonNo(escenario, escenaMenu); //se traba, al salir de juego lo deberia cerrar
 
         botonSiMenu = new Button("SI");
-        botonSiMenu.setOnAction(e -> cambiarEscenas(escenaJuego));
-
-        VBox vbox7 = new VBox(10, label, botonNoMenu, botonSiMenu);
+        botonSiMenu.setOnAction(e -> {
+            escenaJuego = crearEscenaJuego();
+            cambiarEscenas(escenaJuego);
+        });
+        VBox vbox7 = new VBox(label, botonNoMenu, botonSiMenu);
         vbox7.setAlignment(Pos.CENTER);
 
         escenaSalirDeMenu= new Scene(vbox7, 640, 640);
@@ -232,12 +239,11 @@ public class App extends Application {
 
         Label label = new Label("Desea ir al Menu?");
 
-        botonNoJuego = new Button("NO");
-        botonNoJuego.setOnAction(e -> cambiarEscenas(escenaJuego)); //Se queda sin memoria heap debe ser al crear otro tablero
-
-        botonSiJuego = new BotonSiSalirDeJuego(this.tablero, this.escenario, crearEscenaMenu());
-
-        VBox vbox8 = new VBox(10, label, botonNoJuego, botonSiJuego);
+        Button botonNo = new Button("NO");
+        botonNo.setOnAction(e -> cambiarEscenas(escenaJuego));
+        Button botonSi = new Button("SI");
+        botonSi.setOnAction(e -> cambiarEscenas(escenaMenu));
+        VBox vbox8 = new VBox(label, botonNo, botonSi);
         vbox8.setAlignment(Pos.CENTER);
 
         escenaSalirDeJuego= new Scene(vbox8, 640, 640);
