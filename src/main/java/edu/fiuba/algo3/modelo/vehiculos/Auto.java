@@ -3,10 +3,14 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
+import java.util.Random;
+
 public class Auto extends Vehiculo {
 
     private long penalizacionPorPozo = 3;
     private long penalizacionPorControlPolicial = 3;
+
+    private float probaAuto = 0.5f;
     
     public Auto(Tablero tablero) {
         super(tablero);
@@ -31,7 +35,11 @@ public class Auto extends Vehiculo {
 
     @Override
     public void aplicarModificador(ControlPolicial controlPolicial) {
-        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        Random rand = makeRandom();
+        float f = rand.nextFloat();
+        if(f <= probaAuto) {
+            this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        }
         this.actualizarASiguienteCelda();
     }
 

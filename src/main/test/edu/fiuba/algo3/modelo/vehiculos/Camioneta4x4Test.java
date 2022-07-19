@@ -8,10 +8,11 @@ import edu.fiuba.algo3.modelo.modificador.Piquete;
 import edu.fiuba.algo3.modelo.modificador.Pozo;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class Camioneta4x4Test extends VehiculoTest {
 
@@ -90,7 +91,7 @@ public class Camioneta4x4Test extends VehiculoTest {
         assertEquals(0, camioneta.movimientos());
     }
 
-    @Test
+    /*@Test
     public void camionetaAplicaModificadorControlPoliciaEsPenalizadoCon3() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
@@ -106,6 +107,56 @@ public class Camioneta4x4Test extends VehiculoTest {
         camioneta.aplicarModificador(controlPolicial);
 
         assertEquals(3, camioneta.movimientos());
+
+    }*/
+
+    @Test
+    public void camionetaAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Random randomMock = mock(Random.class);
+        when(randomMock.nextFloat())
+                .thenReturn(0.3f);
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        Vehiculo spy = spy(camioneta);
+        when(spy.makeRandom()).thenReturn(randomMock);
+
+        ///se usa spy.method() para llamar métodos reales
+        spy.asignarCeldaInicial(celdaMock);
+        spy.aplicarModificador(controlPolicial);
+
+        assertEquals(3, spy.movimientos());
+
+    }
+
+    @Test
+    public void camionetaAplicaModificadorControlPoliciaCuandoSuperaProbabilidadNoEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Random randomMock = mock(Random.class);
+        when(randomMock.nextFloat())
+                .thenReturn(0.31f);
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        Vehiculo spy = spy(camioneta);
+        when(spy.makeRandom()).thenReturn(randomMock);
+
+        ///se usa spy.method() para llamar métodos reales
+        spy.asignarCeldaInicial(celdaMock);
+        spy.aplicarModificador(controlPolicial);
+
+        assertEquals(0, spy.movimientos());
 
     }
 

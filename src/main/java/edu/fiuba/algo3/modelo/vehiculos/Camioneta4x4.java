@@ -3,11 +3,15 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import edu.fiuba.algo3.modelo.modificador.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 
+import java.util.Random;
+
 public class Camioneta4x4 extends Vehiculo {
 
     private long pozosAtravezados = 0;
     private long penalizacionPorPozo = 2;
     private long penalizacionPorControlPolicial = 3;
+
+    private float proba4X4 = 0.3f;
 
     public Camioneta4x4(Tablero tablero) {
         super(tablero);
@@ -37,7 +41,12 @@ public class Camioneta4x4 extends Vehiculo {
 
     @Override
     public void aplicarModificador(ControlPolicial controlPolicial) {
-        this.sumarMovimientos(this.penalizacionPorControlPolicial);
+
+        Random rand = makeRandom();
+        float f = rand.nextFloat();
+        if(f <= proba4X4) {
+            this.sumarMovimientos(this.penalizacionPorControlPolicial);
+        }
         this.actualizarASiguienteCelda();
     }
 

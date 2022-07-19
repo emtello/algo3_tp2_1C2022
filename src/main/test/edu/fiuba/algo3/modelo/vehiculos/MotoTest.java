@@ -9,10 +9,11 @@ import edu.fiuba.algo3.modelo.modificador.Pozo;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class MotoTest extends VehiculoTest {
@@ -73,7 +74,7 @@ public class MotoTest extends VehiculoTest {
 
     }
 
-    @Test
+    /*    @Test
     public void motoAplicaModificadorControlPoliciaEsPenalizadoCon3() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
@@ -89,6 +90,56 @@ public class MotoTest extends VehiculoTest {
         moto.aplicarModificador(controlPolicial);
 
         assertEquals(3, moto.movimientos());
+
+    }*/
+
+    @Test
+    public void motoAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Random randomMock = mock(Random.class);
+        when(randomMock.nextFloat())
+                .thenReturn(0.8f);
+
+        Vehiculo moto = new Moto(this.tablero);
+        Vehiculo spy = spy(moto);
+        when(spy.makeRandom()).thenReturn(randomMock);
+
+        ///se usa spy.method() para llamar métodos reales
+        spy.asignarCeldaInicial(celdaMock);
+        spy.aplicarModificador(controlPolicial);
+
+        assertEquals(3, spy.movimientos());
+
+    }
+
+    @Test
+    public void motoAplicaModificadorControlPoliciaCuandoSuperaProbabilidadNoEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Random randomMock = mock(Random.class);
+        when(randomMock.nextFloat())
+                .thenReturn(0.81f);
+
+        Vehiculo moto = new Moto(this.tablero);
+        Vehiculo spy = spy(moto);
+        when(spy.makeRandom()).thenReturn(randomMock);
+
+        ///se usa spy.method() para llamar métodos reales
+        spy.asignarCeldaInicial(celdaMock);
+        spy.aplicarModificador(controlPolicial);
+
+        assertEquals(0, spy.movimientos());
 
     }
 

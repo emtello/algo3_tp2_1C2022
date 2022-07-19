@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
@@ -81,5 +82,7 @@ public abstract class Vehiculo {
     public String getNombre() {
         return this.nombre;
     }
+
+    public Random makeRandom() { return new Random(); }
     
 }
