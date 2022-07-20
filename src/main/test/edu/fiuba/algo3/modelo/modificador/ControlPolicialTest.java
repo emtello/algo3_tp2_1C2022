@@ -8,64 +8,63 @@ import edu.fiuba.algo3.modelo.vehiculos.Moto;
 import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Mockito.*;
+
 
 public class ControlPolicialTest extends ModificadorTest {
 
     @Test
-    public void modificadorPozoSeCruzaConMotoYEsPenalizadoCon3() {
+    public void modificadorControlSeCruzaConMotoEInvocaMetodoDeMotoCorrespondiente() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
 
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
+        Vehiculo motoMock = mock(Moto.class);
 
-        Vehiculo moto = new Moto(this.tablero);
+        doAnswer(invocation -> {
+            motoMock.sumarMovimientos(3);
+            return null;
+        }).when(motoMock).aplicarModificador(isA(ControlPolicial.class));
 
-        moto.asignarCeldaInicial(celdaMock);
+        controlPolicial.cruzarCon(motoMock);
 
-        controlPolicial.cruzarCon(moto);
-
-        assertEquals(3, moto.movimientos());
+        // Verify para validar que motoMock.aplicarModificador() fue llamado
+        verify(motoMock).sumarMovimientos(3);
     }
 
     @Test
-    public void modificadorPozoSeCruzaConAutoYEsPenalizadoCon3() {
+    public void modificadorControlSeCruzaConAutoEInvocaMetodoDeAutoCorrespondiente() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
 
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
+        Vehiculo autoMock = mock(Auto.class);
 
-        Vehiculo auto = new Auto(this.tablero);
+        doAnswer(invocation -> {
+            autoMock.sumarMovimientos(3);
+            return null;
+        }).when(autoMock).aplicarModificador(isA(ControlPolicial.class));
 
-        auto.asignarCeldaInicial(celdaMock);
+        controlPolicial.cruzarCon(autoMock);
 
-        controlPolicial.cruzarCon(auto);
-
-        assertEquals(3, auto.movimientos());
+        // Verify para validar que motoMock.aplicarModificador() fue llamado
+        verify(autoMock).sumarMovimientos(3);
     }
 
     @Test
-    public void modificadorPozoSeCruzaConCamionetaYEsPenalizadoCon3() {
+    public void modificadorControlSeCruzaConCamionetaEInvocaMetodoDeCamionetaCorrespondiente() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
 
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
+        Vehiculo camionetaMock = mock(Camioneta4x4.class);
 
-        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+        doAnswer(invocation -> {
+            camionetaMock.sumarMovimientos(3);
+            return null;
+        }).when(camionetaMock).aplicarModificador(isA(ControlPolicial.class));
 
-        camioneta.asignarCeldaInicial(celdaMock);
+        controlPolicial.cruzarCon(camionetaMock);
 
-        controlPolicial.cruzarCon(camioneta);
-
-        assertEquals(3, camioneta.movimientos());
+        // Verify para validar que motoMock.aplicarModificador() fue llamado
+        verify(camionetaMock).sumarMovimientos(3);
     }
 }
