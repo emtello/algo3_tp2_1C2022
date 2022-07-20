@@ -74,49 +74,6 @@ public class MotoTest extends VehiculoTest {
 
     }
 
-    /*    @Test
-    public void motoAplicaModificadorControlPoliciaEsPenalizadoCon3() {
-
-        ControlPolicial controlPolicial = new ControlPolicial();
-
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
-
-        Vehiculo moto = new Moto(this.tablero);
-
-        moto.asignarCeldaInicial(celdaMock);
-
-        moto.aplicarModificador(controlPolicial);
-
-        assertEquals(3, moto.movimientos());
-
-    }*/
-
-    @Test
-    public void motoAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
-
-        ControlPolicial controlPolicial = new ControlPolicial();
-
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
-
-        Random randomMock = mock(Random.class);
-        when(randomMock.nextFloat())
-                .thenReturn(0.8f);
-
-        Vehiculo moto = new Moto(this.tablero);
-        Vehiculo spy = spy(moto);
-        when(spy.makeRandom()).thenReturn(randomMock);
-
-        ///se usa spy.method() para llamar métodos reales
-        spy.asignarCeldaInicial(celdaMock);
-        spy.aplicarModificador(controlPolicial);
-
-        assertEquals(3, spy.movimientos());
-
-    }
 
     @Test
     public void motoAplicaModificadorControlPoliciaCuandoSuperaProbabilidadNoEsPenalizadoCon3() {
@@ -140,6 +97,32 @@ public class MotoTest extends VehiculoTest {
         spy.aplicarModificador(controlPolicial);
 
         assertEquals(0, spy.movimientos());
+
+    }
+
+    @Test
+    public void motoAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
+
+        ControlPolicial controlPolicial = new ControlPolicial();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Random randomMock = mock(Random.class);
+        when(randomMock.nextFloat())
+                .thenReturn(0.7f);
+
+        Vehiculo moto = new Moto(this.tablero);
+        Vehiculo spy = spy(moto);
+
+        when(spy.makeRandom()).thenReturn(randomMock);
+
+        ///se usa spy.method() para llamar métodos reales
+        spy.asignarCeldaInicial(celdaMock);
+        spy.aplicarModificador(controlPolicial);
+
+        assertEquals(3, spy.movimientos());
 
     }
 

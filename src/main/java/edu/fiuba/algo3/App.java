@@ -274,6 +274,9 @@ public class App extends Application {
 
         Button botonMoto = new Button("Moto");
         botonMoto.setOnAction(e -> usarVehiculo(new Moto(this.juego.getTablero())));
+
+        Button botonReliant = new Button("Reliant Robin");
+        botonReliant.setOnAction(e -> usarVehiculo(new Moto(this.juego.getTablero())));
         
         Button botonAuto = new Button("Auto");
         botonAuto.setOnAction(e -> usarVehiculo(new Auto(this.juego.getTablero())));
@@ -283,7 +286,7 @@ public class App extends Application {
         
         Button botonSalirDeMenu = new Button("Clickear para salir");
         botonSalirDeMenu.setOnAction(e -> cambiarEscenas(escenaMenu));
-        VBox vbox3 = new VBox(label, botonAuto, botonMoto, botonCamioneta4x4, botonSalirDeMenu);
+        VBox vbox3 = new VBox(label, botonMoto, botonAuto, botonReliant, botonCamioneta4x4, botonSalirDeMenu);
         
         vbox3.setAlignment(Pos.CENTER);
         vbox3.setSpacing(10);

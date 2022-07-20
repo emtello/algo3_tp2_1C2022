@@ -90,31 +90,6 @@ public class AutoTest extends VehiculoTest {
     }*/
 
     @Test
-    public void motoAplicaModificadorControlPoliciaCuandoSuperaProbabilidadNoEsPenalizadoCon3() {
-
-        ControlPolicial controlPolicial = new ControlPolicial();
-
-        Celda celdaMock = mock(Celda.class);
-        when(celdaMock.buscarSiguiente(any(Direccion.class)))
-                .thenReturn(new Celda(0, 0));
-
-        Random randomMock = mock(Random.class);
-        when(randomMock.nextFloat())
-                .thenReturn(0.81f);
-
-        Vehiculo moto = new Moto(this.tablero);
-        Vehiculo spy = spy(moto);
-        when(spy.makeRandom()).thenReturn(randomMock);
-
-        ///se usa spy.method() para llamar métodos reales
-        spy.asignarCeldaInicial(celdaMock);
-        spy.aplicarModificador(controlPolicial);
-
-        assertEquals(0, spy.movimientos());
-
-    }
-
-    @Test
     public void autoAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
 
         ControlPolicial controlPolicial = new ControlPolicial();
