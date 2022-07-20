@@ -10,6 +10,7 @@ public class Auto extends Vehiculo {
     private long penalizacionPorPozo = 3;
     private long penalizacionPorControlPolicial = 3;
 
+    private long penalizacionPorPiquetazo = 2;
     private float probaAuto = 0.5f;
     
     public Auto(Tablero tablero) {
@@ -53,6 +54,10 @@ public class Auto extends Vehiculo {
         reemplazo.setDireccionActual(this.direccionActual);
         reemplazo.setMovimientos(this.movimientos);
         reemplazo.actualizarASiguienteCelda();
+    }
+
+    public void aplicarModificador(Piquetazo piquetazo) {
+        this.sumarMovimientos(this.penalizacionPorPiquetazo);
     }
 
     public static long probabilidadControl() {

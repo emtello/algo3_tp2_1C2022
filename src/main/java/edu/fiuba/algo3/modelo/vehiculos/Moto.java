@@ -10,6 +10,7 @@ public class Moto extends Vehiculo {
     private long penalizacionPorPozo = 3;
     private long penalizacionPorPiquete = 2;
     private long penalizacionPorControlPolicial = 3;
+    private long penalizacionPorPiquetazo = 2;
 
     private float probaMoto = 0.8f;
 
@@ -60,6 +61,10 @@ public class Moto extends Vehiculo {
         reemplazo.setMovimientos(this.movimientos);
         reemplazo.actualizarASiguienteCelda();
 
+    }
+
+    public void aplicarModificador(Piquetazo piquetazo) {
+        this.sumarMovimientos(this.penalizacionPorPiquetazo);
     }
 
     public static long probabilidadControl() {

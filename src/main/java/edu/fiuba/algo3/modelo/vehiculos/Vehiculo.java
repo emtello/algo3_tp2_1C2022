@@ -30,6 +30,7 @@ public abstract class Vehiculo {
     public abstract void aplicarModificador(Piquete piquete);
     public abstract void aplicarModificador(ControlPolicial controlPolicial);
     public abstract void aplicarModificador(CambioDeVehiculo cambioDeVehiculo);
+    public abstract void aplicarModificador(Piquetazo piquetazo);
 
     public void sorpresa(Sorpresa sorpresa) {
         this.movimientos = sorpresa.aplicarSorpresa(this.movimientos);

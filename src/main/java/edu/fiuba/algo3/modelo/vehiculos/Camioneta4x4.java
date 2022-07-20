@@ -10,6 +10,7 @@ public class Camioneta4x4 extends Vehiculo {
     private long pozosAtravezados = 0;
     private long penalizacionPorPozo = 2;
     private long penalizacionPorControlPolicial = 3;
+    private long penalizacionPorPiquetazo = 4;
 
     private float proba4X4 = 0.3f;
 
@@ -59,6 +60,10 @@ public class Camioneta4x4 extends Vehiculo {
         reemplazo.setDireccionActual(this.direccionActual);
         reemplazo.setMovimientos(this.movimientos);
         reemplazo.actualizarASiguienteCelda();
+    }
+
+    public void aplicarModificador(Piquetazo piquetazo) {
+        this.sumarMovimientos(this.penalizacionPorPiquetazo);
     }
 
     public static long probabilidadControl() {
