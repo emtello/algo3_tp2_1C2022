@@ -1,4 +1,4 @@
-![tp2](https://github.com/alvaromartin47-rgb/algo3_tp2_1C2022/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/alvaromartin47-rgb/algo3_tp2_1C2022/branch/master/graph/badge.svg)](https://codecov.io/gh/alvaromartin47-rgb/algo3_tp2_1C2022)
+![tp2](https://github.com/emtello/algo3_tp2_1C2022/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/emtello/algo3_tp2_1C2022/branch/master/graph/badge.svg)](https://codecov.io/gh/emtello/algo3_tp2_1C2022)
 
 # TP2 Algoritmos 3: {Prueba de commit}
 
@@ -16,7 +16,7 @@ Corrector: **{Thiago Kovnat}**
 
 ## Aplicación
 
-La versión más reciente de la aplicación puede encontrarse en la pestaña [releases](https://github.com/alvaromartin47-rgb/algo3_tp2_1C2022/releases/latest) y ejecutarse en Linux, Windows o Mac de esta forma:
+La versión más reciente de la aplicación puede encontrarse en la pestaña [releases](https://github.com/emtello/algo3_tp2_1C2022/releases/latest) y ejecutarse en Linux, Windows o Mac de esta forma:
 
 ```bash
 $ java -jar <archivo.jar>
