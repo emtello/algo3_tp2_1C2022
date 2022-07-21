@@ -8,10 +8,7 @@ import edu.fiuba.algo3.controlador.ControladorVehiculo;
 import edu.fiuba.algo3.modelo.calle.Calle;
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.registro.Puntaje;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.modelo.vehiculos.*;
 import edu.fiuba.algo3.vista.celda.VistaCeldaLlegada;
 import edu.fiuba.algo3.vista.modificador.VistaModificador;
 import edu.fiuba.algo3.vista.modificador.VistaModificadores;
@@ -276,7 +273,7 @@ public class App extends Application {
         botonMoto.setOnAction(e -> usarVehiculo(new Moto(this.juego.getTablero())));
 
         Button botonReliant = new Button("Reliant Robin");
-        botonReliant.setOnAction(e -> usarVehiculo(new Moto(this.juego.getTablero())));
+        botonReliant.setOnAction(e -> usarVehiculo(new ReliantRobin(this.juego.getTablero())));
         
         Button botonAuto = new Button("Auto");
         botonAuto.setOnAction(e -> usarVehiculo(new Auto(this.juego.getTablero())));

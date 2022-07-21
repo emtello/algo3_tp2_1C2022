@@ -9,6 +9,8 @@ public class ReliantRobin extends Vehiculo {
 
     private Auto auto = new Auto(this.tablero);
 
+    private Moto moto = new Moto(this.tablero);
+
     public ReliantRobin(Tablero tablero) {
         super(tablero);
         this.nombre = "reliantrobin";
@@ -27,21 +29,28 @@ public class ReliantRobin extends Vehiculo {
 
     @Override
     public void aplicarModificador(Piquete piquete) {
-
+        this.actualizarASiguienteCelda();
     }
 
     @Override
     public void aplicarModificador(ControlPolicial controlPolicial) {
-
+        this.actualizarASiguienteCelda();
     }
 
     @Override
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
+        Vehiculo reemplazo = new Auto(this.tablero);
 
+        this.tablero.reemplazarVehiculo(reemplazo);
+
+        reemplazo.asignarCeldaInicial(this.celdaInicial);
+        reemplazo.setDireccionActual(this.direccionActual);
+        reemplazo.setMovimientos(this.movimientos);
+        reemplazo.actualizarASiguienteCelda();
     }
 
     @Override
     public void aplicarModificador(Piquetazo piquetazo) {
-
+        this.actualizarASiguienteCelda();
     }
 }

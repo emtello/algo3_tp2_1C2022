@@ -37,7 +37,7 @@ public class MotoTest extends VehiculoTest {
     }
 
     @Test
-    public void motoAplicaModificadorCambioDeVehiculoYCambiaPorAuto() {
+    public void motoAplicaModificadorCambioDeVehiculoYCambiaPorReliantRobin() {
 
         CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
 
@@ -51,7 +51,7 @@ public class MotoTest extends VehiculoTest {
 
         moto.aplicarModificador(cambioDeVehiculo);
 
-        assertEquals(Auto.class, this.tablero.obtenerVehiculo().getClass());
+        assertEquals(ReliantRobin.class, this.tablero.obtenerVehiculo().getClass());
 
     }
 

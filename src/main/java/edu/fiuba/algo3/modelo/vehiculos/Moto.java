@@ -52,7 +52,7 @@ public class Moto extends Vehiculo {
 
     @Override
     public void aplicarModificador(CambioDeVehiculo cambioDeVehiculo) {
-        Vehiculo reemplazo = new Auto(this.tablero);
+        Vehiculo reemplazo = new ReliantRobin(this.tablero);
 
         this.tablero.reemplazarVehiculo(reemplazo);
         

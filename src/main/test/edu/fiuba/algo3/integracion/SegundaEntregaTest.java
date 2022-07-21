@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.integracion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import edu.fiuba.algo3.modelo.vehiculos.*;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
@@ -13,10 +15,6 @@ import edu.fiuba.algo3.modelo.modificador.Favorable;
 import edu.fiuba.algo3.modelo.modificador.Modificador;
 import edu.fiuba.algo3.modelo.modificador.Pozo;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
 
 public class SegundaEntregaTest {
   Tablero tablero = new Tablero(10, 10);
@@ -217,7 +215,7 @@ public class SegundaEntregaTest {
     }
 
     @Test
-    public void unaMotoAtraviesaLaCiudadYSeEncuentraConUnCambioDeVehiculoYCambiaPorAuto() {
+    public void unaMotoAtraviesaLaCiudadYSeEncuentraConUnCambioDeVehiculoYCambiaPorReliantRobin() {
         Vehiculo auto = new Moto(this.tablero);
         Modificador cambio = new CambioDeVehiculo();
 
@@ -225,7 +223,7 @@ public class SegundaEntregaTest {
 
         this.tablero.mover(this.direccion);
 
-        assertEquals(Auto.class, this.tablero.obtenerVehiculo().getClass());
+        assertEquals(ReliantRobin.class, this.tablero.obtenerVehiculo().getClass());
     }
 
     @Test

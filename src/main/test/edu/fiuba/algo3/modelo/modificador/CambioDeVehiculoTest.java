@@ -5,14 +5,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import edu.fiuba.algo3.modelo.vehiculos.*;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class CambioDeVehiculoTest extends ModificadorTest {
 
@@ -30,7 +27,7 @@ public class CambioDeVehiculoTest extends ModificadorTest {
 
         cambioDeVehiculo.cruzarCon(moto);
 
-        assertEquals(Auto.class, this.tablero.obtenerVehiculo().getClass());
+        assertEquals(ReliantRobin.class, this.tablero.obtenerVehiculo().getClass());
     }
 
     @Test
