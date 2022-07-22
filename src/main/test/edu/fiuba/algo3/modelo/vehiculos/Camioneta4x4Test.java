@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
-import edu.fiuba.algo3.modelo.modificador.ControlPolicial;
-import edu.fiuba.algo3.modelo.modificador.Piquete;
-import edu.fiuba.algo3.modelo.modificador.Pozo;
+import edu.fiuba.algo3.modelo.modificador.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -89,6 +86,25 @@ public class Camioneta4x4Test extends VehiculoTest {
         camioneta.aplicarModificador(piquete);
 
         assertEquals(0, camioneta.movimientos());
+    }
+
+    @Test
+    public void camionetaAplicaModificadorPiquetazoNoAtraviezaYEsPenalizadoCon4() {
+
+        Piquetazo piquetazo = new Piquetazo();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo camioneta = new Camioneta4x4(this.tablero);
+
+        camioneta.asignarCeldaInicial(celdaMock);
+
+        camioneta.aplicarModificador(piquetazo);
+
+        assertEquals(4, camioneta.movimientos());
+
     }
 
     /*@Test

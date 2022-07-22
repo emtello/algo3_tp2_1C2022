@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.vehiculos;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.modificador.CambioDeVehiculo;
-import edu.fiuba.algo3.modelo.modificador.ControlPolicial;
-import edu.fiuba.algo3.modelo.modificador.Piquete;
-import edu.fiuba.algo3.modelo.modificador.Pozo;
+import edu.fiuba.algo3.modelo.modificador.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -70,10 +67,10 @@ public class AutoTest extends VehiculoTest {
 
     }
 
-    /*@Test
-    public void autoAplicaModificadorControlPoliciaEsPenalizadoCon3() {
+    @Test
+    public void autoAplicaModificadorPiquetazoNoAtraviezaYEsPenalizadoCon2() {
 
-        ControlPolicial controlPolicial = new ControlPolicial();
+        Piquetazo piquetazo = new Piquetazo();
 
         Celda celdaMock = mock(Celda.class);
         when(celdaMock.buscarSiguiente(any(Direccion.class)))
@@ -83,11 +80,12 @@ public class AutoTest extends VehiculoTest {
 
         auto.asignarCeldaInicial(celdaMock);
 
-        auto.aplicarModificador(controlPolicial);
+        auto.aplicarModificador(piquetazo);
 
-        assertEquals(3, auto.movimientos());
+        assertEquals(2, auto.movimientos());
 
-    }*/
+    }
+
 
     @Test
     public void autoAplicaModificadorControlPoliciaCuandoNoSuperaProbabilidadEsPenalizadoCon3() {
