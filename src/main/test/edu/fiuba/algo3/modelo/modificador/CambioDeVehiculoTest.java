@@ -14,7 +14,7 @@ import edu.fiuba.algo3.modelo.direccion.Direccion;
 public class CambioDeVehiculoTest extends ModificadorTest {
 
     @Test
-    public void modificadorCambioDeVehiculoSeCruzaConVehiculoMotoYCambiaPorAuto() {
+    public void modificadorCambioDeVehiculoSeCruzaConVehiculoMotoYCambiaPorReliantRobin() {
         CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
         
         Celda celdaMock = mock(Celda.class);
@@ -29,6 +29,25 @@ public class CambioDeVehiculoTest extends ModificadorTest {
 
         assertEquals(ReliantRobin.class, this.tablero.obtenerVehiculo().getClass());
     }
+
+    @Test
+    public void modificadorCambioDeVehiculoSeCruzaConVehiculoReliantRobinYCambiaPorAuto() {
+        CambioDeVehiculo cambioDeVehiculo = new CambioDeVehiculo();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo reliant = new ReliantRobin(this.tablero);
+
+        reliant.asignarCeldaInicial(celdaMock);
+
+        cambioDeVehiculo.cruzarCon(reliant);
+
+        assertEquals(Auto.class, this.tablero.obtenerVehiculo().getClass());
+    }
+
+
 
     @Test
     public void modificadorCambioDeVehiculoSeCruzaConVehiculoAutoYCambiaPor4X4() {

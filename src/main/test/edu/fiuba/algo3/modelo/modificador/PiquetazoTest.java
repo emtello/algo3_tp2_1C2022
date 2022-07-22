@@ -2,10 +2,7 @@ package edu.fiuba.algo3.modelo.modificador;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
+import edu.fiuba.algo3.modelo.vehiculos.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,5 +61,22 @@ public class PiquetazoTest extends ModificadorTest {
         piquetazo.cruzarCon(camioneta);
 
         assertEquals(4, camioneta.movimientos());
+    }
+
+    @Test
+    public void modificadorPiquetazoSeCruzaConReliantRobinNoAtraviezaYEsPenalizadoCon2() {
+        Piquetazo piquetazo = new Piquetazo();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo reliant = new ReliantRobin(this.tablero);
+
+        reliant.asignarCeldaInicial(celdaMock);
+
+        piquetazo.cruzarCon(reliant);
+
+        assertEquals(2, reliant.movimientos());
     }
 }

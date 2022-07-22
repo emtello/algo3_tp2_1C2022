@@ -5,14 +5,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import edu.fiuba.algo3.modelo.vehiculos.*;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.celda.Celda;
 import edu.fiuba.algo3.modelo.direccion.Direccion;
-import edu.fiuba.algo3.modelo.vehiculos.Auto;
-import edu.fiuba.algo3.modelo.vehiculos.Camioneta4x4;
-import edu.fiuba.algo3.modelo.vehiculos.Moto;
-import edu.fiuba.algo3.modelo.vehiculos.Vehiculo;
 
 public class PozoTest extends ModificadorTest {
 
@@ -31,6 +28,23 @@ public class PozoTest extends ModificadorTest {
         pozo.cruzarCon(moto);
 
         assertEquals(3, moto.movimientos());
+    }
+
+    @Test
+    public void modificadorPozoSeCruzaConvehiculoReliantRobinYEsPenalizadoCon3() {
+        Pozo pozo = new Pozo();
+
+        Celda celdaMock = mock(Celda.class);
+        when(celdaMock.buscarSiguiente(any(Direccion.class)))
+                .thenReturn(new Celda(0, 0));
+
+        Vehiculo reliant = new ReliantRobin(this.tablero);
+
+        reliant.asignarCeldaInicial(celdaMock);
+
+        pozo.cruzarCon(reliant);
+
+        assertEquals(3, reliant.movimientos());
     }
 
     @Test
